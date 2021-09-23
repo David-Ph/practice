@@ -3,7 +3,7 @@
  * @param {number} target
  * @return {number[]}
  */
-// * O(n)2
+// * O(n^2)
 var twoSum = function (nums, target) {
   let index1, index2;
 
@@ -23,7 +23,24 @@ var twoSum = function (nums, target) {
   return [index1, index2];
 };
 
-console.log(twoSum([3, 2, 5], 6));
+// * O(n)
+const twoSum_new = function (nums, target) {
+  let index1, index2;
+  for (let i = 0; i < nums.length; i++) {
+    let getNumber = target - nums[i];
+    if (nums.includes(getNumber) && getNumber !== nums[i]) {
+      index1 = i;
+      index2 = nums.indexOf(getNumber);
+      break;
+    }
+  }
+
+  if (!index1 || !index2) return "Not found";
+  return [index1, index2];
+};
+
+console.log(twoSum([3, 2, 4], 6));
+console.log(twoSum_new([3, 2, 4], 6));
 /* Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
