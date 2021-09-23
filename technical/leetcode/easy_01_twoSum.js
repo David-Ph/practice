@@ -3,23 +3,18 @@
  * @param {number} target
  * @return {number[]}
  */
-// * O(n^2)
+// * O(n^2) brute force method
 var twoSum = function (nums, target) {
   let index1, index2;
 
   for (let i = 0; i < nums.length; i++) {
-    if (nums[i] >= target) continue;
     for (let j = i + 1; j < nums.length; j++) {
-      if (nums[j] >= target) continue;
       if (nums[i] + nums[j] === target) {
         index1 = i;
         index2 = j;
       }
     }
   }
-  // if not found
-  if (!index1 || !index2) return "Not found";
-  // if found
   return [index1, index2];
 };
 
@@ -28,14 +23,14 @@ const twoSum_new = function (nums, target) {
   let index1, index2;
   for (let i = 0; i < nums.length; i++) {
     let getNumber = target - nums[i];
-    if (nums.includes(getNumber) && getNumber !== nums[i]) {
+    if (nums.includes(getNumber) && nums.indexOf(getNumber) !== i) {
       index1 = i;
       index2 = nums.indexOf(getNumber);
       break;
     }
   }
 
-  if (!index1 || !index2) return "Not found";
+  // if (!index1 || !index2) return "Not found";
   return [index1, index2];
 };
 
