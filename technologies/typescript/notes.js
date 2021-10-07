@@ -87,6 +87,8 @@ Typescript will check during compile time
 javascript -> during program run
 typescript -> during compile time
 
+! to install typescript, run "npm i -D typescript tslint ts-node @types/node"
+
 ? tsconfig.json
 This tsconfig.json is where TypeScript projects define things like which files should be compiled,  which  directory  to  compile  them  to, and  which  version  of  JavaScript to emit.
 
@@ -101,7 +103,6 @@ Your project should also have a tslint.json file containing your TSLint configur
 
 * > "npx tsc"
 * > run it with "node dist/index"
-
-
+* > or if you have ts-node installed, you can compile and run it at the same time with "npx ts-node src/index"
 
 */
