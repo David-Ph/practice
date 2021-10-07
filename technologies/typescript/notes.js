@@ -56,4 +56,52 @@ let typescript infer it
 In general, it is good style to let TypeScript infer as many types as it
 can for you, keeping explicitly typed code to a minimum.
 
+? How are types bound?
+
+Javascript bound types dynamically, that means javascript needs to run your program to know the types of things in it.
+
+Typescript is a gradually typed language. This means typescript works best when it knows the types of everything in it, but it doesn't have to know them.
+
+* how javascript works
+
+3 + [1] // "31" => not explicit, but javascript tries to make sense of it
+
+3.toString() + [1].toString() // "31" => explicit
+
+* how typescript works
+
+3 + [1] // typescript error
+
+3.toString() + [1].toString() // "31" => no error
+
+! If you must convert types, do it explicitly
+
+? when are types checked?
+
+Javascript doesn't care and will always try to do its best to convert what you gave to what it expects
+
+Typescript will check during compile time
+
+? when are errors surfaced?
+
+javascript -> during program run
+typescript -> during compile time
+
+? tsconfig.json
+This tsconfig.json is where TypeScript projects define things like which files should be compiled,  which  directory  to  compile  them  to, and  which  version  of  JavaScript to emit.
+
+* > You can automatically generate tslint.json by running "npx tsc --init"
+
+? tsling.json
+Your project should also have a tslint.json file containing your TSLint configuration, codifying  whatever  stylistic  conventions  you  want  for  your  code 
+
+* > You can automatically generate tslint.json by running "npx tslint --init"
+
+? to compile your first typescript program
+
+* > "npx tsc"
+* > run it with "node dist/index"
+
+
+
 */
