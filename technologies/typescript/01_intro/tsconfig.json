@@ -5,7 +5,7 @@
     "outDir": "dist", // which folder should tsc put your generated code to
     "sourceMap": true, //
     "strict": true, // be as strict as possible
-    "target": "es2015" // which javascript version should tsc compile your code to
+    "target": "es2020" // which javascript version should tsc compile your code to
   },
   "include": ["src"] // which folders should tlc look to find your typescript files?
 }

@@ -32,6 +32,13 @@ If we use typescript in our program, this is how the process looks like when we 
 Steps 1–3 are done by TSC, and steps 4–6 are done by the JavaScript runtime that
 lives in your browser, NodeJS, or whatever JavaScript engine you’re using.
 
+? What is Type?
+
+A set of values and the things that you can do with them
+for example boolean type is just true or false
+for numbers, you can do + - * /
+for strings, you can do concatenate etc
+
 */
 /* 
 ? TYPES OF TYPE SYSTEMS
@@ -105,4 +112,66 @@ Your project should also have a tslint.json file containing your TSLint configur
 * > run it with "node dist/index"
 * > or if you have ts-node installed, you can compile and run it at the same time with "npx ts-node src/index"
 
+*/
+
+/* 
+? type literal
+    - A type that represents a single value and nothing esle
+
+? types
+    - any
+        accept anything. Try not to use it
+    - unknown  
+        use when you don't know the type ahead of time
+    - boolean
+    - number
+    - bigint
+    - symbol
+    - object
+
+? javascript and typescript typing - Structural typing
+
+    A style of programming where you just care that an object
+    has certain properties, and not what its name is (nominal
+    typing). Also called duck typing in some languages (or, not
+    judging a book by its cover).
+
+    In duck typing, a programmer is only concerned with ensuring 
+    that objects behave as demanded of them in a given context, 
+    rather than ensuring that they are of a specific type.
+
+    It comes from the idea that if it looks like a duck 
+    and it quacks like a duck then it's probably a duck, 
+    or at least close enough that it doesn't matter.
+    
+? Definite assignment
+
+This  is  the  first  example  we’ve  looked  at  where  we  first  declare  a  variable  (a),  
+then initialize it with values ({} and {b: 1, c: 2}). 
+This is a common JavaScript pattern, and it’s supported by TypeScript too.
+When you declare a variable in one place and initialize it later, 
+TypeScript will make sure that your variable 
+is definitely assigned a value by the time you use it      
+
+By  default,  TypeScript  is  pretty  strict  about  object  properties 
+if  you  say  the  object should have a property called b 
+that’s a number, TypeScript expects b and only b. 
+If b is missing, or if there are extra properties, 
+TypeScript will complain.  
+
+? Index signagtures
+The  [key:  T]:  U  syntax  is  called  an  index  signature,  and  this  is  the  way  you  tell
+TypeScript that the given object might contain more keys. The way to read it is, “For
+this  object,  all  keys  of  type  T  must  have  values  of  type  U.”  Index  signatures  let  you
+safely add more keys to an object, in addition to any keys that you explicitly declared.
+There is one rule to keep in mind for index signatures: the index signature key’s type
+(T) must be assignable to either number or string.3
+Also  note  that  you  can  use  any  word  for  the  index  signature  key’s  name—it  doesn’t
+have to be key:
+let airplaneSeatingAssignments: {
+  [seatNumber: string]: string
+} = {
+  '34D': 'Boris Cherny',
+  '34E': 'Bill Gates'
+}
 */
