@@ -128,6 +128,9 @@ Your project should also have a tslint.json file containing your TSLint configur
     - bigint
     - symbol
     - object
+        When creating an object, try to avoid:
+            - empty object literal notation ( let a: {}; )
+            - object type ( let a: object; )
 
 ? javascript and typescript typing - Structural typing
 
@@ -174,4 +177,54 @@ let airplaneSeatingAssignments: {
   '34D': 'Boris Cherny',
   '34E': 'Bill Gates'
 }
+*/
+
+/* 
+? type aliases
+Just like you can use variable declarations (let, const, and var) 
+to declare a variable that aliases a value, 
+you can declare a type alias that points to a type. 
+It looks like this:
+
+type Age = number
+type Person = {
+  name: string
+  age: Age
+}
+
+! aliases are never inferred by typescript
+
+? union and intersection types
+If you have two things A and B, the union of those things is 
+their sum (everything in A or B or both), 
+and the intersection is what they have 
+in common (everything in both A and B).
+
+TypeScript  gives  us  special  type  operators  to  
+describe  unions  and  intersections  of types: 
+| for union and & for intersection.
+
+? arrays
+
+! The  general  rule  of  thumb  is  to  keep  arrays  homogeneous. 
+
+Once  your  array  leaves  the  scope  it  was
+defined in (for example, if you declared it in a function, then returned it), 
+TypeScript will assign it a final type that can’t be expanded anymore:
+
+? tuples
+
+Tuples  are  subtypes  of  array.  
+They’re  a  special  way  to  type  arrays  that  have  fixed lengths, 
+where the values at each index have specific, known types. 
+Unlike most other types,  tuples  have  to  be  explicitly  typed  
+when  you  declare  them. 
+
+? null, undefined, void, and never
+void  is  the  return  type  of  a  function  that  doesn’t
+explicitly  return  anything 
+
+never  is  the  type  of  a function  that  never  returns  at  all  
+(like  a  function  that  throws  an  exception,  or  one
+that runs forever):
 */
