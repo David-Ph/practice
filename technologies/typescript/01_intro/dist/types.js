@@ -116,8 +116,39 @@ class Person {
         this.lastName = lastName;
     }
 }
-cb_object_literal = new Person();
+cb_object_literal = new Person("Matt", "Smith");
 console.log(cb_object_literal);
+// exploring other method
 let abc_object;
-// abc_object = {}; b is missing in type b
+// if we don't put b
+// abc_object = {}; // ERROR b is missing in type b: number
+// if we put other property
+abc_object = {
+    b: 1,
+    //   c: 3, // ERROR c does not exist in type b: number
+};
+// ? Definite assignment
+let i_num;
+// let j_num = i_num * 3; // ERROR i is used before assignment
+// also error even if you leave off explicit type
+let ib_num;
+// let jb_num = ib_num * 3; // ERROR ib is possibly undefined
+// ? optional or there might be more properties to an object
+let a_opt;
+a_opt = { b: 1 };
+a_opt = { b: 2, c: undefined };
+a_opt = { b: 3, c: "hello" };
+a_opt = { b: 4, 10: true };
+a_opt = { b: 5, 10: true, 20: false };
+// a_opt = {b: 6, 10: 'hello'} // ERROR
+let airplaneSeatingAssignments = {
+    5849: "Chuck Bob",
+    "34D": "Boris Cherny",
+    "34E": "Bill Gates",
+};
+// You can also  mark  fields  as  read-only
+let user = {
+    firstName: "abby",
+};
+console.log(user.firstName);
 //# sourceMappingURL=types.js.map

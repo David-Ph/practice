@@ -179,3 +179,4 @@ let user: {
 } = {
   firstName: "abby",
 };
+console.log(user.firstName);
