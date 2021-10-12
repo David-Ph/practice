@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["es2015"], // which apis should tsc assume exist in your environment
+    "module": "commonjs", // which module should tsc compile your code to
+    "outDir": "dist", // which folder should tsc put your generated code to
+    "sourceMap": true, //
+    "strict": true, // be as strict as possible
+    "target": "es2020" // which javascript version should tsc compile your code to
+  },
+  "include": ["src"] // which folders should tlc look to find your typescript files?
+}

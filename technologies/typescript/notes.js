@@ -99,7 +99,7 @@ typescript -> during compile time
 ? tsconfig.json
 This tsconfig.json is where TypeScript projects define things like which files should be compiled,  which  directory  to  compile  them  to, and  which  version  of  JavaScript to emit.
 
-* > You can automatically generate tslint.json by running "npx tsc --init"
+* > You can automatically generate tsconfig.json by running "npx tsc --init"
 
 ? tsling.json
 Your project should also have a tslint.json file containing your TSLint configuration, codifying  whatever  stylistic  conventions  you  want  for  your  code 
