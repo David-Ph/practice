@@ -146,3 +146,21 @@ function e_never() {
     // doSomething()
   }
 }
+
+type Pizza = {
+  topping: string;
+  size?: number;
+};
+
+function addAnchovies(pizza: Pizza) {
+  console.log(pizza);
+}
+
+let newPizza: Pizza = {
+  topping: "pineapple",
+  size: 6,
+};
+
+addAnchovies(newPizza);
+
+let exercise = null;
