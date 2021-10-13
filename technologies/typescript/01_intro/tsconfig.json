@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es2015"], // which apis should tsc assume exist in your environment
+    "lib": ["es2015", "dom"], // which apis should tsc assume exist in your environment
     "module": "commonjs", // which module should tsc compile your code to
     "outDir": "dist", // which folder should tsc put your generated code to
     "sourceMap": true, //
