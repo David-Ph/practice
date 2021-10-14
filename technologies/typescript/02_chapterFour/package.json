@@ -12,7 +12,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "function": "npx tsc && node dist/function"
+    "function": "npx tsc && node dist/function",
+    "interfaces": "npx tsc && node dist/interfaces"
   },
   "keywords": [],
   "author": "",

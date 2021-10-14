@@ -142,7 +142,7 @@ function times(f, n) {
 }
 // TypeScript  infers  from  context  that  n  is  a  number
 times((n) => console.log(n), 4);
-let reserve = (from, toOrDestination, destination) => {
+let reserve = (fromOrDestination, toOrDestination, destination) => {
     const reservation = {
         payment: 15000,
         name: "David",
@@ -151,7 +151,10 @@ let reserve = (from, toOrDestination, destination) => {
   Since  reserve  might  be  called  in  either  of  two  ways,  when  you  implement  reserve
   you have to prove to TypeScript that you checked how it was called
     */
-    if (toOrDestination instanceof Date && destination !== undefined) {
+    if (fromOrDestination instanceof Date && toOrDestination !== undefined) {
+        // book a vacation that starts immediately
+    }
+    else if (toOrDestination instanceof Date && destination !== undefined) {
         // Book a one-way trip
     }
     else if (typeof toOrDestination === "string") {
@@ -159,6 +162,7 @@ let reserve = (from, toOrDestination, destination) => {
     }
     return reservation;
 };
+// From  the  type  signature  for  filter,  TypeScript  knows  that  array  is  an  array  of elements of some type T.
 let filter = (array, f) => {
     let result = [];
     for (let i = 0; i < array.length; i++) {
@@ -169,15 +173,63 @@ let filter = (array, f) => {
     }
     return result;
 };
-// (a) T is bound to number
+//* (a) T is bound to number
+// From  the  type  signature  for  filter,  TypeScript  knows  that  array  is  an  array  of elements of some type T.
+// Wherever TypeScript sees a T, it substitutes in the number type. So the parameter f: (item: T) => boolean  becomes  f: (item: number) => boolean,  and  the return type T[] becomes number[].
+//TypeScript checks that the types all satisfy assignability, and that the function we passed in as f is assignable to its freshly inferred signature.
 console.log(filter([1, 2, 3], (_) => _ > 2));
-// (b) T is bound to string
+//* (b) T is bound to string
 console.log(filter(["a", "b"], (_) => _ !== "b"));
-// (c) T is bound to {firstName: string}
+//* (c) T is bound to {firstName: string}
 let names = [
     { firstName: "beth" },
     { firstName: "caitlyn" },
     { firstName: "xin" },
 ];
 console.log(filter(names, (_) => _.firstName.startsWith("b")));
+// TODO another example
+// We need exactly two generic types: T for the type of the array members going in, and U for the type of the array members going out.
+function map(array, f) {
+    let result = [];
+    for (let i = 0; i < array.length; i++) {
+        result[i] = f(array[i]);
+    }
+    return result;
+}
+// TODO yet another example
+// has to implicitly set the type
+let promise = new Promise((resolve) => resolve(45));
+promise.then((result) => result * 4);
+function mapNode(node, f) {
+    return { ...node, value: f(node.value) };
+}
+let a = { value: "a" };
+let b = { value: "b", isLeaf: true };
+let c = { value: "c", children: [b] };
+let a1 = mapNode(a, (_) => _.toUpperCase()); // TreeNode
+let b1 = mapNode(b, (_) => _.toUpperCase()); // LeafNode
+let c1 = mapNode(c, (_) => _.toUpperCase()); // InnerNode
+//TODO  ANOTHER FUCKING EXAMPLE
+function call(f, ...args) {
+    return f(...args);
+}
+function fill(length, value) {
+    return Array.from({ length }, () => value);
+}
+call(fill, 10, "a"); // evaluates to an array of 10 'a's
+//TODO exercise to implement a small typesafe assertion, is
+function is(a, ...b) {
+    return b.every((_) => _ === a);
+}
+// Compare a string and a string
+is("string", "otherstring"); // false
+// Compare a boolean and a boolean
+is(true, false); // false
+// Compare a number and a number
+is(42, 42); // true
+// Comparing two different types should give a compile-time error
+// is(10, "foo"); // Error TS2345: Argument of type '"foo"' is not assignable
+// to parameter of type 'number'.
+// [Hard] I should be able to pass any number of arguments
+is([1], [1, 2], [1, 2, 3]); // false
 //# sourceMappingURL=function.js.map
