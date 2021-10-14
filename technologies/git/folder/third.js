@@ -1,1 +1,1 @@
-let byebye;
+let byebye = "See you later";
