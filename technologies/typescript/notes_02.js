@@ -71,4 +71,83 @@ Full call signature
 ?   (message: string, userId?: string): void
 ? }
 
+* Polymorphism
+Concrete  types  are  useful  when  you  know  precisely  what  type  you’re  expecting,
+
+But  sometimes,  you  don’t  know  what type to expect beforehand, and you don’t want to restrict your function’s behavior to a specific type!
+
+
+* Generic type parameter
+A placeholder type used to enforce a type-level constraint in
+multiple places. Also known as polymorphic type parameter.
+
+? type Filter = {
+?   <T>(array: T[], f: (item: T) => boolean): T[];
+? };
+
+The  funny-looking  angle  brackets,  <>,  are  how  you  declare  generic  type  parameters
+
+the T is just a placeholder, you can replace it with anything
+
+Because we declared <T> as part of a call signature (right before the signature’s opening parenthesis, (), TypeScript will bind a concrete type to T when we actually call a function of type Filter
+
+If we’d instead scoped T to the type alias Filter, TypeScript would have required us to bind a type explicitly when we used Filter
+
+? type Filter<T> = {
+?  (array: T[], f: (item: T) => boolean): T[]
+? }
+? let filter: Filter<number> = (array, f) =>
+
+* ways to declare generics
+? type Filter = { 
+?  <T>(array: T[], f: (item: T) => boolean): T[]
+? }
+? let filter: Filter = // ...
+
+? type Filter<T> = { 
+?  (array: T[], f: (item: T) => boolean): T[]
+? }
+? let filter: Filter<number> = // ...
+
+? type Filter = <T>(array: T[], f: (item: T) => boolean) => T[] 
+? let filter: Filter = // ...
+
+? type Filter<T> = (array: T[], f: (item: T) => boolean) => T[] 
+? let filter: Filter<string> = // ...
+
+? function filter<T>(array: T[], f: (item: T) => boolean): T[] { 
+? }
+
+
+* Generic Type Aliases
+we can also make a type alias that's generic
+
+? type MyEvent<T> = {
+?   target: T
+?   type: string
+? }
+
+? type ButtonEvent = MyEvent<HTMLButtonElement>
+
+? let myEvent: MyEvent<HTMLButtonElement | null> = {
+?   target: document.querySelector('#myButton'),
+?   type: 'click'
+? }
+
+You can use MyEvent to build another type—say, TimedEvent.
+
+? type TimedEvent<T> = {
+?   event: MyEvent<T>
+?   from: Date
+?   to: Date
+? }
+
+* Bounded Polymorphism
+Sometimes, saying “this thing is of some generic type T and that thing has to have the same type T" just isn’t enough. Sometimes you also want to say “the type U should be at least T.” We call this putting an upper bound on U.
+
+* Type Driven Development
+A style of programming where you sketch out type signatures first, and fill in values later
+
+When  you  write  a  TypeScript  program,  start  by  defining  your  functions’  type  signatures—in  other  words,  lead  with  the  types—filling  in  the  implementations  later.  By sketching out your program out at the type level first, you make sure that everything makes sense at a high level before you get down to your implementations.
+
 */

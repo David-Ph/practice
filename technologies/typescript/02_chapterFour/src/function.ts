@@ -176,10 +176,11 @@ type Reservation = {
 type Reserve = {
   (from: Date, to: Date, destination: string): Reservation;
   (from: Date, destination: string): Reservation;
+  (destination: string): Reservation;
 };
 let reserve: Reserve = (
-  from: Date,
-  toOrDestination: Date | string,
+  fromOrDestination: Date | string,
+  toOrDestination?: Date | string,
   destination?: string
 ) => {
   const reservation: Reservation = {
@@ -190,7 +191,9 @@ let reserve: Reserve = (
 Since  reserve  might  be  called  in  either  of  two  ways,  when  you  implement  reserve
 you have to prove to TypeScript that you checked how it was called
   */
-  if (toOrDestination instanceof Date && destination !== undefined) {
+  if (fromOrDestination instanceof Date && toOrDestination !== undefined) {
+    // book a vacation that starts immediately
+  } else if (toOrDestination instanceof Date && destination !== undefined) {
     // Book a one-way trip
   } else if (typeof toOrDestination === "string") {
     // Book a round trip
@@ -198,3 +201,116 @@ you have to prove to TypeScript that you checked how it was called
 
   return reservation;
 };
+
+// ? Polymorphism and Generic type paramter
+/* 
+What we’ve done here is say: “This function filter uses a generic type parameter T; we  don’t  know  what  this  type  will  be  ahead  of  time,  so  TypeScript  if  you  can  infer what it is each time we call filter that would be swell.”
+*/
+type Filter = {
+  <T>(array: T[], f: (item: T) => boolean): T[];
+};
+// From  the  type  signature  for  filter,  TypeScript  knows  that  array  is  an  array  of elements of some type T.
+let filter: Filter = (array, f) => {
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    let item = array[i];
+    if (f(item)) {
+      result.push(item);
+    }
+  }
+  return result;
+};
+//* (a) T is bound to number
+// From  the  type  signature  for  filter,  TypeScript  knows  that  array  is  an  array  of elements of some type T.
+// Wherever TypeScript sees a T, it substitutes in the number type. So the parameter f: (item: T) => boolean  becomes  f: (item: number) => boolean,  and  the return type T[] becomes number[].
+//TypeScript checks that the types all satisfy assignability, and that the function we passed in as f is assignable to its freshly inferred signature.
+console.log(filter([1, 2, 3], (_) => _ > 2));
+//* (b) T is bound to string
+console.log(filter(["a", "b"], (_) => _ !== "b"));
+//* (c) T is bound to {firstName: string}
+let names = [
+  { firstName: "beth" },
+  { firstName: "caitlyn" },
+  { firstName: "xin" },
+];
+console.log(filter(names, (_) => _.firstName.startsWith("b")));
+
+// TODO another example
+// We need exactly two generic types: T for the type of the array members going in, and U for the type of the array members going out.
+function map<T, U>(array: T[], f: (item: T) => U): U[] {
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    result[i] = f(array[i]);
+  }
+  return result;
+}
+// TODO yet another example
+// has to implicitly set the type
+let promise = new Promise<number>((resolve) => resolve(45));
+promise.then((result) => result * 4);
+
+// ? Bounded Polymorphism
+// //////////////////////
+// What  we’re  saying  is:  a  TreeNode  is  an  object  with  a  single  property,  value.  TheLeafNode  type  has  all  the  properties  TreeNode  has,  plus  a  property  isLeaf  that’salways  true.  InnerNode  also  has  all  of  TreeNode’s  properties,  plus  a  children  property that points to either one or two children.
+type TreeNode = {
+  value: string;
+};
+type LeafNode = TreeNode & {
+  isLeaf: true;
+};
+type InnerNode = TreeNode & {
+  children: [TreeNode] | [TreeNode, TreeNode];
+};
+
+function mapNode<T extends TreeNode>(node: T, f: (value: string) => string): T {
+  return { ...node, value: f(node.value) };
+}
+
+let a: TreeNode = { value: "a" };
+let b: LeafNode = { value: "b", isLeaf: true };
+let c: InnerNode = { value: "c", children: [b] };
+let a1 = mapNode(a, (_) => _.toUpperCase()); // TreeNode
+let b1 = mapNode(b, (_) => _.toUpperCase()); // LeafNode
+let c1 = mapNode(c, (_) => _.toUpperCase()); // InnerNode
+
+//TODO  ANOTHER FUCKING EXAMPLE
+function call<T extends [unknown, string, ...unknown[]], R>(
+  f: (...args: T) => R,
+  ...args: T
+): R {
+  return f(...args);
+}
+function fill(length: number, value: string): string[] {
+  return Array.from({ length }, () => value);
+}
+call(fill, 10, "a"); // evaluates to an array of 10 'a's
+
+//TODO YES ANOTHER EXAMPLE
+// Note  that  like  optional  parameters  in  functions,  generic  types  with  defaults  have  to appear after generic types without defaults
+// Good
+type MyEvent2<Type extends string, Target extends HTMLElement = HTMLElement> = {
+  target: Target;
+  type: Type;
+};
+
+//TODO exercise to implement a small typesafe assertion, is
+
+function is<T>(a: T, ...b: [T, ...T[]]): boolean {
+  return b.every((_) => _ === a);
+}
+
+// Compare a string and a string
+is("string", "otherstring"); // false
+
+// Compare a boolean and a boolean
+is(true, false); // false
+
+// Compare a number and a number
+is(42, 42); // true
+
+// Comparing two different types should give a compile-time error
+// is(10, "foo"); // Error TS2345: Argument of type '"foo"' is not assignable
+// to parameter of type 'number'.
+
+// [Hard] I should be able to pass any number of arguments
+is([1], [1, 2], [1, 2, 3]); // false

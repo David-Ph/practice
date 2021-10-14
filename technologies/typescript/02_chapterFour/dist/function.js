@@ -131,4 +131,53 @@ let log_signatures = (message, userId = "Not signed in") => {
     console.log(time, message, userId);
 };
 log_signatures("Wake the fuck up, cunt");
+// ? Contextual Typing
+// //////////////////////////////
+// Let’s declare a function times that calls its callback f some number of times n, passing the current index to f each time:
+// in this case, f is a type, and n is a number
+function times(f, n) {
+    for (let i = 0; i < n; i++) {
+        f(i);
+    }
+}
+// TypeScript  infers  from  context  that  n  is  a  number
+times((n) => console.log(n), 4);
+let reserve = (from, toOrDestination, destination) => {
+    const reservation = {
+        payment: 15000,
+        name: "David",
+    };
+    /*
+  Since  reserve  might  be  called  in  either  of  two  ways,  when  you  implement  reserve
+  you have to prove to TypeScript that you checked how it was called
+    */
+    if (toOrDestination instanceof Date && destination !== undefined) {
+        // Book a one-way trip
+    }
+    else if (typeof toOrDestination === "string") {
+        // Book a round trip
+    }
+    return reservation;
+};
+let filter = (array, f) => {
+    let result = [];
+    for (let i = 0; i < array.length; i++) {
+        let item = array[i];
+        if (f(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+};
+// (a) T is bound to number
+console.log(filter([1, 2, 3], (_) => _ > 2));
+// (b) T is bound to string
+console.log(filter(["a", "b"], (_) => _ !== "b"));
+// (c) T is bound to {firstName: string}
+let names = [
+    { firstName: "beth" },
+    { firstName: "caitlyn" },
+    { firstName: "xin" },
+];
+console.log(filter(names, (_) => _.firstName.startsWith("b")));
 //# sourceMappingURL=function.js.map
