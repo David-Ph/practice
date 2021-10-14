@@ -1,2 +1,3 @@
-asdasdasd;
-asdasdas;
+function add(a, b) {
+  return a + b;
+}
