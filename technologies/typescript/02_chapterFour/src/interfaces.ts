@@ -106,3 +106,44 @@ interface Sushi extends Food {
 interface Cake extends Food {
   sweet: boolean;
 }
+
+// * Declaration Merging
+// //////////////////
+// User has a single field, name
+interface User {
+  name: string;
+}
+// User now has two fields, name and age
+interface User {
+  age: number;
+}
+let a: User = {
+  name: "Ashley",
+  age: 30,
+};
+
+// *Implementations
+// ////////////////
+interface Animal_Implement {
+  readonly name: string;
+  eat(food: string): void;
+  sleep(hours: number): void;
+}
+
+interface Feline {
+  meow(): void;
+}
+
+class Cat_Implement implements Animal_Implement, Feline {
+  constructor(public name: string) {}
+
+  eat(food: string) {
+    console.info("Ate some", food, ". Mmm!");
+  }
+  sleep(hours: number) {
+    console.info("Slept for", hours, "hours");
+  }
+  meow() {
+    console.log("Miawe I'm a slut");
+  }
+}

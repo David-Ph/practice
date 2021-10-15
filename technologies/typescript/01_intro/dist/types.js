@@ -4,10 +4,10 @@
 // so with this, squareOf's parameter n is constrained to number
 // the type of value 2 is assignable to squareOf
 function squareOf(n) {
-    return n * n;
+  return n * n;
 }
 function capitalizeFirstLetter(str) {
-    return str.split("")[0].toUpperCase() + str.slice(1);
+  return str.split("")[0].toUpperCase() + str.slice(1);
 }
 console.log(squareOf(2));
 console.log(capitalizeFirstLetter("hi mum!"));
@@ -28,10 +28,10 @@ let b_unk = a_unk === 123;
 // let c = a + 10; // error
 let d_unk;
 if (typeof a_unk === "number") {
-    // if you want to use operations for it,
-    //   you can't assume the type
-    // you need to prove the type
-    d_unk = a_unk + 10;
+  // if you want to use operations for it,
+  //   you can't assume the type
+  // you need to prove the type
+  d_unk = a_unk + 10;
 }
 console.log(d_unk);
 // ? boolean
@@ -79,42 +79,42 @@ let f_string = "john"; // 'john'
 // ? object
 // ================================================
 let a_object = {
-    b: "x",
+  b: "x",
 };
 // will give an error
 // console.log(a_object.b); // property b does not exist on type 'object'
 let ab_object = {
-    b: "x",
+  b: "x",
 };
 let b_object = {
-    c: {
-        d: "f",
-    },
+  c: {
+    d: "f",
+  },
 };
 console.log(ab_object.b);
 console.log(b_object.c.d);
 // OR YOU CAN DO
 let c_object = {
-    b: 5,
-    c: "string",
+  b: 5,
+  c: "string",
 };
 console.log(c_object);
 // this works because in javascript, objects and arrays are mutable
 const d_object = {
-    b: 12,
+  b: 12,
 };
 // creating object literal with typescript
 let cb_object_literal = {
-    nameDepan: "John",
-    lastName: "Doe",
+  nameDepan: "John",
+  lastName: "Doe",
 };
 // or with class
 class Person {
-    // public is shorthand for this.firstName = firstName
-    constructor(nameDepan = "John", lastName = "Doe") {
-        this.nameDepan = nameDepan;
-        this.lastName = lastName;
-    }
+  // public is shorthand for this.firstName = firstName
+  constructor(nameDepan = "John", lastName = "Doe") {
+    this.nameDepan = nameDepan;
+    this.lastName = lastName;
+  }
 }
 cb_object_literal = new Person("Matt", "Smith");
 console.log(cb_object_literal);
@@ -124,8 +124,8 @@ let abc_object;
 // abc_object = {}; // ERROR b is missing in type b: number
 // if we put other property
 abc_object = {
-    b: 1,
-    //   c: 3, // ERROR c does not exist in type b: number
+  b: 1,
+  //   c: 3, // ERROR c does not exist in type b: number
 };
 // ? Definite assignment
 let i_num;
@@ -142,13 +142,13 @@ a_opt = { b: 4, 10: true };
 a_opt = { b: 5, 10: true, 20: false };
 // a_opt = {b: 6, 10: 'hello'} // ERROR
 let airplaneSeatingAssignments = {
-    5849: "Chuck Bob",
-    "34D": "Boris Cherny",
-    "34E": "Bill Gates",
+  5849: "Chuck Bob",
+  "34D": "Boris Cherny",
+  "34E": "Bill Gates",
 };
 // You can also  mark  fields  as  read-only
 let user = {
-    firstName: "abby",
+  firstName: "abby",
 };
 console.log(user.firstName);
 //# sourceMappingURL=types.js.map

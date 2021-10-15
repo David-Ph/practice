@@ -180,3 +180,21 @@ let user: {
   firstName: "abby",
 };
 console.log(user.firstName);
+
+// ? enums
+const enum Flippable {
+  Burger = "Burger",
+  Chair = "Chair",
+  Cup = "Cup",
+  Skateboard = "Skateboard",
+  Table = "Table",
+}
+function flip(f: Flippable) {
+  return "flipped it";
+}
+flip(Flippable.Chair); // 'flipped it'
+flip(Flippable.Cup); // 'flipped it'
+// flip(12); // Error TS2345: Argument of type '12' is not
+// assignable to parameter of type 'Flippable'.
+// flip("Hat"); // Error TS2345: Argument of type '"Hat"' is not
+// assignable to parameter of type 'Flippable'
