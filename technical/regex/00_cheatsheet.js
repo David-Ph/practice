@@ -20,6 +20,11 @@ let whiteSpaces = /\s/g; // match every whitespaces
 let nonWhiteSpaces = /\S/g; // match every non white spaces
 let multipleA = /a{3,5}h/; // in ah string, only match those who has a that apepars between 3-5 times
 let lowerCount = /haz{4,}ah/i; // in hazah string, only match those who has z that appears more than 4 times
+let exactCount = /tim{4}ber/i; // match if the m is exactly 4
+let optional = /favou?rite/; // match favourite or favorite. the U is optional
+let lookAhead = /q(?=u)/; // look for u thats ahead of q
+let mixedGroup = /(Franklin|Eleanor).*Roosevelt/gi; // group franklin or eleanor
+let captureGroup = /^(\d+) \1 \1$/; // match digits of one or more that repeats thrice
 
 let negateExpressions = /[^aiueo]/gi; // match everything but aiueo
 let negateBeginning = /^Cal/gi; // will negate only Cal at the beginning
