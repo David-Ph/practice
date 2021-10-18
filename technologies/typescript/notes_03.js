@@ -83,4 +83,55 @@ An  abstract  class  can  only  model,  well,  a  class. It  emits  runtime  cod
 
 Which  one  you  use  depends  on  your  use  case.  When  an  implementation  is  shared among multiple classes, use an abstract class. When you need a lightweight way to say “this class is a T,” use an interface.
 
+*Classes Are Structurally Typed
+// /////////////////////////////
+Like  every  other  type  in  TypeScript,  TypeScript  compares  classes  by  their  structure, not  by  their  name.  A  class  is  compatible  with  any  other  type  that  shares  its  shape, including  a  regular  old  object  that  defines  the  same  properties  or  methods  as  the class
+
+It  means  that  if  you have  a  function  that  takes  a  Zebra  and  you  give  it  a  Poodle,  TypeScript  might  not mind
+
+The exception to this rule is classes with private or protected fields: when checking
+whether  or  not  a  shape  is  assignable  to  a  class,  if  the  class  has  any  private  or  protected fields and the shape is not an instance of that class or a subclass of that class, then the shape is not assignable to the class:
+
+class A {
+  private x = 1
+}
+class B extends A {}
+function f(a: A) {}
+
+f(new A)   // OK
+f(new B)   // OK
+f({x: 1}) // error
+
+* Classes Declare Both Values and Types
+// ////////////////////////////////////
+Most things that you can express in TypeScript are either values or types:
+
+Types  and  values  are  namespaced  separately  in  TypeScript.  Depending  on  how  you use a term (a or b in this example), TypeScript knows whether to resolve it to a type or to a value:
+
+Classes and enums are special. They are unique because they generate both a type in
+the type namespace and a value in the value namespace
+
+*Polymorphism
+// //////////
+Like  functions  and  types,  classes  and  interfaces  have  rich  support  for  generic  type parameters,  including  defaults  and  bounds.  You  can  scope  a  generic  to  your  whole class or interface, or to a specific method:
+
+*EXERCISES
+// //////////
+1. What’s the difference between a class and an interface?
+
+A class can have implementations, initialized class fields, and visibility modifiers. It also generates JavaScript code, so it supports instanceof checks at runtime. A class defines both a type and a value. An interface just defines a type, doesn't generate any JavaScript code, can only contain type-level members, and can't contain use modifiers.
+
+2. When you mark a class' constructor as `private`, that means you can't instantiate or extend the class. What happens when you mark it as `protected` instead? Play around with this in your code editor, and see if you can figure it out.
+
+class A {
+  protected constructor() {}
+}
+
+class B extends A {} // ok
+new A() // error
+new B() // error
+
+Unlike a class with a private constructor, a class with a protected constructor can be extended. Neither a class with a private constructor nor a class with a protected constructor can be new-ed.
+
+
 */
