@@ -1,7 +1,4 @@
 // * Chess Game
-
-import { resourceUsage } from "process";
-
 // Represents a chess game
 class Game {
   private pieces = Game.makePieces();
@@ -117,7 +114,7 @@ interface User {
 interface User {
   age: number;
 }
-let a: User = {
+let a_interface: User = {
   name: "Ashley",
   age: 30,
 };
