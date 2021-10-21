@@ -10,7 +10,7 @@ https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 Clean Code: 
 https://www.udemy.com/course/writing-clean-code/
 
-NodeJS + Express + bunch others: 
+NodeJS + Express + GraphQL + bunch others: 
 https://www.udemy.com/course/nodejs-the-complete-guide/
 
 GraphQL: 
@@ -18,4 +18,7 @@ https://www.udemy.com/course/graphql-with-react-course/
 
 Golang:
 https://www.udemy.com/course/go-the-complete-developers-guide/
+
+Ruby On Rails:
+https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/
 
