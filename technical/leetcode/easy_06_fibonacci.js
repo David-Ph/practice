@@ -31,4 +31,13 @@ function fibonacciRecursion(num) {
   return fibonacciRecursion(num - 2) + fibonacciRecursion(num - 1);
 }
 
-console.log(fibonacciRecursion(5));
+function getFibonacciRecursion(a, b, num) {
+  if (num === 0) {
+    return a + b;
+  }
+
+  return getFibonacciRecursion(b, a + b, num - 1);
+}
+
+// console.log(fibonacciRecursion(5));
+console.log(getFibonacciRecursion(0, 1, 5));
