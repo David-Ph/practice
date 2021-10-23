@@ -7,5 +7,9 @@ const addSpread = (...a: number[]): number => {
 
 // array destructuring
 const hobbies = ["Planning", "Music"];
-
+const person = {
+  myName: "Max",
+  myAge: 25,
+};
 const [hobby1, hobby2] = hobbies;
+const { myName, myAge } = person;
