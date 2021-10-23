@@ -2,6 +2,10 @@
 
 ## Things to learn
 
-- TypeScript
+- TypeScript -> ON PROGRESS
 - PostgreSQL
+- React
 - Deeper look on Sequelize
+- redis
+- Websocket
+- GraphQL
