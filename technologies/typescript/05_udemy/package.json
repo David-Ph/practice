@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev --respawn --transpile-only app.ts",
-    "build": "npx tsc app.ts"
+    "dev": "ts-node-dev --respawn --transpile-only --watch src src/app.ts",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "",
