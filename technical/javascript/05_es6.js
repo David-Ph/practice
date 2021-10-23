@@ -17,3 +17,11 @@ if (5 > 1) {
 
 console.log(isBad); // true
 console.log(isGood); // error
+
+// arrow function vs function
+
+function addFunction(a, b) {
+  return a + b;
+}
+
+const addArrow = (a, b) => a * b;
