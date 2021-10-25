@@ -1,12 +1,25 @@
 "use strict";
-class Department {
-    //contructor is a function that is executed when
-    // a new instance is created, basically it allows us to
-    // initialize the property
+const add = (n1, n2) => {
+    return n1 + n2;
+};
+class Person {
     constructor(n) {
+        this.age = 30;
+        this.outputName = "My Name";
         this.name = n;
     }
+    greet(phrase) {
+        console.log(`${phrase} I'm ${this.name}`);
+    }
 }
-const BackEnd = new Department("Back-end engineer");
-console.log(BackEnd);
+//* interface
+// let user1: Person;
+// user1 = {
+//   name: "Max",
+//   greet(phrase: string) {
+//     console.log(`${phrase} I'm ${this.name}`);
+//   },
+// };
+let user1 = new Person("Max");
+user1.greet("Hello!");
 //# sourceMappingURL=app.js.map
