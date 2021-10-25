@@ -52,6 +52,7 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string;
+  private static instance: AccountingDepartment;
   // getter and setter
   get mostRecentReport() {
     if (!this.lastReport) throw new Error("No report yet...");
@@ -63,10 +64,18 @@ class AccountingDepartment extends Department {
     if (!value) throw new Error("Please set valid report");
     this.addReport(value);
   }
-
-  constructor(id: string, private reports: string[] = []) {
+  // singletons pattern and private constructor
+  private constructor(id: string, private reports: string[] = []) {
     super(id, "Accounting");
     this.lastReport = reports[0];
+  }
+
+  static getInstance() {
+    if (AccountingDepartment.instance) {
+      return this.instance;
+    }
+    this.instance = new AccountingDepartment("fuckingAccounting", []);
+    return this.instance;
   }
 
   describe() {
@@ -107,9 +116,10 @@ const backEndCopy = { describe: BackEnd.describe };
 const newCopy = { name: "Dummy", describe: BackEnd.describe, size: 25 };
 // newCopy.describe(); // will work
 
-const Accounting = new AccountingDepartment("newDepartment");
-// Accounting.mostRecentReport;
-Accounting.addReport("SHIT WENT WRONG");
+// const Accounting = new AccountingDepartment("newDepartment");
+const Accounting = AccountingDepartment.getInstance();
+// Accounting.mostRecentReport; // will give error
+Accounting.addReport("SHIT WENT WRONG YO");
 Accounting.mostRecentReport;
 Accounting.mostRecentReport = "Fuck yeaj!";
 Accounting.printReports();
