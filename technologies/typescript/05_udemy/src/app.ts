@@ -1,16 +1,22 @@
-class Department {
+abstract class Department {
   //   private name: string; // NOT A KEY VALUE PAIR
   // private employees: string[] = []; // now employees is only accessible from inside the class.
   protected employees: string[] = []; // now employees is only accessible from inside the class and children class.
+  static fiscalYear = 2020;
 
   // this is a shorthand constructor
-  constructor(private readonly id: string, public name: string) {}
+  constructor(protected readonly id: string, public name: string) {}
 
-  //   basically, we're binding "this" to that of type Department
-  describe(this: Department) {
-    console.log(`Department ${this.id}: ${this.name}`);
+  // static method
+  static createEmployee(name: string, age: number) {
+    return { name, age };
   }
 
+  // abstract method
+  //   basically, we're binding "this" to that of type Department
+  abstract describe(this: Department): void;
+
+  // class method
   addEmployee(name: string) {
     this.employees.push(name);
   }
@@ -33,6 +39,10 @@ class ITDepartment extends Department {
     this.admins = admins;
   }
 
+  describe() {
+    console.log(`ITDepartmend ID: ${this.id}`);
+  }
+
   // overriding / polymorphism
   addEmployee(name: string) {
     if (name === "Max") return;
@@ -42,7 +52,7 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string;
-
+  // getter and setter
   get mostRecentReport() {
     if (!this.lastReport) throw new Error("No report yet...");
 
@@ -59,6 +69,10 @@ class AccountingDepartment extends Department {
     this.lastReport = reports[0];
   }
 
+  describe() {
+    console.log(`ITDepartmend ID: ${this.id}`);
+  }
+
   addReport(report: string) {
     this.reports.push(report);
     this.lastReport = report;
@@ -73,6 +87,9 @@ class AccountingDepartment extends Department {
 // ? ////////////////////////////////////////////////////////////////////
 // ? ////////////////////////////////////////////////////////////////////
 // ? ////////////////////////////////////////////////////////////////////
+
+const newEmployee1 = Department.createEmployee("Mbak", 25);
+console.log(newEmployee1);
 
 // const BackEnd = new Department("fuckingid", "Back-end engineer");
 const BackEnd = new ITDepartment("fuckingid", ["Jack"]);
