@@ -9,4 +9,8 @@ static methods/properties are methods that can't be accessed from non static met
 To access static method/properties, you use ClassName.StaticMethod() or ClassName.StaticProperties from outside the class or static method.
 if you're in a static method inside a class, you can use this instead
 singleton pattern is where you want to make sure that a class can only be created once.
+
+* Class vs Interface
+You usually use Class to create a new instance of an object with methods
+you usually use interface to enfore a Type of something
 */
