@@ -175,7 +175,3 @@ const errorBag: ErrorContainer = {
   message: "Invalid email",
   username: "Must start with an uppercase",
 };
-
-export default {
-  fetchedUserData,
-};
