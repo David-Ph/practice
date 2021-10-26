@@ -29,7 +29,7 @@ type Universal = Combinable & Numeric;
 
 // const newUniversal: Universal = 'hello';
 
-function add(a: Combinable, b: Combinable) {
+function addCombineable(a: Combinable, b: Combinable) {
   // this is a type guard
   // where we check type safety ourselves
   // usually used for union types flexibility where the type can be number or string
@@ -59,6 +59,7 @@ printEmployee(unionEmployee);
 printEmployee(intersectionEmploye);
 
 class Car {
+  color = "black";
   drive() {
     console.log(`I'm driving...`);
   }
@@ -86,7 +87,46 @@ function useVehicle(vehicle: vehicle) {
   }
 }
 
-export default {
-  number: 1,
-  string: "hello",
-};
+useVehicle(v1);
+useVehicle(v2);
+
+// another form of type guard
+// we create a type bird that we can access and check from a function
+interface Bird {
+  tipe: "bird";
+  flyingSpeed: number;
+}
+
+interface Horse {
+  tipe: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed = 0;
+  switch (animal.tipe) {
+    case "bird":
+      speed = animal.flyingSpeed;
+      break;
+    case "horse":
+      speed = animal.runningSpeed;
+      break;
+    default:
+      break;
+  }
+  console.log(`Moving at speed ${speed}`);
+}
+
+moveAnimal({ tipe: "bird", flyingSpeed: 500 });
+
+// const newParagraph = document.querySelector("h2")!;
+// this is type casting
+// basically telling typescript that this is what we will get
+const userInput = <HTMLInputElement>document.getElementById("user-input");
+const userInput2 = document.getElementById("userInput") as HTMLInputElement;
+const hello = <string>"Hello";
+
+userInput.value = "Hello";
+userInput2.value = "World";
