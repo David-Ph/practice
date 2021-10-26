@@ -26,4 +26,4 @@ function redeemPoint(point) {
   return (string += `dengan sisa point adalah ${point}p`);
 }
 
-console.log(redeemPoint(1150));
+console.log(redeemPoint(1150)); // Voucher 100rb, 25rb, 10rb, dengan sisa point adalah 50p
