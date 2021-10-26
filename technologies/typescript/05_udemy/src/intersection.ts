@@ -130,3 +130,19 @@ const hello = <string>"Hello";
 
 userInput.value = "Hello";
 userInput2.value = "World";
+
+// index types
+// when we know what type we're going to be dealing with
+// but we don't know whats the properties and how many
+interface ErrorContainer {
+  id: string;
+  // message: number; // ERROR
+  [key: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+  id: "error1",
+  email: "maomao@gmail.com",
+  message: "Invalid email",
+  username: "Must start with an uppercase",
+};
