@@ -52,6 +52,22 @@ function addCombineable(a: Combinable, b?: Combinable) {
 
 const result = addCombineable(5, "5");
 
+const fetchedUserData = {
+  id: "user1",
+  name: "Max",
+  job: { title: "CEO", description: "My own company" },
+};
+
+// optional chaining, will check if fetcheduserdata exist before continuing on
+console.log(fetchedUserData?.job?.title);
+
+const newUserInput = null;
+const storedData = newUserInput ?? "Default";
+
+// ////////////////////////////////////////
+// ////////////////////////////////////////
+// ////////////////////////////////////////
+
 function printEmployee(emp: EitherEmployee) {
   console.log(emp.name);
   if ("privileges" in emp) {
@@ -158,4 +174,8 @@ const errorBag: ErrorContainer = {
   email: "maomao@gmail.com",
   message: "Invalid email",
   username: "Must start with an uppercase",
+};
+
+export default {
+  fetchedUserData,
 };
