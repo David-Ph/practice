@@ -90,3 +90,26 @@ console.log(textStorage.getItems());
 const numberStorage = new DataStorage<number>();
 numberStorage.addItem(50);
 // numberStorage.addItem("50"); // error
+
+//? generic utility types
+// * partial
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createNewCourse(
+  title: string,
+  description: string,
+  completeUntil: Date
+): CourseGoal {
+  let newCourse: Partial<CourseGoal> = {};
+  newCourse.title = title;
+  newCourse.description = description;
+  newCourse.completeUntil = completeUntil;
+  return newCourse as CourseGoal;
+}
+
+// * readonly type
+const myNames: Readonly<string[]> = ["Max", "Manu"];
