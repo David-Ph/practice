@@ -21,3 +21,10 @@ SELECT employee.emp_id, employee.first_name, branch.branch_name
 FROM employee 
 RIGHT JOIN branch -- will not include employees who doesnt share a common column, but will include ALL the branch table(right)
 ON employee.emp_id = branch.mgr_id;
+
+-- inner join
+-- right join
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee 
+INNER JOIN branch -- Returns records that have matching values in both tables
+ON employee.emp_id = branch.mgr_id;
