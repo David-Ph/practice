@@ -151,7 +151,11 @@ const button = document.querySelector("button")!;
 button.addEventListener("click", newPrinter.showMessage);
 
 // //////////////////////////////////////////////
-const config: { [input: string]: string[] } = {};
+interface configType {
+  [input: string]: string[];
+}
+
+const config: configType = {};
 
 const addValidator = (input: string, type: string) => {
   config[input] = config[input] ? [...config[input], type] : [type];
