@@ -1,25 +1,39 @@
 "use strict";
-const add = (n1, n2) => {
-    return n1 + n2;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-class Person {
-    constructor(n) {
-        this.age = 30;
-        this.outputName = "My Name";
-        this.name = n;
-    }
-    greet(phrase) {
-        console.log(`${phrase} I'm ${this.name}`);
-    }
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+function Logger(logString) {
+    return function (constructor) {
+        console.log(logString);
+        console.log(constructor);
+    };
 }
-//* interface
-// let user1: Person;
-// user1 = {
-//   name: "Max",
-//   greet(phrase: string) {
-//     console.log(`${phrase} I'm ${this.name}`);
-//   },
-// };
-let user1 = new Person("Max");
-user1.greet("Hello!");
+function WithTemplate(template, hookId) {
+    return function (constructor) {
+        const hookEl = document.getElementById("app");
+        const p = new constructor(); // new instance of PersonFactory class
+        if (hookEl) {
+            hookEl.innerHTML = template.replace("#name#", p.name);
+        }
+    };
+}
+// @Logger("Logging PersonFactory")
+let PersonFactory = class PersonFactory {
+    constructor() {
+        this.name = "Max";
+        console.log("Creating a person....");
+    }
+};
+PersonFactory = __decorate([
+    WithTemplate("<h1>My name is #name#</h1>", "app"),
+    __metadata("design:paramtypes", [])
+], PersonFactory);
+const newPerson = new PersonFactory();
+console.log(newPerson);
 //# sourceMappingURL=app.js.map
