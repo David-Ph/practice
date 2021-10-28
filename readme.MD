@@ -9,3 +9,6 @@
 - redis
 - Websocket
 - GraphQL
+- RabbitMQ / Beanstalkd / Amazon SQS
+- PHP(Laravel)
+- Golang

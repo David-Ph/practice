@@ -34,18 +34,19 @@ function palindromeString(str) {
 
 console.log(palindromeString("itopinonavevanonipoti"));
 
-function splitArray(array) {
-  const newArray = Array.from(array);
-  if (newArray.length === 1) return newArray;
+function mergeSort(array) {
+  if (array.length === 1) return array;
 
-  const middle = newArray.length / 2;
-  const left = newArray.slice(0, middle);
-  const right = newArray.slice(middle);
+  const newArr = Array.from(array);
 
-  return sortArray(splitArray(left), splitArray(right));
+  const middle = newArr.length / 2;
+  const left = newArr.slice(0, middle);
+  const right = newArr.slice(middle);
+
+  return sort(mergeSort(left), mergeSort(right));
 }
 
-function sortArray(left, right) {
+function sort(left, right) {
   const tempArray = [];
 
   while (left.length > 0 && right.length > 0) {
@@ -59,4 +60,4 @@ function sortArray(left, right) {
   return tempArray.concat(left.slice().concat(right.slice()));
 }
 
-console.log(splitArray([6, 4, 2, 9, 1, 8, 3, 7, 5]));
+console.log(mergeSort([6, 4, 8, 2, 9, 1, 3, 7, 5]));
