@@ -157,4 +157,45 @@ newPrinter.printMessage();
 const button = document.querySelector("button");
 button.addEventListener("click", newPrinter.showMessage);
 // //////////////////////////////////////////////
+const config = {};
+const addValidator = (input, type) => {
+    config[input] = config[input] ? [...config[input], type] : [type];
+    console.log(config);
+};
+const Required = (_, input) => addValidator(input, "required");
+const Maxlength = (_, input) => addValidator(input, "maxlength");
+const Positive = (_, input) => addValidator(input, "positive");
+const validate = (course) => Object.entries(config).every(([input, types]) => types.every((type) => (type === "required" && course[input]) ||
+    (type === "positive" && course[input] > 0) ||
+    (type === "maxlength" && course[input].length < 5)));
+class Course {
+    constructor(title, price) {
+        this.title = title;
+        this.price = price;
+    }
+}
+__decorate([
+    Required,
+    Maxlength,
+    __metadata("design:type", String)
+], Course.prototype, "title", void 0);
+__decorate([
+    Required,
+    Positive,
+    __metadata("design:type", Number)
+], Course.prototype, "price", void 0);
+const courseForm = document.querySelector("form");
+courseForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const titleEL = document.getElementById("title");
+    const priceEL = document.getElementById("price");
+    const title = titleEL.value;
+    const price = +priceEL.value;
+    const createdCourse = new Course(title, price);
+    if (!validate(createdCourse)) {
+        console.log("Invalid input");
+        return;
+    }
+    console.log(createdCourse);
+});
 //# sourceMappingURL=app.js.map

@@ -151,3 +151,52 @@ const button = document.querySelector("button")!;
 button.addEventListener("click", newPrinter.showMessage);
 
 // //////////////////////////////////////////////
+const config: { [input: string]: string[] } = {};
+
+const addValidator = (input: string, type: string) => {
+  config[input] = config[input] ? [...config[input], type] : [type];
+  console.log(config);
+};
+
+const Required = (_: any, input: string) => addValidator(input, "required");
+const Maxlength = (_: any, input: string) => addValidator(input, "maxlength");
+const Positive = (_: any, input: string) => addValidator(input, "positive");
+
+const validate = (course: any) => {
+  return Object.entries(config).every(([input, types]) =>
+    types.every(
+      (type) =>
+        (type === "required" && course[input]) ||
+        (type === "positive" && course[input] > 0) ||
+        (type === "maxlength" && course[input].length < 5)
+    )
+  );
+};
+
+class Course {
+  @Required @Maxlength title: string;
+  @Required @Positive price: number;
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this.price = price;
+  }
+}
+
+const courseForm = document.querySelector("form")!;
+courseForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const titleEL = document.getElementById("title") as HTMLInputElement;
+  const priceEL = document.getElementById("price") as HTMLInputElement;
+
+  const title = titleEL.value;
+  const price = +priceEL.value;
+
+  const createdCourse = new Course(title, price);
+
+  if (!validate(createdCourse)) {
+    console.log("Invalid input");
+    return;
+  }
+  console.log(createdCourse);
+});
