@@ -13,3 +13,5 @@
 - PHP(Laravel)
 - Golang
 - Java ( Spring Boot )
+- Database Indexes
+- B-tree
