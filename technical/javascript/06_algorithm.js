@@ -35,13 +35,14 @@ function palindromeString(str) {
 console.log(palindromeString("itopinonavevanonipoti"));
 
 function mergeSort(array) {
-  if (array.length === 1) return array;
+  if (array.length === 1) {
+    return array;
+  }
+  const newArray = Array.from(array);
 
-  const newArr = Array.from(array);
-
-  const middle = newArr.length / 2;
-  const left = newArr.slice(0, middle);
-  const right = newArr.slice(middle);
+  const middle = newArray.length / 2;
+  const left = newArray.slice(0, middle);
+  const right = newArray.slice(middle);
 
   return sort(mergeSort(left), mergeSort(right));
 }
