@@ -86,8 +86,18 @@ class ProjectState extends State {
         return this.instance;
     }
     addProject(title, desc, people) {
-        const newProject = new Project(Math.random.toString(), title, desc, people, ProjectStatus.Active);
+        const newProject = new Project(Math.random().toString(), title, desc, people, ProjectStatus.Active);
         this.projects.push(newProject);
+        this.updateListener();
+    }
+    switchProjectStatus(projectId, status) {
+        const findProject = this.projects.find((project) => project.id === projectId);
+        if (findProject && findProject.status !== status) {
+            findProject.status = status;
+            this.updateListener();
+        }
+    }
+    updateListener() {
         for (const listener of this.listeners) {
             listener(this.projects.slice());
         }
@@ -109,7 +119,8 @@ class ProjectItem extends Component {
         }
     }
     dragStartFn(event) {
-        console.log(this);
+        event.dataTransfer.setData("text/plain", this.project.id);
+        event.dataTransfer.effectAllowed = "move";
     }
     dragEndFn(event) {
         console.log(this);
@@ -139,10 +150,19 @@ class ProjectList extends Component {
         this.renderContent();
     }
     dragOverFn(event) {
-        const listEl = this.element.querySelector("ul");
-        listEl.classList.add("droppable");
+        if (event.dataTransfer && event.dataTransfer.types[0] === "text/plain") {
+            event.preventDefault();
+            const listEl = this.element.querySelector("ul");
+            listEl.classList.add("droppable");
+        }
     }
-    dropFn(event) { }
+    dropFn(event) {
+        event.preventDefault();
+        const dropId = event.dataTransfer.getData("text/plain");
+        projectState.switchProjectStatus(dropId, this.type === "active" ? ProjectStatus.Active : ProjectStatus.Finished);
+        const listEl = this.element.querySelector("ul");
+        listEl.classList.remove("droppable");
+    }
     dragLeaveFn(event) {
         const listEl = this.element.querySelector("ul");
         listEl.classList.remove("droppable");

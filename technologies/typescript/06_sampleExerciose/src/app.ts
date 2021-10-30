@@ -141,7 +141,7 @@ class ProjectState extends State<Project> {
 
   addProject(title: string, desc: string, people: number) {
     const newProject = new Project(
-      Math.random.toString(),
+      Math.random().toString(),
       title,
       desc,
       people,
@@ -149,6 +149,20 @@ class ProjectState extends State<Project> {
     );
     this.projects.push(newProject);
 
+    this.updateListener();
+  }
+
+  switchProjectStatus(projectId: string, status: ProjectStatus) {
+    const findProject = this.projects.find(
+      (project) => project.id === projectId
+    );
+    if (findProject && findProject.status !== status) {
+      findProject.status = status;
+      this.updateListener();
+    }
+  }
+
+  private updateListener() {
     for (const listener of this.listeners) {
       listener(this.projects.slice());
     }
@@ -180,7 +194,8 @@ class ProjectItem
 
   @Autobind
   dragStartFn(event: DragEvent) {
-    console.log(this);
+    event.dataTransfer!.setData("text/plain", this.project.id);
+    event.dataTransfer!.effectAllowed = "move";
   }
   @Autobind
   dragEndFn(event: DragEvent) {
@@ -216,12 +231,24 @@ class ProjectList
 
   @Autobind
   dragOverFn(event: DragEvent) {
-    const listEl = this.element.querySelector("ul")!;
-    listEl.classList.add("droppable");
+    if (event.dataTransfer && event.dataTransfer.types[0] === "text/plain") {
+      event.preventDefault(); // allow drop to happen
+      const listEl = this.element.querySelector("ul")!;
+      listEl.classList.add("droppable");
+    }
   }
 
   @Autobind
-  dropFn(event: DragEvent) {}
+  dropFn(event: DragEvent) {
+    event.preventDefault();
+    const dropId = event.dataTransfer!.getData("text/plain");
+    projectState.switchProjectStatus(
+      dropId,
+      this.type === "active" ? ProjectStatus.Active : ProjectStatus.Finished
+    );
+    const listEl = this.element.querySelector("ul")!;
+    listEl.classList.remove("droppable");
+  }
 
   @Autobind
   dragLeaveFn(event: DragEvent) {
