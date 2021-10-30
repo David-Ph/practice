@@ -1,3 +1,15 @@
+// drag and drop interfaces
+interface Draggable {
+  dragStartFn(event: DragEvent): void;
+  dragEndFn(event: DragEvent): void;
+}
+
+interface DragTarget {
+  dragOverFn(event: DragEvent): void;
+  dropFn(event: DragEvent): void;
+  dragLeaveFn(event: DragEvent): void;
+}
+
 //? Validation Config
 interface Validatable {
   value: string | number;
@@ -144,7 +156,10 @@ class ProjectState extends State<Project> {
 }
 
 // ? ProjectItem class
-class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+class ProjectItem
+  extends Component<HTMLUListElement, HTMLLIElement>
+  implements Draggable
+{
   private project: Project;
 
   get persons() {
@@ -163,7 +178,19 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
     this.renderContent();
   }
 
-  configure() {}
+  @Autobind
+  dragStartFn(event: DragEvent) {
+    console.log(this);
+  }
+  @Autobind
+  dragEndFn(event: DragEvent) {
+    console.log(this);
+  }
+
+  configure() {
+    this.element.addEventListener("dragstart", this.dragStartFn);
+    this.element.addEventListener("dragend", this.dragEndFn);
+  }
 
   renderContent() {
     this.element.querySelector("h2")!.textContent = this.project.title;
@@ -173,7 +200,10 @@ class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
 }
 
 // ? ProjectList class
-class ProjectList extends Component<HTMLDivElement, HTMLElement> {
+class ProjectList
+  extends Component<HTMLDivElement, HTMLElement>
+  implements DragTarget
+{
   assignedProject: Project[];
 
   constructor(private type: "active" | "finished") {
@@ -184,7 +214,26 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     this.renderContent();
   }
 
+  @Autobind
+  dragOverFn(event: DragEvent) {
+    const listEl = this.element.querySelector("ul")!;
+    listEl.classList.add("droppable");
+  }
+
+  @Autobind
+  dropFn(event: DragEvent) {}
+
+  @Autobind
+  dragLeaveFn(event: DragEvent) {
+    const listEl = this.element.querySelector("ul")!;
+    listEl.classList.remove("droppable");
+  }
+
   configure() {
+    this.element.addEventListener("dragover", this.dragOverFn);
+    this.element.addEventListener("dragleave", this.dragLeaveFn);
+    this.element.addEventListener("drop", this.dropFn);
+
     projectState.addListeners((projects: Project[]) => {
       projects = projects.filter((project) => {
         if (this.type === "active") {

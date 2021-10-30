@@ -108,13 +108,28 @@ class ProjectItem extends Component {
             return `${this.project.people} people is working on this`;
         }
     }
-    configure() { }
+    dragStartFn(event) {
+        console.log(this);
+    }
+    dragEndFn(event) {
+        console.log(this);
+    }
+    configure() {
+        this.element.addEventListener("dragstart", this.dragStartFn);
+        this.element.addEventListener("dragend", this.dragEndFn);
+    }
     renderContent() {
         this.element.querySelector("h2").textContent = this.project.title;
         this.element.querySelector("h3").textContent = this.persons;
         this.element.querySelector("p").textContent = this.project.description;
     }
 }
+__decorate([
+    Autobind
+], ProjectItem.prototype, "dragStartFn", null);
+__decorate([
+    Autobind
+], ProjectItem.prototype, "dragEndFn", null);
 class ProjectList extends Component {
     constructor(type) {
         super("project-list", "app", false, `${type}-projects`);
@@ -123,7 +138,19 @@ class ProjectList extends Component {
         this.configure();
         this.renderContent();
     }
+    dragOverFn(event) {
+        const listEl = this.element.querySelector("ul");
+        listEl.classList.add("droppable");
+    }
+    dropFn(event) { }
+    dragLeaveFn(event) {
+        const listEl = this.element.querySelector("ul");
+        listEl.classList.remove("droppable");
+    }
     configure() {
+        this.element.addEventListener("dragover", this.dragOverFn);
+        this.element.addEventListener("dragleave", this.dragLeaveFn);
+        this.element.addEventListener("drop", this.dropFn);
         projectState.addListeners((projects) => {
             projects = projects.filter((project) => {
                 if (this.type === "active") {
@@ -152,6 +179,15 @@ class ProjectList extends Component {
         }
     }
 }
+__decorate([
+    Autobind
+], ProjectList.prototype, "dragOverFn", null);
+__decorate([
+    Autobind
+], ProjectList.prototype, "dropFn", null);
+__decorate([
+    Autobind
+], ProjectList.prototype, "dragLeaveFn", null);
 class ProjectInput extends Component {
     constructor() {
         super("project-input", "app", true, "user-input");
