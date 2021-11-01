@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/app.ts",
   performance: {
     hints: false,
@@ -9,10 +9,8 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
-    // clear: true
-    publicPath: "/dist/",
+    clean: true,
   },
-  devtool: "inline-source-map",
   module: {
     rules: [
       {
