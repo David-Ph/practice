@@ -21,4 +21,10 @@ to connect to a database
 to list all database
 ? \d
 
+to login as maomao on a db from psql
+? \c testDB maomao localhost 5432
+
+to login as maomao from postgresql
+? psql -h localhost -p 5432 -U maomao testdb;
+
 */
