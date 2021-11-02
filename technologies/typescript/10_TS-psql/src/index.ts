@@ -11,6 +11,12 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// import routes
+import { UserRouter } from "./routes/users";
+
+// set routes
+app.use("/v1/users", UserRouter);
+
 app.get("/", (req, res) => {
   res.json({ info: "Health check okay!" });
 });
