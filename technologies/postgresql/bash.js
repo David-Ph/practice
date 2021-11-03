@@ -12,6 +12,9 @@ to open postgresql
 to login mysql
 ? mysql -u admin -p
 
+to start mysql
+? sudo /etc/init.d/mysql start
+
 to get list of help
 ? psql --help
 
