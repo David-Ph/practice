@@ -2,15 +2,15 @@
 
 ## Things to learn
 
-- TypeScript -> ON PROGRESS
-- PostgreSQL -> ON PROGRESS
-- React
+- TypeScript -> Completed a course and created a basic crud app
+- PostgreSQL -> Completed a basic CRUD app with node-postgres
+- React -> Just started
 - Deeper look on Sequelize
 - redis
 - Websocket
 - GraphQL
 - RabbitMQ / Beanstalkd / Amazon SQS ( Message Queue )
-- PHP(Laravel)
+- PHP(Laravel) -> Completed Basic, OOP -> Starting on Laravel
 - Golang
 - Java ( Spring Boot )
 - Database Indexes
