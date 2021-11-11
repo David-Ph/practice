@@ -5,3 +5,6 @@
 //? export {VARIABLE_NAME} = {VARIABLE_VALUE}
 // example
 //? export GIT_PACKAGE_AUTH_TOKEN=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
+
+// to run zenrooms docker containers without sh init.sh
+//? docker-compose up --build --remove-orphans
