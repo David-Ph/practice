@@ -10,7 +10,7 @@
 - Websocket
 - GraphQL
 - RabbitMQ / Beanstalkd / Amazon SQS ( Message Queue )
-- PHP(Laravel) -> Completed Basic, OOP -> Starting on MVC
+- PHP(Laravel) -> Completed Basic, OOP, MVC -> Starting on Laravel 
 - Golang
 - Java ( Spring Boot )
 - Database Indexes
