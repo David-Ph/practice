@@ -1,15 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- this is basically like var_dump, but it will kill the script after this line --}}
+{{-- @dd($posts); --}}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>myBlog | Posts</title>
-</head>
+{{-- import the parent layout --}}
+@extends('layouts.main')
 
-<body>
+{{-- insert this part as the container to the parent --}}
+@section('container')
     <h1>Posts</h1>
-</body>
 
-</html>
+    @foreach ($posts as $post)
+        <article class="mb-5">
+            <h2><a href="/posts/{{ $post["slug"] }}">{{ $post['title'] }}</a></h2>
+            <h5>By: {{ $post['author'] }}</h5>
+            <p>{{ $post['body'] }}</p>
+        </article>
+    @endforeach
+
+
+@endsection

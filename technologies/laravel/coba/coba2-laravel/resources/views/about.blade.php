@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- import the parent layout --}}
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>myBlog | About</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/index.js" defer></script>
-</head>
-
-<body>
+{{-- insert this part as the container to the parent --}}
+@section('container')
     <h1>About</h1>
-    <h3>Hi! I'm <?= $name; ?>!</h3>
-    <p><?= $email; ?></p>
-    <p>I'm a <?= $job; ?></p>
-</body>
-
-</html>
+    <h3>Hi! I'm {{ $name }}!</h3>
+    <p>I'm a {{ $job }}</p>
+    <p>You can contact me at {{ $email }}</p>
+@endsection
