@@ -18,5 +18,5 @@
 
 [![David's GitHub stats](https://github-readme-stats.vercel.app/api?username=david-ph&theme=dark)](https://github.com/david-ph/github-readme-stats)
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=david-ph&layout=compact)](https://github.com/david-ph/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=david-ph&layout=compact&theme=dark)](https://github.com/david-ph/github-readme-stats)
 
