@@ -15,3 +15,5 @@
 - Java ( Spring Boot )
 - Database Indexes
 - B-tree
+
+[![David's GitHub stats](https://github-readme-stats.vercel.app/api?username=david-ph)](https://github.com/david-ph/github-readme-stats)
