@@ -37,4 +37,8 @@ Route::get('/blog', [PostController::class, "index"]);
 
 // halaman single post
 // takes $slug as argument
-Route::get('/posts/{slug}', [PostController::class, "show"]);
+// Route::get('/posts/{slug}', [PostController::class, "show"]);
+
+// this is implicit binding
+Route::get('/posts/{post:slug}', [PostController::class, "show"]);
+

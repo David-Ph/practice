@@ -9,12 +9,14 @@ class PostController extends Controller {
     public function index() {
         return view('posts', [
             "title" => "Blog",
-            "posts" => Post::getAll()
+            "posts" => Post::all()
         ]);
     }
 
-    public function show($slug) {
-        $getPost = Post::getOne($slug);
+    // this is implicit binding
+    public function show(Post $post) {
+        // $getPost = Post::find($post);
+        $getPost = $post;
 
         return view('post', [
             "title" => $getPost["title"],
