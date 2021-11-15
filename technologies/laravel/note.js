@@ -63,4 +63,7 @@ create at once
 example if you want to update
 ? Post::where("id", 1)->update("title", "change the title");
 
+example if you want to get
+? Post::where("category_id", 1)->get();
+
 */

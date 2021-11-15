@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model {
     use HasFactory;
     // allow these fields to be filled by user
-    protected $fillable = ["title", "excerpt", "body", "slug"];
+    // protected $fillable = ["title", "excerpt", "body", "slug"];
     // forbid these fields to not be filled manually
     protected $guarded = ["id"];
+
+    // set up relationship between post and category
+    // the relationship from post is one to one, from category is one to many
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }
