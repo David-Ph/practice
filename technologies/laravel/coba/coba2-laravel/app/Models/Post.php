@@ -11,6 +11,8 @@ class Post extends Model {
     // protected $fillable = ["title", "excerpt", "body", "slug"];
     // forbid these fields to not be filled manually
     protected $guarded = ["id"];
+    // this is for eager loading
+    protected $with = ['author', 'category'];
 
     // set up relationship between post and category
     // the relationship from post is one to one, from category is one to many
