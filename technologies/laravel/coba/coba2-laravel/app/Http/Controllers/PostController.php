@@ -8,9 +8,9 @@ use App\Models\Post;
 class PostController extends Controller {
     public function index() {
         return view('posts', [
-            "title" => "Blog",
+            "title" => "All posts",
             // "posts" => Post::all()
-            "posts" => Post::latest()->get()
+            "posts" => Post::with(["author", "category"])->latest()->get()
         ]);
     }
 

@@ -74,4 +74,11 @@ by default, seeder is stored in DatabaseSeeder.php, to run it
 we can create our own factory for seeding purpose
 ? php artisan make:factory PostFactory
 
+In Laravel, by default is using lazy loading, this means that laravel will only queries for something when it needs them. This can be bad if you want to query a table from another table. For example, when queueing for posts, you also want the authors and categories data. If you do a loop for this, this means that for every loop, laravel will do another query to the database. This can lead to performance issue.
+This is why Laravel provides eager loading or eager lazy loading, so it will queries all of them from the start
+if you query from parent only, like in controller
+? "posts" => Post::with(["author", "category"])->latest()->get()
+if you query from implicit binding
+? 'posts' => $category->posts->load("category", "author"),
+
 */
