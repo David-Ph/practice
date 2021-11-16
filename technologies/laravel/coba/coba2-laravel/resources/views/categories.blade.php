@@ -6,14 +6,14 @@
 
 {{-- insert this part as the container to the parent --}}
 @section('container')
-    <h1>{{ $title }}</h1>
+    <h1 class="mb-5">{{ $title }}</h1>
 
     <div class="container">
         <div class="row">
             @foreach ($categories as $category)
 
                 <div class="col-md-4">
-                    <a href="/categories/{{ $category->slug }}">
+                    <a href="/blog?category={{ $category->slug }}">
                         <div class="card bg-dark text-white">
                             <img src="https://source.unsplash.com/500x300?${{ $category->name }}" class="card-img"
                                 alt="{{ $category->name }}">

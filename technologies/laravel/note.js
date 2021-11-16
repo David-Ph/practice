@@ -81,4 +81,5 @@ if you query from parent only, like in controller
 if you query from implicit binding
 ? 'posts' => $category->posts->load("category", "author"),
 
+! learn more about query scope / local scope in laravel!!!
 */

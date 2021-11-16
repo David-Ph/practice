@@ -9,8 +9,8 @@
                 <a href="/blog">Back to posts</a>
 
                 <h5>Written by <a class="text-decoration-none"
-                        href="/authors/{{ $post->author->username }}">{{ $post->author->name }}</a> in <a
-                        href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></h5>
+                        href="/blog?author={{ $post->author->username }}">{{ $post->author->name }}</a> in <a
+                        href="/blog?category={{ $post->category->slug }}">{{ $post->category->name }}</a></h5>
 
                 <img src="https://source.unsplash.com/1200x400?${{ $post->category->name }}" class="img-fluid"
                     alt="{{ $post->category->name }}">
