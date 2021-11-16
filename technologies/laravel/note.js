@@ -30,7 +30,8 @@ where is migration file stored?
 
 how to create model?
 the -m flag means to also create migration for it
-? php artisan make:model -m Post
+-f means to create factory, -s means to also create seeders
+? php artisan make:model -mfs Post
 
 to run migration
 ? php artisan migrate
@@ -40,6 +41,7 @@ to rollback migration
 
 to do both, rollback and run migration
 ? php artisan migrate:fresh
+? php artisan migrate:fresh --seed
 
 To interact with your app directly
 for example, you can create a new row for a table
@@ -68,5 +70,8 @@ example if you want to get
 
 by default, seeder is stored in DatabaseSeeder.php, to run it
 ? php artisan db:seed
+
+we can create our own factory for seeding purpose
+? php artisan make:factory PostFactory
 
 */
