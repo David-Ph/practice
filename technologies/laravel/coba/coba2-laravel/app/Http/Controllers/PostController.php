@@ -25,7 +25,10 @@ class PostController extends Controller {
             // "posts" => Post::all()
             "active" => "posts",
             // "posts" => Post::latest()->get()
-            "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->get(),
+            // "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->get(),
+            // this is for pagination, withquerystring() is so that any query will be carried over with pagination
+            "posts" => Post::latest()->filter(request(['search', 'category', 'author']))->paginate(7)->withQueryString()
+
         ]);
     }
 
