@@ -18,7 +18,10 @@ class Post extends Model {
         return $this->belongsTo(Category::class);
     }
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function author(){
+        // if the function name is user
+        // it will look for a field called user_id
+        // but we can change the function name and manually set the field we want to look for
+        return $this->belongsTo(User::class, "user_id");
     }
 }
