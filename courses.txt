@@ -3,6 +3,7 @@ Typescript:
 
 React: 
 ! https://www.udemy.com/course/react-the-complete-guide-incl-redux/
+https://www.udemy.com/course/graphql-with-react-course/
 
 Docker:
 https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
@@ -12,6 +13,9 @@ https://www.udemy.com/course/writing-clean-code/
 
 NodeJS + Express + GraphQL + bunch others: 
 https://www.udemy.com/course/nodejs-the-complete-guide/
+https://www.udemy.com/course/node-js-cluster/
+https://www.udemy.com/course/advanced-node-for-developers/
+https://www.udemy.com/course/microservices-with-node-js-and-react/
 
 GraphQL: 
 https://www.udemy.com/course/graphql-with-react-course/
@@ -25,3 +29,5 @@ Ruby On Rails:
 https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/
 
 Web Socket / Socket IO : 
+
+RabbitMQ: 

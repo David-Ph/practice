@@ -66,4 +66,7 @@ example if you want to update
 example if you want to get
 ? Post::where("category_id", 1)->get();
 
+by default, seeder is stored in DatabaseSeeder.php, to run it
+? php artisan db:seed
+
 */
