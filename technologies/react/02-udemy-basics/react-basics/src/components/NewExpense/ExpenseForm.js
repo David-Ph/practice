@@ -31,6 +31,13 @@ const ExpenseForm = () => {
       amount: amount,
       date: new Date(date),
     };
+    // set the state to empty
+    // this will also set the value of the input to empty
+    // because we put the title state as the value of the input
+    // this is called two way binding
+    setTitle('');
+    setAmount('');
+    setDate('');
   };
 
   return (
@@ -38,11 +45,12 @@ const ExpenseForm = () => {
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input type="text" value={title} onChange={titleChangeHandler} />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
           <input
+            value={amount}
             type="number"
             min="0.01"
             step="0.01"
@@ -52,6 +60,7 @@ const ExpenseForm = () => {
         <div className="new-expense__control">
           <label>Date</label>
           <input
+            value={date}
             type="date"
             min="2019-01-01"
             max="2023-12-31"

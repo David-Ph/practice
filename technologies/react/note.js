@@ -26,4 +26,6 @@ whenever your setState functions depends on the previous state, you should do it
 setInput((prevState)=>{
     return {...prevState, title: event.target.value}
 })
+
+
 */
