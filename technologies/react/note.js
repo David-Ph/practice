@@ -29,4 +29,6 @@ setInput((prevState)=>{
 
 We can pass data from parents to child by passing props from parent to child.
 We can also pass data from child to parent by parent passing a function as pointer, and then the child components will need to call that function and return a value to the parent component.
+
+Lifting a state up is when a child component passes data to another sibling component by passing the data through the parent component, and that parent component passes the data to the component that needed it
 */
