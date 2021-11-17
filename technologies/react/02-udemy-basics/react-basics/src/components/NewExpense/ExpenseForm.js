@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -13,7 +13,7 @@ const ExpenseForm = () => {
 
   const titleChangeHandler = (event) => {
     setTitle((prevState) => {
-      console.log(prevState);
+      // console.log(prevState);
       return event.target.value;
     });
   };
@@ -35,6 +35,8 @@ const ExpenseForm = () => {
     // this will also set the value of the input to empty
     // because we put the title state as the value of the input
     // this is called two way binding
+
+    props.onSaveExpenseData(userInput);
     setTitle('');
     setAmount('');
     setDate('');

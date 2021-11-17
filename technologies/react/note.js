@@ -27,5 +27,6 @@ setInput((prevState)=>{
     return {...prevState, title: event.target.value}
 })
 
-
+We can pass data from parents to child by passing props from parent to child.
+We can also pass data from child to parent by parent passing a function as pointer, and then the child components will need to call that function and return a value to the parent component.
 */
