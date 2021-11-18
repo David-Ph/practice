@@ -8,8 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {{ $active === 'home' ? 'active' : '' }}" aria-current="page"
-                        href="/">Home</a>
+                    <a class="nav-link {{ $active === 'home' ? 'active' : '' }}" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ $active === 'about' ? 'active' : '' }}" href="/about">About</a>
@@ -22,15 +21,38 @@
                         href="/categories">Categories</a>
                 </li>
             </ul>
+
+            {{-- check if user has login, we can use @guest or @auth --}}
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a href="/login" class="nav-link {{ $active === 'login' ? 'active' : '' }}"><i
-                            class="bi bi-box-arrow-right"></i> Login</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/register" class="nav-link {{ $active === 'register' ? 'active' : '' }}"><i class="bi bi-box-arrow-right"></i> Register</a>
-                </li>
+                @auth
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{-- take the currently logged in user's name --}}
+                            Welcome back, {{ auth()->user()->name }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar"></i> My Dashboard</a></li>
+                            <li>
+                                <form action="logout" method="post">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="/login" class="nav-link {{ $active === 'login' ? 'active' : '' }}"><i
+                                class="bi bi-box-arrow-right"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/register" class="nav-link {{ $active === 'register' ? 'active' : '' }}"><i class="bi bi-box-arrow-right"></i> Register</a>
+                    </li>
+                @endauth
             </ul>
+
+
         </div>
     </div>
 </nav>

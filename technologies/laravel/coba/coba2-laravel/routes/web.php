@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,11 +57,21 @@ Route::get('/categories', function () {
 // this kind of syntax basically means
 // if the route is host/login and the method is GET, 
 // go to LoginController and look for "index" method
-route::get('/login', [LoginController::class, "index"]);
 
-route::get('/register', [RegisterController::class, "index"]);
+// insert middleware of guest in this controller
+route::get('/login', [LoginController::class, "index"])->name('login')->middleware('guest');
+
+route::post('/login', [LoginController::class, "authenticate"]);
+
+route::post('/logout', [LoginController::class, "logout"]);
+
+
+route::get('/register', [RegisterController::class, "index"])->middleware('guest');
 
 route::post('/register', [RegisterController::class, "store"]);
+
+// insert middleware of auth in this controller
+route::get('/dashboard', [DashboardController::class, "index"])->middleware('auth');
 
 
 // Route::get('/categories/{category:slug}', function (Category $category) {

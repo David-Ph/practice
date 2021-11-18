@@ -98,7 +98,12 @@ you can validate request through from
 ?             'password' => 'required|min:5|max:255'
 ?         ]);
 
+for flash message
 ? $request->session()->flash("success", "Registration successful! Please login");
+? return back()->with("loginError", "Login failed");
 
+? route::get('/login', [LoginController::class, "index"])->middleware('guest');
+
+{{-- check if user has login, we can use @guest or @auth --}}
 
 */
