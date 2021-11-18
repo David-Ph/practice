@@ -60,6 +60,7 @@ route::get('/login', [LoginController::class, "index"]);
 
 route::get('/register', [RegisterController::class, "index"]);
 
+route::post('/register', [RegisterController::class, "store"]);
 
 
 // Route::get('/categories/{category:slug}', function (Category $category) {

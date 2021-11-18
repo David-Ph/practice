@@ -85,5 +85,20 @@ if you query from implicit binding
 
 by convention, each controller should go into one folder
 
+insert this in the form to prevent csrf attack
+basically, how it works is, by inserting this in the form, we're automatically sending a csrf token
+together with the form,and then laravel will check the token and check if it's valid
+@csrf
+
+you can validate request through from
+? $validated = $request->validate([
+?             'name' => 'required|max:255',
+?             'username' => ['required', 'min:3', 'max:255', 'unique:users'],
+?             'email' => 'required|email|unique:users',
+?             'password' => 'required|min:5|max:255'
+?         ]);
+
+? $request->session()->flash("success", "Registration successful! Please login");
+
 
 */

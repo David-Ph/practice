@@ -4,8 +4,18 @@
     <div class="row justify-content-center">
         <div class="col-lg-6">
             <main class="form-signin">
+                {{-- show flash message if session has success --}}
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <h1 class="h3 mb-3 fw-normal text-center">Please login</h1>
                 <form>
+                    {{-- this is to prevent csrf attack --}}
+                    @csrf
 
                     <div class="form-floating">
                         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
