@@ -82,4 +82,8 @@ if you query from implicit binding
 ? 'posts' => $category->posts->load("category", "author"),
 
 ! learn more about query scope / local scope in laravel!!!
+
+by convention, each controller should go into one folder
+
+
 */
