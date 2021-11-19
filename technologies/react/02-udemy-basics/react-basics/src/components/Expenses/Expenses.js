@@ -12,9 +12,8 @@ function Expenses(props) {
 
   const filterExpenseHandler = (filter) => {
     setFilter({ ...filter });
-    console.log(filter);
   };
-
+  
   return (
     <div>
       <Card className="expenses">
