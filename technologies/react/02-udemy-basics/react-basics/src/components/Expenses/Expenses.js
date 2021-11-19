@@ -20,7 +20,7 @@ function Expenses(props) {
         <ExpensesFilter selected={filter.year} onFilterExpense={filterExpenseHandler} />
 
         {expenses.map((expense) => (
-          <ExpenseItem expense={expense} />
+          <ExpenseItem key={expense.id} expense={expense} />
         ))}
       </Card>
     </div>
