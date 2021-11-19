@@ -64,4 +64,11 @@ class Post extends Model {
         // but we can change the function name and manually set the field we want to look for
         return $this->belongsTo(User::class, "user_id");
     }
+
+    // this is some magic function
+    // so when you want to GET ONE 
+    // it will automatically use 'slug' instead of id
+    public function getRouteKeyName(){
+        return 'slug';
+    }
 }

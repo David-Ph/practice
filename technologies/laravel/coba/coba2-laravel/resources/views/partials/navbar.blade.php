@@ -34,7 +34,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar"></i> My Dashboard</a></li>
                             <li>
-                                <form action="logout" method="post">
+                                <form action="/logout" method="post">
                                     @csrf
                                     <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Logout</button>
                                 </form>
