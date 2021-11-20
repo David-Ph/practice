@@ -34,4 +34,7 @@ Lifting a state up is when a child component passes data to another sibling comp
 
 In react, we can do conditonal rendering by doing
 ? {filteredExpenses.length === 0 && <p>No expenses on this year.</p>}
+
+In react, if we want to do inline css, we put the style property in the html, and then we insert a javascript object inside of it
+? <div className="chart-bar__fill" style={{ height: barFillHeight }}></div>
 */
