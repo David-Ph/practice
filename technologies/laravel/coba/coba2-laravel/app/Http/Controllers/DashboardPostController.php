@@ -3,21 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
+
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 
-class DashboardPostController extends Controller
-{
+class DashboardPostController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         // query for post where the user_id is the same one
         // as the currently logged in user
         $posts = Post::where('user_id', auth()->user()->id)->get();
-        
+
         return view('dashboard.posts.index', [
             "posts" => $posts
         ]);
@@ -28,9 +29,13 @@ class DashboardPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    // user will be automatically redirected to this method
+    // if the url is dashboard/posts/create
+    // this is the view for create
+    public function create() {
+        return view('dashboard.posts.create', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -39,9 +44,10 @@ class DashboardPostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    // user will be automaticallt redirected to this method
+    // if the http method is POST to the url /dashboard/posts
+    public function store(Request $request) {
+        return $request;
     }
 
     /**
@@ -50,8 +56,9 @@ class DashboardPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
-    {
+    // user will be automatically redirected to this method
+    // if the url is dashboard/post/{{ slug }}
+    public function show(Post $post) {
         // return $post;
         return view('dashboard.posts.show', [
             "post" => $post
@@ -64,8 +71,7 @@ class DashboardPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
-    {
+    public function edit(Post $post) {
         //
     }
 
@@ -76,8 +82,7 @@ class DashboardPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
-    {
+    public function update(Request $request, Post $post) {
         //
     }
 
@@ -87,8 +92,24 @@ class DashboardPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
-    {
+    public function destroy(Post $post) {
         //
+    }
+
+    // this is method to check if title input has changed
+    // when creating new post, so new slug is automatically
+    // generated
+    public function checkSlug(Request $request) {
+        // createSlug function
+        // first argument is which class to use
+        // second argument is what field to change to
+        // third argument is what we want to change it from
+        // $request->title comes from url paramters
+        $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+        // dd("MAK LO");
+        // return as reponse
+        return response()->json([
+            "slug" => $slug
+        ]);
     }
 }

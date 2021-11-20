@@ -72,13 +72,23 @@ route::post('/register', [RegisterController::class, "store"]);
 
 // insert middleware of auth in this controller
 // route::get('/dashboard', [DashboardController::class, "index"])->middleware('auth');
-route::get('/dashboard', function(){
+route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware('auth');
+
+
+// Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class], 'checkSlug');
+
+Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
 
 // This is route for resource controller
 // this will automatically RETURN YOU THE ROUTE YOU WANT
 // HOW? FUCKING MAGIC
+// if the method is get, you will be redirected to index
+// if the method is post, you will be redirected to store
+// if the method is put, you will be redirected to update
+// if the method is delete, you will be redirected to destroy
+
 Route::resource('/dashboard/posts', DashboardPostController::class)->middleware('auth');
 
 

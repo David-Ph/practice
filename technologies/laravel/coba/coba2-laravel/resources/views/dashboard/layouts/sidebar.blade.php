@@ -9,8 +9,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                {{-- check if the current url is dashboard/posts --}}                
-                <a class="nav-link {{ Request::is('dashboard/posts') ? "active" : "" }}" href="/dashboard/posts">
+                {{-- check if the current url is dashboard/posts --}}
+                {{-- * means wildcard, it means that if the url is posts + anything else --}}                
+                <a class="nav-link {{ Request::is('dashboard/posts*') ? "active" : "" }}" href="/dashboard/posts">
                     <span data-feather="file-text"></span>
                     My Posts
                 </a>

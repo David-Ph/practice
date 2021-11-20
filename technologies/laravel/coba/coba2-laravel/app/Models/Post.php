@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable; // THIS IS 3RD PARTY COMPOSER PACKAGE
 
 class Post extends Model {
     use HasFactory;
+    use Sluggable;
     // allow these fields to be filled by user
     // protected $fillable = ["title", "excerpt", "body", "slug"];
     // forbid these fields to not be filled manually
@@ -70,5 +72,15 @@ class Post extends Model {
     // it will automatically use 'slug' instead of id
     public function getRouteKeyName(){
         return 'slug';
+    }
+
+    // method for sluggable
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
