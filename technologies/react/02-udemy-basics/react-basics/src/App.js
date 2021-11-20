@@ -1,7 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
-
 
 const DUMMY_EXPENSES = [
   {
@@ -26,24 +25,18 @@ const DUMMY_EXPENSES = [
 ];
 
 function App() {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES)
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
   const addExpenseHandler = (expense) => {
-    // expenses is the array state from DUMMY_EXPENSES
-    // expense is the new state that we got from calling this function
-    // so what this basically means is, we set the new expenses state to be
-    // the new expense at the first element, and the rest of the expenses 
-    // as the next element
-    // setExpenses([expense, ...expenses])
     setExpenses((prevState) => {
       return [expense, ...prevState];
-    })
-  }
+    });
+  };
 
   return (
     <div className="App">
-      < NewExpense onAddExpense={addExpenseHandler} />
-      < Expenses expenses={expenses}/>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses expenses={expenses} />
     </div>
   );
 }

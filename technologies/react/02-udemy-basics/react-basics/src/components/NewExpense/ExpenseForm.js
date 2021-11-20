@@ -5,15 +5,9 @@ const ExpenseForm = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-  const [input, setInput] = useState({
-    title: "",
-    amount: "",
-    date: "",
-  });
 
   const titleChangeHandler = (event) => {
     setTitle((prevState) => {
-      // console.log(prevState);
       return event.target.value;
     });
   };
@@ -31,10 +25,6 @@ const ExpenseForm = (props) => {
       amount: amount,
       date: new Date(date),
     };
-    // set the state to empty
-    // this will also set the value of the input to empty
-    // because we put the title state as the value of the input
-    // this is called two way binding
 
     props.onSaveExpenseData(userInput);
     setTitle('');
@@ -71,6 +61,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={props.onCancelButton}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>

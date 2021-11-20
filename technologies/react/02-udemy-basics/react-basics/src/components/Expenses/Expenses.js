@@ -26,8 +26,6 @@ function Expenses(props) {
           selected={filter.year}
           onFilterExpense={filterExpenseHandler}
         />
-        {/* If filteredExpenses is true, render the 2nd expression */}
-        {/* {filteredExpenses.length === 0 && <p>No expenses on this year.</p>} */}
         < ExpensesList expenses={filteredExpenses} />
       </Card>
     </div>
