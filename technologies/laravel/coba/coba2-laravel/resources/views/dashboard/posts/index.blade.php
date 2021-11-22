@@ -34,7 +34,9 @@
                         <td>
                             <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info"><i
                                     class="bi bi-eye"></i></a>
-                            <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-warning"><i
+
+                                    {{-- this is default route from laravel resource, will automatically send an edit method --}}
+                            <a href="/dashboard/posts/{{ $post->slug }}/edit" class="badge bg-warning"><i
                                     class="bi bi-pencil-square"></i></a>
 
                                     {{-- this is route modle binding --}}

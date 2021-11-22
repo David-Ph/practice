@@ -88,7 +88,11 @@ class DashboardPostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post) {
-        //
+        return view('dashboard.posts.edit', [
+            'post' => $post,
+            // this is so that the view can have access to all available category
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -98,8 +102,29 @@ class DashboardPostController extends Controller {
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+    // $request is the incoming new updated post, $post is the old post from our database
     public function update(Request $request, Post $post) {
-        //
+        // we cannot validate slug unique here because there's already the same slug in the database
+        $rules = [
+            "title" => "required|max:255",
+            'category_id' => "required",
+            "body" => "required"
+        ];
+
+        if ($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        };
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['user_id'] = auth()->user()->id;
+        // remove html tags from $request->body and limit it to 200
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        // Post::update($validatedData);
+        Post::where('id', $post->id)->update($validatedData);
+
+        return redirect('/dashboard/posts')->with('success', 'New Post has been updated!');
     }
 
     /**
