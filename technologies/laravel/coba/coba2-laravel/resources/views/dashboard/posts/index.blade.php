@@ -5,6 +5,13 @@
         <h1 class="h2">My posts</h1>
     </div>
 
+    {{-- check if there's a variable set in session called success, if yes, show the message --}}
+    @if (session()->has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="table-responsive col-lg-8">
         <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create new post</a>
         <table class="table table-striped table-sm">
@@ -25,9 +32,12 @@
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->category->name }}</td>
                         <td>
-                            <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info"><i class="bi bi-eye"></i></a>
-                            <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-warning"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-danger"><i class="bi bi-x-circle"></i></a>
+                            <a href="/dashboard/posts/{{ $post->slug }}" class="badge bg-info"><i
+                                    class="bi bi-eye"></i></a>
+                            <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-warning"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-danger"><i
+                                    class="bi bi-x-circle"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -36,3 +46,4 @@
         </table>
     </div>
 @endsection
+
