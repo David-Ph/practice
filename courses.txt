@@ -6,10 +6,10 @@ React:
 https://www.udemy.com/course/graphql-with-react-course/
 
 Docker:
-https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
+! https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 
 Clean Code: 
-https://www.udemy.com/course/writing-clean-code/
+! https://www.udemy.com/course/writing-clean-code/
 
 NodeJS + Express + GraphQL + bunch others: 
 https://www.udemy.com/course/nodejs-the-complete-guide/
