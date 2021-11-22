@@ -15,7 +15,7 @@ function CourseInput(props) {
     event.preventDefault();
     props.onAddGoal({
         id: Math.random().toString(),
-        goal: goal,
+        text: goal,
     });
     setGoal("");
   };
