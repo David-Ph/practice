@@ -7,7 +7,7 @@
 
     {{-- check if there's a variable set in session called success, if yes, show the message --}}
     @if (session()->has('success'))
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success col-lg-8" role="alert">
             {{ session('success') }}
         </div>
     @endif
@@ -36,8 +36,13 @@
                                     class="bi bi-eye"></i></a>
                             <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-warning"><i
                                     class="bi bi-pencil-square"></i></a>
-                            <a href="/dashboard/posts/{{ $post->id }}" class="badge bg-danger"><i
-                                    class="bi bi-x-circle"></i></a>
+
+                                    {{-- this is route modle binding --}}
+                            <form action="/dashboard/posts/{{ $post->slug }}" method="post" class="d-inline">
+                                @method('delete')
+                                @csrf
+                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><i class="bi bi-x-circle"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -46,4 +51,3 @@
         </table>
     </div>
 @endsection
-

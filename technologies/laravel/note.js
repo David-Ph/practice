@@ -106,4 +106,11 @@ for flash message
 
 {{-- check if user has login, we can use @guest or @auth --}}
 
+ this is some magic function
+    so when you want to GET ONE 
+    it will automatically use 'slug' instead of id
+?    public function getRouteKeyName(){
+?        return 'slug';
+?    }
+
 */
