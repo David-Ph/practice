@@ -37,4 +37,6 @@ In react, we can do conditonal rendering by doing
 
 In react, if we want to do inline css, we put the style property in the html, and then we insert a javascript object inside of it
 ? <div className="chart-bar__fill" style={{ height: barFillHeight }}></div>
+
+My simple explanation of what this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
 */
