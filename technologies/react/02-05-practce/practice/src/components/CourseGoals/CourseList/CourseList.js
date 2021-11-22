@@ -8,7 +8,11 @@ function CourseList(props) {
   return (
     <ul className="goal-list">
       {props.goals.map((goal) => {
-        return <CourseItem key={goal.id}>{goal.text} </CourseItem>;
+        return (
+          <CourseItem id={goal.id} onDelete={props.onDelete} key={goal.id}>
+            {goal.text}
+          </CourseItem>
+        );
       })}
     </ul>
   );

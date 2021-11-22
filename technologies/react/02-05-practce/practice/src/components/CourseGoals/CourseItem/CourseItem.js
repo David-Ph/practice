@@ -1,15 +1,17 @@
-import React from 'react'
+import React from "react";
 
-
-
-import './CourseItem.css'
+import "./CourseItem.css";
 
 function CourseItem(props) {
-    return (
-        <li className="goal-item">
-            {props.children}
-        </li>
-    )
+  const onClickHandler = () => {
+    props.onDelete(props.id);
+  };
+
+  return (
+    <li className="goal-item" onClick={onClickHandler}>
+      {props.children}
+    </li>
+  );
 }
 
-export default CourseItem
+export default CourseItem;
