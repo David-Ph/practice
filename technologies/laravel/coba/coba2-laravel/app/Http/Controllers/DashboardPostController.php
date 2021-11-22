@@ -49,13 +49,21 @@ class DashboardPostController extends Controller {
     // user will be automaticallt redirected to this method
     // if the http method is POST to the url /dashboard/posts
     public function store(Request $request) {
+        // the 'image' comes from the input name
+        // return $request->file('image')->store('post-images');
+
         // return $request;
         $validatedData = $request->validate([
             "title" => "required|max:255",
             "slug" => "required|unique:posts", // unique to all posts
             'category_id' => "required",
+            "image" => "image|file|max:1024",
             "body" => "required"
         ]);
+
+        if($request->file('image')){
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         // remove html tags from $request->body and limit it to 200

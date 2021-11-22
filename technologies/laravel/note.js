@@ -113,4 +113,13 @@ for flash message
 ?        return 'slug';
 ?    }
 
+by default, this will save into storage/post-images
+?$request->file('image')->store('post-images');
+we can change in a file called filesystems.php
+
+by default, even if you store it in /storage/app/public, you still can't access it from the app
+to do it, you need to link it to /public, the command is
+? php artisan storage:link
+and then you can access it with
+? echo asset('storage/post-image/photo.jpeg')
 */

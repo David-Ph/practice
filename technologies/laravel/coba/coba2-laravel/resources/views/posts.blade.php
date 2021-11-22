@@ -15,8 +15,8 @@
                     <input type="hidden" name="category" value="{{ request('category') }}">
                 @endif
                 <div class="input-group mb-3">
-                    <input type="text" name="search" class="form-control" placeholder="Search" value="{{ request('search') }}"
-                        >
+                    <input type="text" name="search" class="form-control" placeholder="Search"
+                        value="{{ request('search') }}">
                     <button class="btn btn-danger" type="submit">Search</button>
                 </div>
             </form>
@@ -25,8 +25,16 @@
 
     @if ($posts->count())
         <div class="card mb-3">
-            <img src="https://source.unsplash.com/1200x400?${{ $posts[0]->category->name }}" class="card-img-top"
-                alt="{{ $posts[0]->category->name }}">
+            @if ($posts[0]->image)
+                <div style="width: 1200px; height: 400px; overflow: hidden;">
+                    <img src="{{ asset('storage/' . $posts[0]->image) }}" class="card-img-top"
+                        alt="{{ $posts[0]->category->name }}">
+                </div>
+            @else
+                <img src="https://source.unsplash.com/1200x400?${{ $posts[0]->category->name }}" class="card-img-top"
+                    alt="{{ $posts[0]->category->name }}">
+            @endif
+
             <div class="card-body text-center">
                 <h3 class="card-title"><a href="/posts/{{ $posts[0]->slug }}"
                         class="text-decoration-none text-dark">{{ $posts[0]->title }}</a></h3>
@@ -51,8 +59,17 @@
                             <div class="position-absolute bg-dark p-2 text-white"><a class="text-decoration-none text-white"
                                     href="/blog?category={{ $post->category->slug }}">{{ $post->category->name }}</a>
                             </div>
-                            <img src="https://source.unsplash.com/500x300?${{ $post->category->name }}"
-                                class="card-img-top" alt="{{ $post->category->name }}">
+
+                            @if ($post->image)
+                                <div style="max-height: 300px; overflow: hidden;">
+                                    <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-3"
+                                        alt="{{ $post->category->name }}">
+                                </div>
+                            @else
+                                <img src="https://source.unsplash.com/500x300?${{ $post->category->name }}"
+                                    class="card-img-top" alt="{{ $post->category->name }}">
+                            @endif
+
                             <div class="card-body">
                                 <h5 class="card-title"><a href="/posts/{{ $post->slug }}"
                                         class="text-decoration-none text-dark">{{ $post->title }}</a></h5>
