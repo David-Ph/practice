@@ -6,14 +6,15 @@
     </div>
 
     <div class="col-lg-8">
-        <form method="post" action="/dashboard/posts/{{ $post->slug }}" class="mb-5">
+        <form method="post" action="/dashboard/posts/{{ $post->slug }}" class="mb-5"
+            enctype="multipart/form-data">
             @method('patch')
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 {{-- {{ old('title', $post->title) }} this means that it will check for old('title'), if it doesn't exist then it will check for $post->title --}}
-                <input type="text" value="{{ old('title', $post->title) }}" class="form-control @error('title') is-invalid @enderror "
-                    id="title" name="title" required autofocus>
+                <input type="text" value="{{ old('title', $post->title) }}"
+                    class="form-control @error('title') is-invalid @enderror " id="title" name="title" required autofocus>
                 @error('title')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -23,8 +24,8 @@
 
             <div class="mb-3">
                 <label for="slug" class="form-label">Slug</label>
-                <input type="text" value="{{ old('slug', $post->slug) }}" class="form-control @error('slug') is-invalid @enderror"
-                    id="slug" name="slug" readonly required>
+                <input type="text" value="{{ old('slug', $post->slug) }}"
+                    class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" readonly required>
                 @error('slug')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -44,6 +45,25 @@
                         @endif
                     @endforeach
                 </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Post Image</label>
+                <input type="hidden" name="oldImage" value="{{ $post->image }}">
+                @if ($post->image)
+                    <img src="{{ asset('storage/' . $post->image) }}" class="img-preview d-block img-fluid mb-3 col-sm-5"
+                        alt="">
+                @else
+                    <img src="" class="img-preview img-fluid mb-3 col-sm-5" alt="">
+                @endif
+
+                <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image"
+                    onchange="previewImage()">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
 
             <div class="mb-3">
@@ -72,5 +92,19 @@
         document.addEventListener('trix-file-accept', function(event) {
             event.preventDefault();
         })
+
+        function previewImage() {
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
     </script>
 @endsection

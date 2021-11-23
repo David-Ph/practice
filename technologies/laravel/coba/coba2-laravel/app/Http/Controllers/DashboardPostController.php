@@ -8,7 +8,7 @@ use App\Models\Category;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Storage;
 
 class DashboardPostController extends Controller {
     /**
@@ -33,7 +33,7 @@ class DashboardPostController extends Controller {
      */
     // user will be automatically redirected to this method
     // if the url is dashboard/posts/create
-    // this is the view for create
+    // this is the view for create3
     public function create() {
         return view('dashboard.posts.create', [
             'categories' => Category::all()
@@ -61,7 +61,7 @@ class DashboardPostController extends Controller {
             "body" => "required"
         ]);
 
-        if($request->file('image')){
+        if ($request->file('image')) {
             $validatedData['image'] = $request->file('image')->store('post-images');
         }
 
@@ -116,6 +116,7 @@ class DashboardPostController extends Controller {
         $rules = [
             "title" => "required|max:255",
             'category_id' => "required",
+            "image" => "image|file|max:1024",
             "body" => "required"
         ];
 
@@ -124,6 +125,13 @@ class DashboardPostController extends Controller {
         };
 
         $validatedData = $request->validate($rules);
+
+        if ($request->file('image')) {
+            if($request->oldImage){
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('post-images');
+        }
 
         $validatedData['user_id'] = auth()->user()->id;
         // remove html tags from $request->body and limit it to 200
@@ -142,6 +150,10 @@ class DashboardPostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post) {
+        if($post->image){
+            Storage::delete($post->image);
+        }
+
         Post::destroy($post->id);
 
         return redirect('/dashboard/posts')->with('success', 'Post has been deleted');
