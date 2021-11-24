@@ -1,6 +1,8 @@
 <?php
 
 // import the namespace from Post models
+
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -107,3 +109,8 @@ Route::resource('/dashboard/posts', DashboardPostController::class)->middleware(
 //         'posts' => $author->posts->load("category", "author"),
 //     ]);
 // });
+
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)
+    ->except('show')
+    ->middleware('auth');
