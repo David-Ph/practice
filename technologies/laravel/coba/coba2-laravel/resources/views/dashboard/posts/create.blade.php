@@ -79,10 +79,10 @@
                 .then(data => slug.value = data.slug)
         });
 
+        // this is to disable file upload in trix wsiwyg
         document.addEventListener('trix-file-accept', function(event) {
             event.preventDefault();
         })
-
 
         function previewImage() {
             const image = document.querySelector('#image');

@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
-class AdminCategoryController extends Controller
-{
+class AdminCategoryController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     // GET request to /dashboard/categories will redirect to this
-    public function index()
-    {
+    public function index() {
         // check if user has logged in
         // use auth()->guest() to check if user has logged in, will return true if not logged in
         // use auth()->check() to check if user has logged in, will return false if not logged in
@@ -25,7 +24,7 @@ class AdminCategoryController extends Controller
 
         // using gate
         // $this->authorize('admin');
-        
+
         return view('dashboard.categories.index', [
             'categories' => Category::all()
         ]);
@@ -36,9 +35,8 @@ class AdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('dashboard.categories.create');
     }
 
     /**
@@ -47,9 +45,15 @@ class AdminCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            "name" => "required",
+            "slug" => "required|unique:categories"
+        ]);
+
+        Category::create($validatedData);
+
+        return redirect('/dashboard/categories')->with('success', 'New Category has been created');
     }
 
     /**
@@ -58,8 +62,7 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
-    {
+    public function show(Category $category) {
         //
     }
 
@@ -69,8 +72,7 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
-    {
+    public function edit(Category $category) {
         //
     }
 
@@ -81,8 +83,7 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
-    {
+    public function update(Request $request, Category $category) {
         //
     }
 
@@ -92,8 +93,26 @@ class AdminCategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
-    {
-        //
+    public function destroy(Category $category) {
+        Category::destroy($category->id);
+
+        return redirect('/dashboard/categories')->with('success', 'Category has been deleted');
+    }
+
+    // this is method to check if title input has changed
+    // when creating new post, so new slug is automatically
+    // generated
+    public function checkSlug(Request $request) {
+        // createSlug function
+        // first argument is which class to use
+        // second argument is what field to change to
+        // third argument is what we want to change it from
+        // $request->name comes from url paramters
+        $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
+        // dd("MAK LO");
+        // return as reponse
+        return response()->json([
+            "slug" => $slug
+        ]);
     }
 }

@@ -38,7 +38,7 @@
                                     class="bi bi-pencil-square"></i></a>
 
                                     {{-- this is route modle binding --}}
-                            <form action="/dashboard/categories/{{ $category->slug }}" method="post" class="d-inline">
+                            <form action="/dashboard/categories/{{ $category->id }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><i class="bi bi-x-circle"></i></button>

@@ -83,6 +83,9 @@ route::get('/dashboard', function () {
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
 
+Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug']);
+
+
 // This is route for resource controller
 // this will automatically RETURN YOU THE ROUTE YOU WANT
 // HOW? FUCKING MAGIC
