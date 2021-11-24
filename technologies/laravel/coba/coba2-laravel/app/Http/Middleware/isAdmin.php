@@ -14,10 +14,10 @@ class isAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    // we write our logic here
+    // we write our logic for middleware here
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->guest() || auth()->user()->username !== 'maomao'){
+        if(auth()->guest() || !auth()->user()->is_admin){
             abort(403);
         }
 

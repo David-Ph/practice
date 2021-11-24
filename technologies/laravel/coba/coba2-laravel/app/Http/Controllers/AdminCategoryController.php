@@ -22,6 +22,9 @@ class AdminCategoryController extends Controller
         // if(auth()->guest() || auth()->user()->username !== 'maomao'){
         //     abort(403);
         // }
+
+        // using gate
+        // $this->authorize('admin');
         
         return view('dashboard.categories.index', [
             'categories' => Category::all()

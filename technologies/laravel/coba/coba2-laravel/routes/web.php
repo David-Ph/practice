@@ -110,6 +110,10 @@ Route::resource('/dashboard/posts', DashboardPostController::class)->middleware(
 //     ]);
 // });
 
+// using gates, do authorization check in controller
+// Route::resource('/dashboard/categories', AdminCategoryController::class)
+//     ->except('show');
+
 // add custom middleware
 // don't forget to enter the new middleware to the kernel first
 Route::resource('/dashboard/categories', AdminCategoryController::class)
