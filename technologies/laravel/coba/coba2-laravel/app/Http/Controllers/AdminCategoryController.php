@@ -15,7 +15,14 @@ class AdminCategoryController extends Controller
     // GET request to /dashboard/categories will redirect to this
     public function index()
     {
-        //
+        // check if user has logged in
+        // use auth()->guest() to check if user has logged in, will return true if not logged in
+        // use auth()->check() to check if user has logged in, will return false if not logged in
+        // it's better to use middleware for this though
+        // if(auth()->guest() || auth()->user()->username !== 'maomao'){
+        //     abort(403);
+        // }
+        
         return view('dashboard.categories.index', [
             'categories' => Category::all()
         ]);
