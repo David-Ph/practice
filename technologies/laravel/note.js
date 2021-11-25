@@ -122,4 +122,7 @@ to do it, you need to link it to /public, the command is
 ? php artisan storage:link
 and then you can access it with
 ? echo asset('storage/post-image/photo.jpeg')
+
+to create a new migration
+php artisan make:migration add_is_admin_to_users_table
 */

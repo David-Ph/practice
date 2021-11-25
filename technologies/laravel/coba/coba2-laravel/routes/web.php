@@ -1,6 +1,8 @@
 <?php
 
 // import the namespace from Post models
+
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -81,6 +83,9 @@ route::get('/dashboard', function () {
 
 Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug']);
 
+Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug']);
+
+
 // This is route for resource controller
 // this will automatically RETURN YOU THE ROUTE YOU WANT
 // HOW? FUCKING MAGIC
@@ -107,3 +112,17 @@ Route::resource('/dashboard/posts', DashboardPostController::class)->middleware(
 //         'posts' => $author->posts->load("category", "author"),
 //     ]);
 // });
+
+// using gates, do authorization check in controller
+// Route::resource('/dashboard/categories', AdminCategoryController::class)
+//     ->except('show');
+
+// add custom middleware
+// don't forget to enter the new middleware to the kernel first
+Route::resource('/dashboard/categories', AdminCategoryController::class)
+    ->except('show')
+    ->middleware('isAdmin');
+
+// Route::resource('/dashboard/categories', AdminCategoryController::class)
+//     ->except('show')
+//     ->middleware('auth');
