@@ -1,10 +1,13 @@
+import React from 'react';
 
-import './App.css';
+import UserInput from './components/User/UserInput';
 
 function App() {
   return (
-    <div className="App">
-
+    <div>
+      <section id="user-input">
+        < UserInput />
+      </section>
     </div>
   );
 }
