@@ -3,7 +3,7 @@ import React from "react";
 import Card from "../UI/Card";
 import UserItem from "./UserItem";
 
-import classes from "./UserList.module.css";
+// import classes from "./UserList.module.css";
 
 function UserList(props) {
   return (
