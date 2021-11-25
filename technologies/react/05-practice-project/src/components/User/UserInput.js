@@ -5,17 +5,31 @@ import Card from '../UI/Card';
 
 import classes from './UserInput.module.css';
 
-function UserInput() {
+function UserInput(props) {
+    const usernameInput = document.querySelector('#username');
+    const ageInput = document.querySelector('#age');
+
+    const submitFormHandler = (event) => {
+        event.preventDefault();
+        props.onAddUser({
+            username: usernameInput.value,
+            age: ageInput.value,
+            id: Math.random()
+        });
+        usernameInput.value = "";
+        ageInput.value = "";
+    }
+
     return (
         <Card className={classes.input}>
-            <form>
+            <form onSubmit={submitFormHandler}>
                 <div>
-                    <label for="username">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input id="username" name="username" type="text" />
                 </div>
                 <div>
-                    <label for="age">Age (Years)</label>
-                    <input type="text" id="age" name="age" />
+                    <label htmlFor="age">Age (Years)</label>
+                    <input type="number" id="age" name="age" />
                 </div>
                 <div>
                     <Button type="submit">Add User</Button>
