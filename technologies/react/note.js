@@ -43,4 +43,8 @@ My simple explanation of what this.props.children does is that it is used to dis
 * Common problem with react is that JSX can't return two adjacent element, so you need to wrap them in a single div. The problem with this is you can end up with a lot of unnecessary div.
 
 ? the solution to this is you can create a wrapper component that only returns props.children, so this is basically an empty element.
+
+You can create your own empty wrapper component, or you can just use the one that comes with react called
+? <React.Fragment> {props.children} </React.Fragment> OR
+?   <> {props.children} </>
 */
