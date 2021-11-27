@@ -47,4 +47,8 @@ My simple explanation of what this.props.children does is that it is used to dis
 You can create your own empty wrapper component, or you can just use the one that comes with react called
 ? <React.Fragment> {props.children} </React.Fragment> OR
 ?   <> {props.children} </>
+
+another problem with react jsx is that sometimes you don't want to write the html in the component you're rendering, for example, for a modal, you probably want to put it on the top level of html.
+
+THis is where react portal can help you.
 */
