@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/v1/healthCheck', function(){
-    return "Hello! API is running correctly!";
+// Route::get('/v1/healthCheck', function () {
+// });
+
+Route::prefix('/v1')->group(function () {
+    Route::get('/healthcheck', function () {
+        return "Hello! API is running correctly!";
+    });
+
+    Route::apiResource('register', RegisterController::class);
 });
