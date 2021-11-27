@@ -5,6 +5,7 @@ import Card from "./Card";
 import Button from "./Button";
 import classes from "./ErrorModal.module.css";
 
+// create react components for react portal
 const BackDrop = (props) => {
   return <div className={classes.backdrop} onClick={props.onConfirm} />;
 };
