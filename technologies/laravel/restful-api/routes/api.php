@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\ActorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,17 @@ use App\Http\Controllers\AuthController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// routes for config
+Route::prefix('/v1/config')->group(function () {
+    Route::get('/healthcheck', function () {
+        return "Hello! API is running correctly!";
+    });
+
+    Route::get('/categories', [CategoryController::class, 'getCategories']);
+
+    Route::get('/actors', [ActorController::class, 'getActors']);
 });
 
 // routes for users
@@ -40,7 +52,7 @@ Route::prefix('/v1/movies')->group(function () {
     });
 });
 
-Route::any('{any}', function() {
+Route::any('{any}', function () {
     return response()->json([
         "message" => "Route not found"
     ], 404);
