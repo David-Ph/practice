@@ -23,39 +23,13 @@ class RegisterController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $validator =  Validator::make($request->all(), [
-            "username" => "required|min:3|max:100",
-            "email" => "required|unique:users",
-            "password" => "required|min:5|max:255"
+    public function store(Request $request) {        
+        $newUser = User::create($request->all());
+
+        return response()->json([
+            "user" => $newUser,
+            "status" => 201
         ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                "error" => 'validation_error',
-                "message" => $validator->errors(),
-            ], 422);
-        }
-
-
-
-        // validate user input
-        // $validated = $request->validate([
-        //     "username" => "required|min:3|max:100",
-        //     "email" => "required|unique:users",
-        //     "password" => "required|min:5|max:255"
-        // ]);
-
-        // $validated["password"] = Hash::make($validated["password"]);
-
-        // User::create($validated);
-
-        // unset($validated["password"]);
-
-        // return response()->json([
-        //     "user" => $validated,
-        //     "status" => 201
-        // ]);
     }
 
     /**

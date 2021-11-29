@@ -26,6 +26,7 @@ Route::prefix('/v1')->group(function () {
     Route::get('/healthcheck', function () {
         return "Hello! API is running correctly!";
     });
-
-    Route::apiResource('register', RegisterController::class);
+    
+    Route::post('/register', [RegisterController::class, 'store'])
+        ->middleware('registerValidator');
 });
