@@ -39,4 +39,16 @@ In react, if we want to do inline css, we put the style property in the html, an
 ? <div className="chart-bar__fill" style={{ height: barFillHeight }}></div>
 
 My simple explanation of what this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
+
+* Common problem with react is that JSX can't return two adjacent element, so you need to wrap them in a single div. The problem with this is you can end up with a lot of unnecessary div.
+
+? the solution to this is you can create a wrapper component that only returns props.children, so this is basically an empty element.
+
+You can create your own empty wrapper component, or you can just use the one that comes with react called
+? <React.Fragment> {props.children} </React.Fragment> OR
+?   <> {props.children} </>
+
+another problem with react jsx is that sometimes you don't want to write the html in the component you're rendering, for example, for a modal, you probably want to put it on the top level of html.
+
+THis is where react portal can help you.
 */
