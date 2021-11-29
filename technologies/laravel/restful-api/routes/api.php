@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +25,10 @@ Route::prefix('/v1')->group(function () {
         return "Hello! API is running correctly!";
     });
 
-    Route::post('/register', [RegisterController::class, 'store'])
+    Route::post('/register', [AuthController::class, 'register'])
         ->middleware('registerValidator');
 
-    Route::post('/login', [LoginController::class, 'store'])
+    Route::post('/login', [AuthController::class, 'login'])
         ->middleware('loginValidator');
 });
 

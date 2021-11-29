@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller {
+class AuthController extends Controller
+{
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function login(Request $request)
+    {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message' => 'Invalid login details'
@@ -32,13 +36,40 @@ class LoginController extends Controller {
         ]);
     }
 
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $data = $request->all();
+        
+        $newUser = User::create([
+            "username" => $data['username'],
+            "email" => $data['email'],
+            "password" => Hash::make($data['password']),
+        ]);
+
+        $token = $newUser->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            "user" => $newUser,
+            "access_token" => $token,
+            "token_type" => "Bearer",
+            "status" => 201
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user) {
+    public function show(User $user)
+    {
         //
     }
 
@@ -49,7 +80,8 @@ class LoginController extends Controller {
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user) {
+    public function update(Request $request, User $user)
+    {
         //
     }
 
@@ -59,7 +91,8 @@ class LoginController extends Controller {
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user) {
+    public function destroy(User $user)
+    {
         //
     }
 }
