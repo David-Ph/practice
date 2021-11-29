@@ -20,7 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('/v1')->group(function () {
+// routes for users
+Route::prefix('/v1/user')->group(function () {
     Route::get('/healthcheck', function () {
         return "Hello! API is running correctly!";
     });
@@ -30,6 +31,13 @@ Route::prefix('/v1')->group(function () {
 
     Route::post('/login', [AuthController::class, 'login'])
         ->middleware('loginValidator');
+});
+
+// routes for movies
+Route::prefix('/v1/movies')->group(function () {
+    Route::get('/healthcheck', function () {
+        return "Hello! API is running correctly!";
+    });
 });
 
 Route::any('{any}', function() {
