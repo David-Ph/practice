@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('/v1/healthCheck', function () {
-// });
-
 Route::prefix('/v1')->group(function () {
     Route::get('/healthcheck', function () {
         return "Hello! API is running correctly!";
     });
-    
+
     Route::post('/register', [RegisterController::class, 'store'])
         ->middleware('registerValidator');
+
+    Route::post('/login', [LoginController::class, 'store'])
+        ->middleware('loginValidator');
 });
+
+Route::any('{any}', function() {
+    return response()->json([
+        "message" => "Route not found"
+    ], 404);
+})->where('any', '.*');

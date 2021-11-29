@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
-class RegisterController extends Controller {
+class LoginController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
@@ -15,21 +14,21 @@ class RegisterController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $data = $request->all();
-        
-        $newUser = User::create([
-            "username" => $data['username'],
-            "email" => $data['email'],
-            "password" => Hash::make($data['password']),
-        ]);
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json([
+                'message' => 'Invalid login details'
+            ], 401);
+        }
 
-        $token = $newUser->createToken('auth_token')->plainTextToken;
+        $user = User::where('email', $request['email'])->firstOrFail();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            "user" => $newUser,
-            "access_token" => $token,
-            "token_type" => "Bearer",
-            "status" => 201
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'status' => 200
         ]);
     }
 
