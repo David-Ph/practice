@@ -14,7 +14,10 @@ class ReviewFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "user_id" => mt_rand(1, 5),
+            "movie_id" => mt_rand(1, 25),
+            "rating" => mt_rand(1, 5),
+            "content" => $this->faker->paragraphs(3, 5),
         ];
     }
 }

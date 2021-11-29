@@ -19,6 +19,11 @@ class Movie extends Model
         'id'
     ];
 
+    protected $casts = [
+        'categories' => 'array',
+        'actors' => 'array'
+    ];
+
     public function review() {
         return $this->hasMany(Review::class);
     }
