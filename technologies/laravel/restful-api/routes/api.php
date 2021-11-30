@@ -53,6 +53,8 @@ Route::prefix('/v1/movies')->group(function () {
     });
 
     Route::get('/', [MovieController::class, 'index']);
+
+    Route::get('/{id}', [MovieController::class, 'show']);
 });
 
 Route::any('{any}', function () {
