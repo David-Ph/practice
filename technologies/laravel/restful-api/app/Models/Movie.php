@@ -24,7 +24,15 @@ class Movie extends Model
         'actors' => 'array'
     ];
 
+    public function scopeFilterByCategory($query, $filters){
+        $query->when($filters ?? false, function ($query, $search) {
+            return $query->where('categories', 'like', '%' . $search . '%');
+        });
+    }
+
     public function review() {
         return $this->hasMany(Review::class);
     }
+
+
 }

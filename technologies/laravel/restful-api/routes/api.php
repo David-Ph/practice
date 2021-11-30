@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MovieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::prefix('/v1/movies')->group(function () {
     Route::get('/healthcheck', function () {
         return "Hello! API is running correctly!";
     });
+
+    Route::get('/', [MovieController::class, 'index']);
 });
 
 Route::any('{any}', function () {

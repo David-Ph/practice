@@ -4,17 +4,17 @@
 
 - TypeScript -> Completed a course and created a basic crud app
 - PostgreSQL -> Completed a basic CRUD app with node-postgres
-- React -> Just started
+- React -> Doing a course on react.
 - Deeper look on Sequelize
-- redis
+- redis -> Learnt Basic Theory
 - Websocket
 - GraphQL
 - RabbitMQ / Beanstalkd / Amazon SQS ( Message Queue )
-- PHP(Laravel) -> Completed Basic, OOP, MVC -> Starting on Laravel 
+- PHP(Laravel) -> Completed courses on Basic, OOP, MVC, Laravel -> currently making a CRUD app
 - Golang
 - Java ( Spring Boot )
-- Database Indexes
-- B-tree
+- Database Indexes -> Learnt Basic Theory
+- B-tree -> Learnt Basic Theory
 
 [![David's GitHub stats](https://github-readme-stats.vercel.app/api?username=david-ph&theme=dark)](https://github.com/david-ph/github-readme-stats)
 

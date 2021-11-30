@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Models\Movie;
+use Illuminate\Http\Request;
 
-class MovieController extends Controller
-{
+class MovieController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request) {
+        $movies = Movie::orderBy('created_at', 'asc')->filterByCategory(request('category'))->paginate(10);
+
+        $params = request('category');
+        return response()->json([
+            "params" => $params,
+            "data" => $movies
+        ]);
     }
 
     /**
@@ -23,8 +28,7 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -34,8 +38,7 @@ class MovieController extends Controller
      * @param  \App\Http\Requests\StoreMovieRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMovieRequest $request)
-    {
+    public function store(StoreMovieRequest $request) {
         //
     }
 
@@ -45,8 +48,7 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function show(Movie $movie)
-    {
+    public function show(Movie $movie) {
         //
     }
 
@@ -56,8 +58,7 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function edit(Movie $movie)
-    {
+    public function edit(Movie $movie) {
         //
     }
 
@@ -68,8 +69,7 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMovieRequest $request, Movie $movie)
-    {
+    public function update(UpdateMovieRequest $request, Movie $movie) {
         //
     }
 
@@ -79,8 +79,7 @@ class MovieController extends Controller
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movie $movie)
-    {
+    public function destroy(Movie $movie) {
         //
     }
 }
