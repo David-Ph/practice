@@ -51,4 +51,13 @@ You can create your own empty wrapper component, or you can just use the one tha
 another problem with react jsx is that sometimes you don't want to write the html in the component you're rendering, for example, for a modal, you probably want to put it on the top level of html.
 
 THis is where react portal can help you.
+
+React main job is to render UI and react to user input, to do that, react evaluates and render jsx, manages state and props, react to events and inputs, and reevaluate components upon state and prop changes.
+
+Side effect is anything else, for example, store data in browser storage, send HTTP request, set and manage timers, etc.
+
+? useEffect(() => {}, [dependencies]);
+first argument is a function that runs after every component evaluation if the specified dependencies changes
+
+the second argument is the dependencies of this effect, the function only runs if this changes.
 */
