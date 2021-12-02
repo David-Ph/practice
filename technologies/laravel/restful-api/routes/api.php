@@ -58,6 +58,9 @@ Route::prefix('/v1/movies')->group(function () {
 
     Route::delete('/{movie:id}', [MovieController::class, 'destroy']);
 
+    Route::put('/{movie:id}', [MovieController::class, 'update'])
+        ->middleware(('updateMovieValidator'));
+
     Route::post('/createMovies', [MovieController::class, 'store'])
         ->middleware('movieValidator');
 });

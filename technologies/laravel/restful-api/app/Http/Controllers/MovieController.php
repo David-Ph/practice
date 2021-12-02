@@ -39,7 +39,7 @@ class MovieController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(StoreMovieRequest $request) {
         $data = $request->all();
         
         $newMovie = Movie::create([
@@ -77,6 +77,7 @@ class MovieController extends Controller {
 
         return response()->json([
             "data" => $movies,
+            "status" => 200
         ]);
     }
 
@@ -98,7 +99,54 @@ class MovieController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateMovieRequest $request, Movie $movie) {
-        //
+        $newData = $request->all();
+
+        if(!isset($newData["title"]) || empty($newData["title"])){
+            $newData["title"] = $movie->title;   
+        }
+
+        if(!isset($newData["description"]) || empty($newData["description"])){
+            $newData["description"] = $movie->description;   
+        }
+        
+        if(!isset($newData["categories"]) || empty($newData["categories"])){
+            $newData["categories"] = $movie->categories;   
+        }
+
+        if(!isset($newData["actors"]) || empty($newData["actors"])){
+            $newData["actors"] = $movie->actors;   
+        }
+
+        if(!isset($newData["trailer"]) || empty($newData["trailer"])){
+            $newData["trailer"] = $movie->trailer;   
+        }
+
+        if(!isset($newData["posterImage"]) || empty($newData["posterImage"])){
+            $newData["posterImage"] = $movie->posterImage;   
+        }
+
+        if(!isset($newData["releaseDate"]) || empty($newData["releaseDate"])){
+            $newData["releaseDate"] = $movie->releaseDate;   
+        }
+
+        if(!isset($newData["director"]) || empty($newData["director"])){
+            $newData["director"] = $movie->director;   
+        }
+
+        if(!isset($newData["budget"]) || empty($newData["budget"])){
+            $newData["budget"] = $movie->budget;   
+        }
+
+        if(!isset($newData["featuredSong"]) || empty($newData["featuredSong"])){
+            $newData["featuredSong"] = $movie->featuredSong;   
+        }
+
+        Movie::where('id', $movie->id)->update($newData);
+
+        return response()->json([
+            "movie" => $newData,
+            "status" => 201
+        ]);
     }
 
     /**
