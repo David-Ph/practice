@@ -68,12 +68,12 @@ class MovieController extends Controller {
      * @param  \App\Models\Movie  $movie
      * @return \Illuminate\Http\Response
      */
-    // public function show(Movie $movie) {
-    public function show($id) {
+    public function show(Movie $movie) {
+    // public function show($id) {
         $movies = Movie::with([
             'review',
             'review.user:id,username'
-            ])->where('id', $id)->get();
+            ])->where('id', $movie->id)->get();
 
         return response()->json([
             "data" => $movies,
@@ -108,6 +108,11 @@ class MovieController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Movie $movie) {
-        //
+        Movie::destroy($movie->id);
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Movie is successfully deleted"
+        ]);
     }
 }
