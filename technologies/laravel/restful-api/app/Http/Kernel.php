@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'registerValidator' => \App\Http\Middleware\RegisterValidator::class,
         'loginValidator' => \App\Http\Middleware\LoginValidator::class,
+        'movieValidator' => \App\Http\Middleware\MovieValidator::class,
     ];
 
 }
