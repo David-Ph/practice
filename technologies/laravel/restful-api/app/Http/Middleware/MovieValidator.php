@@ -18,11 +18,11 @@ class MovieValidator {
     public function handle(Request $request, Closure $next) {
         $validator =  Validator::make($request->all(), [
             "title" => "required|min:3|max:100",
-            "description" => "required|unique:users",
+            "description" => "nullable",
             "categories" => "present|array",
             "actors" => "present|array",
             "trailer" => "url",
-            "posterImage" => "",
+            "posterImage" => "url",
             "releaseDate" => "date",
             "director" => "string",
             "budget" => "integer|min:0",
@@ -37,8 +37,8 @@ class MovieValidator {
         }
 
         $availableCategories = CategoryController::getCategories();
-
-        foreach ($validator["categories"] as $categories) {
+        $inputtedCategories = $request->all()["categories"];
+        foreach ($inputtedCategories as $categories) {
             if (!in_array($categories, $availableCategories)) {
                 return response()->json([
                     "error" => 'validation_error',

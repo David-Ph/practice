@@ -56,7 +56,8 @@ Route::prefix('/v1/movies')->group(function () {
 
     Route::get('/{id}', [MovieController::class, 'show']);
 
-    Route::post('/', [MovieController::class, 'store']);
+    Route::post('/createMovies', [MovieController::class, 'store'])
+        ->middleware('movieValidator');
 });
 
 Route::any('{any}', function () {

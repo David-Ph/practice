@@ -36,11 +36,30 @@ class MovieController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMovieRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMovieRequest $request) {
-        //
+    public function store(Request $request) {
+        $data = $request->all();
+        
+        $newMovie = Movie::create([
+            "title" => $data["title"],
+            "description" => $data["description"],
+            "categories" => $data["categories"],
+            "actors" => $data["actors"],
+            "trailer" => $data["trailer"],
+            "posterImage" => $data["posterImage"],
+            "releaseDate" => $data["releaseDate"],
+            "director" => $data["director"],
+            "budget" => $data["budget"],
+            "featuredSong" => $data["featuredSong"],
+            "rating" => 0
+        ]);
+
+        return response()->json([
+            "movie" => $newMovie,
+            "status" => 201
+        ]);
     }
 
     /**
