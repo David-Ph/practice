@@ -15,7 +15,13 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = Review::orderBy('created_at', 'asc')
+            ->filterByMovie(request('movie_id'))
+            ->paginate(10);
+
+        return response()->json([
+            "data" => $reviews
+        ]);
     }
 
     /**
@@ -36,7 +42,19 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        //
+        $data = $request->all();
+        
+        $newReview = Review::create([
+            "movie_id" => $data["movie_id"],
+            "user_id" => $data["user_id"],
+            "rating" => $data["rating"],
+            "content" => $data["content"],
+        ]);
+
+        return response()->json([
+            "data" => $newReview,
+            "status" => 201
+        ]);
     }
 
     /**
@@ -47,7 +65,14 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        $reviews = Review::with([
+            'user',
+            ])->where('id', $review->id)->get();
+
+        return response()->json([
+            "data" => $reviews,
+            "status" => 200
+        ]);
     }
 
     /**
@@ -58,7 +83,6 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
     }
 
     /**
@@ -70,7 +94,22 @@ class ReviewController extends Controller
      */
     public function update(UpdateReviewRequest $request, Review $review)
     {
-        //
+        $newData = $request->all();
+
+        if(!isset($newData["rating"]) || empty($newData["rating"])){
+            $newData["rating"] = $review->rating;   
+        }
+
+        if(!isset($newData["content"]) || empty($newData["content"])){
+            $newData["content"] = $review->content;   
+        }
+
+        Review::where('id', $review->id)->update($newData);
+
+        return response()->json([
+            "review" => $newData,
+            "status" => 201
+        ]);
     }
 
     /**
@@ -81,6 +120,11 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        Review::destroy($review->id);
+
+        return response()->json([
+            "status" => 200,
+            "message" => "Review is successfully deleted"
+        ]);
     }
 }

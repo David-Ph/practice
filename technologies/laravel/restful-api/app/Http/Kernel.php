@@ -67,6 +67,8 @@ class Kernel extends HttpKernel
         'loginValidator' => \App\Http\Middleware\LoginValidator::class,
         'movieValidator' => \App\Http\Middleware\MovieValidator::class,
         'updateMovieValidator' => \App\Http\Middleware\UpdateMovieValidator::class,
+        'createReviewValidator' => \App\Http\Middleware\CreateReviewValidator::class,
+        'updateReviewValidator' => \App\Http\Middleware\UpdateReviewValidator::class,
     ];
 
 }

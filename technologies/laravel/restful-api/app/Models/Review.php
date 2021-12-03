@@ -20,6 +20,12 @@ class Review extends Model
         'id'
     ];
 
+    public function scopeFilterByMovie($query, $filters){
+        $query->when($filters ?? false, function ($query, $search) {
+            return $query->where('movie_id', '=', $search);
+        });
+    }
+
     public function movie() {
         return $this->belongsTo(Movie::class);
     }

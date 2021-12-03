@@ -71,18 +71,18 @@ Route::prefix('/v1/reviews')->group(function () {
     Route::get('/healthcheck', function () {
         return "Hello! API is running correctly!";
     });
-
+    
     Route::get('/', [ReviewController::class, 'index']);
 
-    Route::get('/{movie:id}', [ReviewController::class, 'show']);
+    Route::get('/{review:id}', [ReviewController::class, 'show']);
 
-    Route::delete('/{movie:id}', [ReviewController::class, 'destroy']);
+    Route::delete('/{review:id}', [ReviewController::class, 'destroy']);
 
-    Route::put('/{movie:id}', [ReviewController::class, 'update'])
-        ->middleware(('updateMovieValidator'));
+    Route::put('/{review:id}', [ReviewController::class, 'update'])
+        ->middleware((['auth:sanctum', 'updateReviewValidator']));
 
     Route::post('/', [ReviewController::class, 'store'])
-        ->middleware('movieValidator');
+        ->middleware(['auth:sanctum', 'createReviewValidator']);
 });
 
 Route::any('{any}', function () {
