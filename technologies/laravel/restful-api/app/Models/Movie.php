@@ -30,6 +30,12 @@ class Movie extends Model
         });
     }
 
+    public function scopeSearchByTitle($query, $filters){
+        $query->when($filters ?? false, function ($query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%');
+        });
+    }
+
     public function review() {
         return $this->hasMany(Review::class);
     }

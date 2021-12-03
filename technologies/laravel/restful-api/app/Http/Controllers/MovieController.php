@@ -17,7 +17,10 @@ class MovieController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $movies = Movie::orderBy('created_at', 'asc')->filterByCategory(request('category'))->paginate(10);
+        $movies = Movie::orderBy('created_at', 'asc')
+            ->filterByCategory(request('category'))
+            ->searchByTitle(request('search'))
+            ->paginate(10);
 
         return response()->json([
             "data" => $movies

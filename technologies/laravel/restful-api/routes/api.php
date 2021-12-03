@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +62,26 @@ Route::prefix('/v1/movies')->group(function () {
     Route::put('/{movie:id}', [MovieController::class, 'update'])
         ->middleware(('updateMovieValidator'));
 
-    Route::post('/createMovies', [MovieController::class, 'store'])
+    Route::post('/', [MovieController::class, 'store'])
+        ->middleware('movieValidator');
+});
+
+// routes for reviews
+Route::prefix('/v1/reviews')->group(function () {
+    Route::get('/healthcheck', function () {
+        return "Hello! API is running correctly!";
+    });
+
+    Route::get('/', [ReviewController::class, 'index']);
+
+    Route::get('/{movie:id}', [ReviewController::class, 'show']);
+
+    Route::delete('/{movie:id}', [ReviewController::class, 'destroy']);
+
+    Route::put('/{movie:id}', [ReviewController::class, 'update'])
+        ->middleware(('updateMovieValidator'));
+
+    Route::post('/', [ReviewController::class, 'store'])
         ->middleware('movieValidator');
 });
 
