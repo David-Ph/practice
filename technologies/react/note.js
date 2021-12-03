@@ -60,4 +60,25 @@ Side effect is anything else, for example, store data in browser storage, send H
 first argument is a function that runs after every component evaluation if the specified dependencies changes
 
 the second argument is the dependencies of this effect, the function only runs if this changes.
+
+another example of using useEffect:
+?    import { useEffect, useState } from 'react';
+?     
+?    let myTimer;
+?     
+?    const MyComponent = (props) => {
+?      const [timerIsActive, setTimerIsActive] = useState(false);
+?     
+?      const { timerDuration } = props; // using destructuring to pull out specific props values
+?     
+?      useEffect(() => {
+?        if (!timerIsActive) {
+?          setTimerIsActive(true);
+?          myTimer = setTimeout(() => {
+?            setTimerIsActive(false);
+?          }, timerDuration);
+?        }
+?      }, [timerIsActive, timerDuration]);
+?    };
+
 */
