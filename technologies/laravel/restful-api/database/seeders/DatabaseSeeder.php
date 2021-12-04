@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
 
         Movie::factory(25)->create();
 
-        Review::factory(35)->create();
+        // Review::factory(35)->create();
     }
 }

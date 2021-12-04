@@ -21,7 +21,7 @@ class CreateReviewsTable extends Migration {
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->index(['user_id', 'movie_id']);
+            $table->unique(['user_id', 'movie_id']);
             $table->text("content");
             $table->integer("rating")->default(0);
             $table->timestamps();
