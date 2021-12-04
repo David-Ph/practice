@@ -32,14 +32,18 @@ We can also pass data from child to parent by parent passing a function as point
 
 Lifting a state up is when a child component passes data to another sibling component by passing the data through the parent component, and that parent component passes the data to the component that needed it
 
+TODO: React conditional rendering
 In react, we can do conditonal rendering by doing
 ? {filteredExpenses.length === 0 && <p>No expenses on this year.</p>}
 
+TODO: React inline css
 In react, if we want to do inline css, we put the style property in the html, and then we insert a javascript object inside of it
 ? <div className="chart-bar__fill" style={{ height: barFillHeight }}></div>
 
+TODO: react props children
 My simple explanation of what this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
 
+TODO: React Wrapper
 * Common problem with react is that JSX can't return two adjacent element, so you need to wrap them in a single div. The problem with this is you can end up with a lot of unnecessary div.
 
 ? the solution to this is you can create a wrapper component that only returns props.children, so this is basically an empty element.
@@ -48,10 +52,15 @@ You can create your own empty wrapper component, or you can just use the one tha
 ? <React.Fragment> {props.children} </React.Fragment> OR
 ?   <> {props.children} </>
 
+TODO: React Portal
 another problem with react jsx is that sometimes you don't want to write the html in the component you're rendering, for example, for a modal, you probably want to put it on the top level of html.
 
 THis is where react portal can help you.
 
+TODO: react ref
+use you use react useRef to get reference to a DOM element, kinda similar to document.querySelector
+
+TODO: React side effects
 React main job is to render UI and react to user input, to do that, react evaluates and render jsx, manages state and props, react to events and inputs, and reevaluate components upon state and prop changes.
 
 Side effect is anything else, for example, store data in browser storage, send HTTP request, set and manage timers, etc.
@@ -84,4 +93,19 @@ another example of using useEffect:
 In every useEffect, you can return a function, this is called cleanup.
 it runs before every new side effects function execution.
 
+
+TODO: React usereducer
+somtimes in react when you have too many state to manage, it can be buggy and hard to manage
+usereducer can help you
+
+In general, updating a state depending on another state might not be a good idea, because not only it gets messy, but also because it might not be the latest update of that state.
+
+in that case, merging it into one state with the help of useReducer is a good idea.
+
+? const [state, dispatchFn] = useReducer(reducerFn, initialState, initFNn;
+state = the latest state snapshot used in the component
+dispatchFn = a function to dispatch a new action(updating the state), this action will be consumed by reducerFn
+reducerFn = a function that is triggered automatically once an action is dispatched, it receives the latest state snapshot and should return the new, updated state
+initialState = ?
+initFn = a function to set the initial state
 */
