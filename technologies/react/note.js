@@ -43,7 +43,7 @@ In react, if we want to do inline css, we put the style property in the html, an
 TODO: react props children
 My simple explanation of what this.props.children does is that it is used to display whatever you include between the opening and closing tags when invoking a component.
 
-TODO: React Wrapper
+TODO: React Wrapper and Fragment
 * Common problem with react is that JSX can't return two adjacent element, so you need to wrap them in a single div. The problem with this is you can end up with a lot of unnecessary div.
 
 ? the solution to this is you can create a wrapper component that only returns props.children, so this is basically an empty element.
@@ -51,6 +51,8 @@ TODO: React Wrapper
 You can create your own empty wrapper component, or you can just use the one that comes with react called
 ? <React.Fragment> {props.children} </React.Fragment> OR
 ?   <> {props.children} </>
+
+
 
 TODO: React Portal
 another problem with react jsx is that sometimes you don't want to write the html in the component you're rendering, for example, for a modal, you probably want to put it on the top level of html.
@@ -109,5 +111,25 @@ reducerFn = a function that is triggered automatically once an action is dispatc
 initialState = ?
 initFn = a function to set the initial state
 
-so basically 
+so basically the flow is, state is the state that holds all the states you want to handle. 
+dispatchFn is the function you call when you want to update the state, in it, you typically pass an object with the updated value and a type property. and this action will be passed to reducerFn
+
+in reducerFn, you check what type is the action that is passed, and depending on that type, you decide what state to update.
+
+? useReducer vs useState.
+Usually you want to use useState, but when it gets cumbersome or it becomes too big, you want to use useReducer. useReducer can also be useful when you have a state that depends on other state
+
+TODO: React Context
+In react, sometimes we need to pass data through props to other components
+this can get troublesome in bigger app because we might pass props through a LOT of components that doesn't actually need it.
+this is where react context can help
+
+the flow is: We create a AuthContext, then we export and import it in the component that needs it the most, then we create a provider, and then set up a consumer in the child component that needs it
+
+we can also pass a function through context
+
+? When to use props vs context?
+If your component is reusable, use props
+if it's something very specific and it has to go through a lot of components, use context
+
 */
