@@ -12,9 +12,31 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+    // so the problem with side effect here
+    // it will run for every keystroke
+    // if instead of checking form validity, it sends a http request
+    // it will send MANY unnecessary requests
+    // that's why we add delay to it
+    // the way this delay works is
+    // setTimeout will run once when the component rendered
+    // and useEffect runs for the first time
+    // and the next useEffect runs, it will add a 500 milisecond delay
+    // if the useEffect runs again in the 500 milisecond window
+    // the timeout will be cleared, and setFormIsValid will not run
+
+    const checkValidity = setTimeout(() => {
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    return () => {
+      // console.log("THIS RUNS");
+      // console.log("this will runs just before the next useEffect");
+      // console.log("runs. So we can use this part of the code");
+      // console.log("as a cleanup.");
+      clearTimeout(checkValidity);
+    }
   }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {

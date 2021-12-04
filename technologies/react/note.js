@@ -81,4 +81,7 @@ another example of using useEffect:
 ?      }, [timerIsActive, timerDuration]);
 ?    };
 
+In every useEffect, you can return a function, this is called cleanup.
+it runs before every new side effects function execution.
+
 */
