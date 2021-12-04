@@ -70,7 +70,7 @@ class Kernel extends HttpKernel
         'createReviewValidator' => \App\Http\Middleware\CreateReviewValidator::class,
         'updateReviewValidator' => \App\Http\Middleware\UpdateReviewValidator::class,
         'updateMovieRating' => \App\Http\Middleware\UpdateMovieRating::class,
-
+        'deleteReviewValidator' => \App\Http\Middleware\DeleteReviewValidator::class,
     ];
 
 }
