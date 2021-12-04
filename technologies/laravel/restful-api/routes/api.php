@@ -79,10 +79,10 @@ Route::prefix('/v1/reviews')->group(function () {
     Route::delete('/{review:id}', [ReviewController::class, 'destroy']);
 
     Route::put('/{review:id}', [ReviewController::class, 'update'])
-        ->middleware((['auth:sanctum', 'updateReviewValidator']));
+        ->middleware((['auth:sanctum', 'updateReviewValidator', 'updateMovieRating']));
 
     Route::post('/', [ReviewController::class, 'store'])
-        ->middleware(['auth:sanctum', 'createReviewValidator']);
+        ->middleware(['auth:sanctum', 'createReviewValidator', 'updateMovieRating']);
 });
 
 Route::any('{any}', function () {

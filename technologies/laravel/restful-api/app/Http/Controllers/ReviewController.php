@@ -53,6 +53,7 @@ class ReviewController extends Controller
 
         return response()->json([
             "data" => $newReview,
+            "movie_id" => $data["movie_id"],
             "status" => 201
         ]);
     }
@@ -107,7 +108,8 @@ class ReviewController extends Controller
         Review::where('id', $review->id)->update($newData);
 
         return response()->json([
-            "review" => $newData,
+            "data" => $newData,
+            "movie_id" => $review->movie_id,
             "status" => 201
         ]);
     }
