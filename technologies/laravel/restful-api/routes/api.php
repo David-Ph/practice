@@ -76,7 +76,8 @@ Route::prefix('/v1/reviews')->group(function () {
 
     Route::get('/{review:id}', [ReviewController::class, 'show']);
 
-    Route::delete('/{review:id}', [ReviewController::class, 'destroy']);
+    Route::delete('/{review:id}', [ReviewController::class, 'destroy'])
+        ->middleware(['auth:sanctum', 'updateMovieRating']);
 
     Route::put('/{review:id}', [ReviewController::class, 'update'])
         ->middleware((['auth:sanctum', 'updateReviewValidator', 'updateMovieRating']));

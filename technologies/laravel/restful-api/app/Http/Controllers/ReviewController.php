@@ -122,11 +122,14 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
+        $reviewToDelete = $review;
         Review::destroy($review->id);
 
         return response()->json([
-            "status" => 200,
-            "message" => "Review is successfully deleted"
+            "status" => 201,
+            "message" => "Review is successfully deleted",
+            "review" => $reviewToDelete,
+            "movie_id" => $reviewToDelete->movie_id
         ]);
     }
 }

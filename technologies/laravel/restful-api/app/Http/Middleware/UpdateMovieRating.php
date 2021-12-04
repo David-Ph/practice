@@ -25,8 +25,10 @@ class UpdateMovieRating
 
             $totalMovieRating = $reviews->reduce(function ($total, $value) {
                 return $total + $value->rating;
-            }, 0);
-            $averageMovieRating = round($totalMovieRating / $reviews->count(), 2);
+            }, 0);            
+            $reviewsCount = $reviews->count() === 0 ? 1 : $reviews->count();
+
+            $averageMovieRating = round($totalMovieRating / $reviewsCount, 2);
 
             $findMovie = Movie::find($result->movie_id);
             $findMovie->rating = $averageMovieRating;;
