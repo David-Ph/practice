@@ -108,4 +108,6 @@ dispatchFn = a function to dispatch a new action(updating the state), this actio
 reducerFn = a function that is triggered automatically once an action is dispatched, it receives the latest state snapshot and should return the new, updated state
 initialState = ?
 initFn = a function to set the initial state
+
+so basically 
 */
