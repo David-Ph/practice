@@ -50,10 +50,6 @@ const passwordReducer = (state, action) => {
 };
 
 const Login = (props) => {
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [emailIsValid, setEmailIsValid] = useState();
-  // const [enteredPassword, setEnteredPassword] = useState("");
-  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -73,6 +69,24 @@ const Login = (props) => {
     };
   }, []);
 
+  // this is alias assignment 
+  // we put the isValid value to useEffect because otherwise it will run too often
+  // now this will only run when the validity state changed
+  const {isValid: emailIsValid} = emailState;
+  const {isValid: passwordIsValid} = passwordState;
+
+  useEffect(() => {
+    const checkValidity = setTimeout(() => {
+      setFormIsValid(
+        emailIsValid && passwordIsValid
+      );
+    }, 500);
+
+    return () => {
+      clearTimeout(checkValidity);
+    }
+  }, [emailIsValid, passwordIsValid]);
+
   const emailChangeHandler = (event) => {
     // we call dispatchEmail when we want to update value
     // or udpate the validity
@@ -81,10 +95,6 @@ const Login = (props) => {
       type: "USER_INPUT",
       val: event.target.value,
     });
-
-    setFormIsValid(
-      event.target.value.includes("@") && passwordState.value.trim().length > 6
-    );
   };
 
   const passwordChangeHandler = (event) => {
@@ -92,8 +102,6 @@ const Login = (props) => {
       type: "PASSWORD_CHANGE",
       value: event.target.value,
     });
-
-    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
 
   const validateEmailHandler = () => {
