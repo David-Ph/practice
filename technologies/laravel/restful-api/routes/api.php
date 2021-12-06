@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ActorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActorController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,9 @@ Route::prefix('/v1/user')->group(function () {
 
     Route::post('/login', [AuthController::class, 'login'])
         ->middleware('loginValidator');
+
+    Route::patch('/update', [UserController::class, 'update'])
+        ->middleware(['auth:sanctum', 'updateUserValidator']);
 
     Route::get('/getuser', [AuthController::class, 'getUser'])
         ->middleware('auth:sanctum');
