@@ -81,6 +81,9 @@ Route::prefix('/v1/reviews')->group(function () {
     
     Route::get('/', [ReviewController::class, 'index']);
 
+    Route::get('/myreviews', [ReviewController::class, 'userReviews'])
+        ->middleware(['auth:sanctum']);
+
     Route::get('/{review:id}', [ReviewController::class, 'show']);
 
     Route::delete('/{review:id}', [ReviewController::class, 'destroy'])

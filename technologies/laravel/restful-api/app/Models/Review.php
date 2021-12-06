@@ -26,6 +26,12 @@ class Review extends Model
         });
     }
 
+    public function scopeFilterByUser($query, $filters){
+        $query->when($filters ?? false, function ($query, $search) {
+            return $query->where('user_id', '=', $search);
+        });
+    }
+
     public function movie() {
         return $this->belongsTo(Movie::class);
     }

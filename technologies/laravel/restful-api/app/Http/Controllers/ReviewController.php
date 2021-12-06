@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 
@@ -20,7 +21,27 @@ class ReviewController extends Controller
             ->paginate(10);
 
         return response()->json([
-            "data" => $reviews
+            "data" => $reviews,
+            "status" => 200
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @param Illuminate\Http\Request;
+     * @return \Illuminate\Http\Response
+     */
+    public function userReviews(Request $request)
+    {
+        $reviews = Review::with([
+            "movie:id,title,posterImage"])
+            ->orderBy('created_at', 'asc')
+            ->filterByUser($request->user()->id)
+            ->paginate(10);
+
+        return response()->json([
+            "data" => $reviews,
+            "status" => 200
         ]);
     }
 
@@ -60,7 +81,7 @@ class ReviewController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Review  $review
      * @return \Illuminate\Http\Response
      */
