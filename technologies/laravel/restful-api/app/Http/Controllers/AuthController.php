@@ -62,6 +62,22 @@ class AuthController extends Controller
         ]);
     }
 
+     /**
+     * get data of currently logged in user through token.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUser(Request $request)
+    {
+        $data = $request->user();
+        $request = $request->bearerToken();
+        return response()->json([
+            "user" => $data,
+            "token" => $request,
+            "status" => 200
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *

@@ -45,6 +45,9 @@ Route::prefix('/v1/user')->group(function () {
 
     Route::post('/login', [AuthController::class, 'login'])
         ->middleware('loginValidator');
+
+    Route::get('/getuser', [AuthController::class, 'getUser'])
+        ->middleware('auth:sanctum');
 });
 
 // routes for movies
