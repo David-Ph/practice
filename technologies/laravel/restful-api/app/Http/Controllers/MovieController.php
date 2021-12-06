@@ -26,16 +26,7 @@ class MovieController extends Controller {
             "data" => $movies
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -82,16 +73,6 @@ class MovieController extends Controller {
             "data" => $movies,
             "status" => 200
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Movie  $movie
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Movie $movie) {
-        //
     }
 
     /**
