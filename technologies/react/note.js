@@ -4,12 +4,16 @@ With react, you can create a component that wraps other html or component elemen
 in that case, you need to set {props.children} or {props.className}
 in the wrapper component
 
+TODO: What is react component?
+React component is basically a function in react that returns a jsx at the end. and then it will be rendered in the app
+
 ? import {useState} from 'React';
 useState is a function provided from React library, it allows us to define values as state, and any change to those values should force the component function to rerender again
 
 useState needs a default value, for example
 ? const [title, setTitle] = useState(props.title);
 
+TODO: React useState
 you can also useState to an object
 const [input, setInput]useState = ({
     title: "",
@@ -27,6 +31,7 @@ setInput((prevState)=>{
     return {...prevState, title: event.target.value}
 })
 
+TODO: Passing data from parent to child component
 We can pass data from parents to child by passing props from parent to child.
 We can also pass data from child to parent by parent passing a function as pointer, and then the child components will need to call that function and return a value to the parent component.
 
@@ -132,4 +137,12 @@ we can also pass a function through context
 If your component is reusable, use props
 if it's something very specific and it has to go through a lot of components, use context
 
+TODO: rules of React Hooks
+    - Only call react hooks in react functions
+        1. React component function
+        2. Custom HOoks
+    - Only call react hooks at the top level
+        1. Don't call them in nested function
+        2. Don't call them in a block
+    - For useEffect, always add everything you everything you refer to inside of useEffect as dependency unless there's a good reason not to do that
 */
