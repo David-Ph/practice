@@ -145,4 +145,25 @@ TODO: rules of React Hooks
         1. Don't call them in nested function
         2. Don't call them in a block
     - For useEffect, always add everything you everything you refer to inside of useEffect as dependency unless there's a good reason not to do that
+
+TODO: useImperativeHandle or React Forward Refs
+Sometimes, very rarely, you want to access the functionality of the children component from the parents component. This is where useImperativeHandle and forwardRefs can help you
+
+In the children component, wrap the function in React.forwardRef(), set up the component function to accept another argument called ref and then call useImperativeHandle inside it.
+
+first argument is the ref props passed by the parents, and received in the function argument
+second argument is what we want to be available to the parents component 
+? useImperativeHandle(ref, () => {
+?  return {
+?    focus: activate,
+?    };
+? });
+
+and then in the parents component, let's make sure that the component we want receives the necessary ref
+and then we can call the functionality that's given to the parents by useImperativeHandle. like so: passwordInputRef.current.activate();
+
+
+
+
+
 */
