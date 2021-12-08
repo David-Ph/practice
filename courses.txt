@@ -31,3 +31,5 @@ https://www.udemy.com/course/the-complete-ruby-on-rails-developer-course/
 Web Socket / Socket IO : 
 
 RabbitMQ: 
+
+DSA with Javascript: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/
