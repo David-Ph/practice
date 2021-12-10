@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { ItemInterface } from "../interfaces/ItemInterface";
+import { History } from "./History";
 
 const ItemSchema = new mongoose.Schema<ItemInterface>(
   {
@@ -32,6 +33,33 @@ const ItemSchema = new mongoose.Schema<ItemInterface>(
     },
   }
 );
+
+ItemSchema.statics.createHistoryEntry = async function (item: ItemInterface) {
+  try {
+    // check if stock has changed
+    if (item.previousStock === item.stock) {
+      return;
+    }
+
+    // create new history
+    await History.create({
+      item: item._id,
+      previousStock: item.previousStock,
+      modifiedBy: item.stock - item.previousStock,
+      newStock: item.stock,
+    });
+
+    item.previousStock = item.stock;
+    await item.save();
+  } catch (error) {
+    return;
+  }
+};
+
+ItemSchema.post("findOneAndUpdate", function (doc) {
+  // check if stock has changed
+  doc.constructor.createHistoryEntry(doc);
+});
 
 const Item = mongoose.model<ItemInterface>("Item", ItemSchema);
 

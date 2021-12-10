@@ -1,8 +1,11 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 import { Item } from "../models/index";
+import {RequestQueryItem, FilterQueryItem} from "../interfaces/QueryInterfaces";
+import {ItemInterface} from "../interfaces/ItemInterface";
+
 
 class ItemController {
-  async getItems(req: Request, res: Response, next: NextFunction) {
+  async getItems(req: Request<{}, {}, {}, RequestQueryItem>, res: Response, next: NextFunction) {
     try {
       // price and stock filter
       let priceMin = +req.query.price_min! || 0;
@@ -10,7 +13,7 @@ class ItemController {
       let stockMin = +req.query.stock_min! || 0;
       let stockMax = +req.query.stock_max! || 100000;
 
-      const query: any = {
+      const query: FilterQueryItem = {
         price: { $gte: priceMin, $lte: priceMax },
         stock: { $gte: stockMin, $lte: stockMax },
       };
@@ -18,8 +21,8 @@ class ItemController {
       if (req.query.category) query.category = req.query.category;
 
       // sorting
-      const sortField = (req.query.sortBy as string) || "created_at";
-      const orderBy = (req.query.orderBy as string) || "desc";
+      const sortField = req.query.sortBy  || "created_at";
+      const orderBy = req.query.orderBy || "desc";
 
       // pagination
       const page = +req.query.page! || 0;
