@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
-
-interface ItemInterface {
-  name: string;
-  stock: number;
-  price: number;
-  category: string;
-  previousStock: number;
-}
+import { ItemInterface } from "../interfaces/ItemInterface";
 
 const ItemSchema = new mongoose.Schema<ItemInterface>(
   {
@@ -40,4 +33,6 @@ const ItemSchema = new mongoose.Schema<ItemInterface>(
   }
 );
 
-module.exports = mongoose.model<ItemInterface>('Item', ItemSchema);
+const Item = mongoose.model<ItemInterface>("Item", ItemSchema);
+
+export { Item };

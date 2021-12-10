@@ -11,5 +11,6 @@ const uri = mongoose
   .then(() => console.log("Connected to MongoDB!"))
   .catch((err) => console.log(err));
 
-import * as Item from "./Item";
-export { Item }
+import { Item } from "./Item";
+
+export { Item };
