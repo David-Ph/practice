@@ -1,11 +1,18 @@
 import { Request, Response, NextFunction } from "express";
+import { UpdateQuery } from "mongoose";
 import { Item } from "../models/index";
-import {RequestQueryItem, FilterQueryItem} from "../interfaces/QueryInterfaces";
-import {ItemInterface} from "../interfaces/ItemInterface";
-
+import {
+  RequestQueryItem,
+  FilterQueryItem,
+} from "../interfaces/QueryInterfaces";
+import { ItemInterface } from "../interfaces/ItemInterface";
 
 class ItemController {
-  async getItems(req: Request<{}, {}, {}, RequestQueryItem>, res: Response, next: NextFunction) {
+  async getItems(
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       // price and stock filter
       let priceMin = +req.query.price_min! || 0;
@@ -21,14 +28,14 @@ class ItemController {
       if (req.query.category) query.category = req.query.category;
 
       // sorting
-      const sortField = req.query.sortBy  || "created_at";
+      const sortField = req.query.sortBy || "created_at";
       const orderBy = req.query.orderBy || "desc";
 
       // pagination
       const page = +req.query.page! || 0;
       const limit = +req.query.limit! || 5;
       const skipCount = page > 0 ? ((page as number) - 1) * limit : 0;
-      
+
       // find data
       const data = await Item.find(query)
         .sort({ [sortField]: orderBy })
@@ -47,7 +54,11 @@ class ItemController {
     }
   }
 
-  async getOneItem(req: Request, res: Response, next: NextFunction) {
+  async getOneItem(
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const data = await Item.findOne({ _id: req.params.id });
 
@@ -61,7 +72,11 @@ class ItemController {
     }
   }
 
-  async createItem(req: Request, res: Response, next: NextFunction) {
+  async createItem(
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const data = await Item.create(req.body);
 
@@ -71,11 +86,17 @@ class ItemController {
     }
   }
 
-  async updateItem(req: Request, res: Response, next: NextFunction) {
+  async updateItem(
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
+      const updateData = req.body as UpdateQuery<ItemInterface>;
+
       const data = await Item.findOneAndUpdate(
         { _id: req.params.id },
-        req.body,
+        updateData,
         { new: true }
       );
 
@@ -85,7 +106,11 @@ class ItemController {
     }
   }
 
-  async updateStock(req: Request, res: Response, next: NextFunction) {
+  async updateStock(
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const data = await Item.findOneAndUpdate(
         { _id: req.params.id },
@@ -99,7 +124,11 @@ class ItemController {
     }
   }
 
-  async deleteItem(req: Request, res: Response, next: NextFunction) {
+  async deleteItem(
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const data = await Item.findOneAndDelete({ _id: req.params.id });
 

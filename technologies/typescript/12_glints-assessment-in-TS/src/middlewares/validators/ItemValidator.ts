@@ -2,13 +2,13 @@ import { Types } from "mongoose";
 import { Request, Response, NextFunction } from "express";
 import validator from "validator";
 import { Item } from "../../models";
-import * as ItemCategory from "../../config/ItemCategory.json";
+import ItemCategory from "../../config/ItemCategory.json";
 import { ItemInterface } from "../../interfaces/ItemInterface";
 import { RequestQueryItem } from "../../interfaces/QueryInterfaces";
 
 class ItemValidator {
   async create(
-    req: Request<{}, {}, ItemInterface>,
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
     res: Response,
     next: NextFunction
   ) {
@@ -65,12 +65,13 @@ class ItemValidator {
   }
 
   async get(
-    req: Request<{ id: string }, {}, {}, RequestQueryItem>,
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
     res: Response,
     next: NextFunction
   ) {
     try {
       const errorMessages = [];
+      console.log('HERE');
 
       if (req.params.id) {
         if (!Types.ObjectId.isValid(req.params.id)) {
@@ -101,7 +102,7 @@ class ItemValidator {
   }
 
   async update(
-    req: Request<{ id: string }, {}, ItemInterface>,
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
     res: Response,
     next: NextFunction
   ) {
@@ -145,10 +146,10 @@ class ItemValidator {
 
       // make sure that category is inserted in database as lowercase
       req.body.category = req.body.category.toLowerCase();
-
       if (errorMessages.length > 0) {
         return next({ statusCode: 400, messages: errorMessages });
       }
+
       next();
     } catch (error) {
       next(error);
@@ -156,7 +157,7 @@ class ItemValidator {
   }
 
   async updateStock(
-    req: Request<{ id: string }, {}, ItemInterface>,
+    req: Request<{ id: string }, {}, ItemInterface, RequestQueryItem>,
     res: Response,
     next: NextFunction
   ) {
@@ -191,3 +192,6 @@ class ItemValidator {
     }
   }
 }
+
+const ItemValidatorMiddleware = new ItemValidator();
+export { ItemValidatorMiddleware };

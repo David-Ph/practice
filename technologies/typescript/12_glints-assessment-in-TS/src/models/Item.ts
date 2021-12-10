@@ -14,6 +14,12 @@ const ItemSchema = new mongoose.Schema<ItemInterface>(
       min: 0,
       required: [true, "Stock can't be empty"],
     },
+    price: {
+      type: Number,
+      default: 0,
+      min: 0,
+      required: [true, "Price can't be empty"],
+    },
     category: {
       type: String,
       required: [true, "Category can't be empty"],
