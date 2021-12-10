@@ -12,5 +12,6 @@ const uri = mongoose
   .catch((err) => console.log(err));
 
 import { Item } from "./Item";
+import { History } from "./History";
 
-export { Item };
+export { Item, History };
