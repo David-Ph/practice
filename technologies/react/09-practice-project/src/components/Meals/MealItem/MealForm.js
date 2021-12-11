@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 import Input from "../../UI/Input";
 
 import classes from "./MealForm.module.css";
 
 function MealForm(props) {
+  const [amountIsValid, setAmountIsValid] = useState(true);
+  const amountRef = useRef();
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const enteredAmount = amountRef.current.value;
+    const amount = +enteredAmount;
+
+    if (enteredAmount.trim().length === 0) {
+      setAmountIsValid(false);
+      return;
+    }
+
+    props.onAddToCart(amount);
+  };
+
   return (
-    <div>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={submitHandler}>
         <Input
+          ref={amountRef}
           label="Amount"
           input={{
             id: "amount_" + props.id,
@@ -18,9 +35,9 @@ function MealForm(props) {
             type: "number",
           }}
         />
-        <button>Add to Cart</button>
+        <button type="submit">Add to Cart</button>
+        {!amountIsValid && <p>Invalid Amount</p> }
       </form>
-    </div>
   );
 }
 
