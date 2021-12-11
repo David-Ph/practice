@@ -5,6 +5,7 @@ import Header from "./components/Layout/Header";
 import Meals from "./components/Meals/Meals";
 
 function App() {
+  // * Cart State Management //
   const [cartIsShown, setCartIsShown] = useState(false);
 
   const showCartHandler = () => {
@@ -14,6 +15,8 @@ function App() {
   const hideCartHandler = () => {
     setCartIsShown(false);
   };
+  // * End of Cart State Management //
+
 
   return (
     <Fragment>
