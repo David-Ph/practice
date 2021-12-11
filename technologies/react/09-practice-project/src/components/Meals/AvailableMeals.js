@@ -1,13 +1,14 @@
 import React from "react";
 
-import { DUMMY_MEALS } from "./DummyMeals";
 import Card from "../UI/Card";
+import MealItem from "./MealItem/MealItem";
 
+import { DUMMY_MEALS } from "./DummyMeals";
 import classes from "./AvailableMeals.module.css";
 
 function AvailableMeals() {
   const mealsList = DUMMY_MEALS.map((meal) => {
-    return <li>{meal.name}</li>;
+    return < MealItem key={meal.id} meal={meal} />;
   });
 
   return (
