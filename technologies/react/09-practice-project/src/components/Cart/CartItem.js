@@ -1,12 +1,12 @@
 import React from "react";
 
-import classes from "CartItem.module.css";
+import classes from "./CartItem.module.css";
 
 function CartItem(props) {
   const price = `$${props.price.toFixed(2)}`;
 
   return (
-    <li>
+    <li className={classes["cart-item"]}>
       <div>
         <h2>{props.name}</h2>
         <div className={classes.summary}>
