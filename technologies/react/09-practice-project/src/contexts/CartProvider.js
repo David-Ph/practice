@@ -16,9 +16,26 @@ const cartReducer = (state, action) => {
     // the reason why we use concat instead of push
     // is because we want to create a brand new array instead of updating
     // previous state
-    const updatedItems = state.items.concat(action.item);
     const newTotalAmount =
       state.totalAmount + action.item.price * action.item.amount;
+
+    const findItemIndex = state.items.findIndex(
+      (item) => item.id === action.item.id
+    );
+    const findItem = state.items[findItemIndex];
+    let updatedItems;
+
+    if (findItem) {
+      const updatedItem = {
+        ...findItem,
+        amount: findItem.amount + action.item.amount,
+      };
+      updatedItems = [...state.items];
+      updatedItems[findItemIndex] = updatedItem;
+    } else {
+      updatedItems = state.items.concat(action.item);
+    }
+
     return {
       items: updatedItems,
       totalAmount: newTotalAmount,

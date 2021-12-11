@@ -8,23 +8,18 @@ import classes from "./Cart.module.css";
 
 function Cart(props) {
   const CartCtx = useContext(CartContext);
-
+  console.log(CartCtx.items);
   const totalAmount = `$${CartCtx.totalAmount.toFixed(2)}`;
   const hasItems = CartCtx.items.length > 0;
 
-  const addHandler = () => {
-    
-  }
+  const addHandler = () => {};
 
-  const removeHandler = () => {
-
-  }
+  const removeHandler = () => {};
 
   return (
     <Modal onClick={props.onHideCart}>
       <ul className={classes["cart-items"]}>
         {CartCtx.items.map((item) => (
-          <li>
             <CartItem
               key={item.id}
               name={item.name}
@@ -33,7 +28,6 @@ function Cart(props) {
               onAdd={addHandler.bind(null, item)}
               onRemove={removeHandler.bind(null, item.id)}
             />
-          </li>
         ))}
       </ul>
       <div className={classes.total}>
