@@ -64,5 +64,33 @@ obj2 === obj1 // true;
 
 ? Reevaluating or reexecuting a component is not the same as manipulating the dom. the dom will only be manipulated when there's something that needs to change
 
+If a component function is reexecuted every time something changes, then what happens to useState initial value? does it get reset everytime?
 
+No. The way react works, is that the initial value we put in useState, is only executed once, so it will store the state somewhere in memory. For the subsequent component execution, react will know that the state has already been created, and it will not create a new state.
+
+TODO: How to properly use state that depends on previous state?
+So the way react works is, when we use setStateFn(), it schedules that changes and only changes it when it got the chance to. Sometimes so many things may happens at once and this schedules might be full, so when you use setStateFn() and use the state directly, it will use the value from when it was last rerendered, and that may not be the value you want when so many schedules are happening.
+
+so thats why you can use ((prevstate)) to make sure you DO get the previousState, not just the state from the last time the component was rerendered.
+
+if, in one function, you use two setStates together in the same block, react will batch those updates into one state update. So it's just one process that will change two states.
+
+TODO: useMemo
+so if we do a performance intensive task like sorting in the child component, and we pass props to that child component, even if the sorting doesn't change, we'd still need to reexecute and redo the sorting if props changes. this is where useMemo can help us
+
+? const {items} = props;
+? 
+? const sortedList = useMemo(() => {
+?     return items.sort((a, b) => a - b);
+? }, [items])
+
+first argument is a function of we want to return, the second argument is the dependencies. basically the function will reexecute everytime the dependencies changes.
+
+now even if the whole component is reexecuted, if items does not change, the sorting will not be reexecuted.
+
+in parents components, this might be how it looks too because we want to make sure the parents doesnt give new object everytime
+
+? <DemoList title={newTitle} items={useMemo(() => [2, 3, 5, 1, 4], [])}
+
+we pass empty array as dependencies beucase that array enver changes
 */
