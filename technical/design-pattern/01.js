@@ -1,5 +1,6 @@
 /* 
 ! Chapter 1
+? The Strategy Pattern: defines a family of algorithms, encapsulates each one, and make the interchangable. Stragey lets the algorithm vary independently from clients that use it.
 ? Let's say we have a duck class
 */
 class Duck {
