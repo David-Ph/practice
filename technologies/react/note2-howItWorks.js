@@ -75,6 +75,21 @@ so thats why you can use ((prevstate)) to make sure you DO get the previousState
 
 if, in one function, you use two setStates together in the same block, react will batch those updates into one state update. So it's just one process that will change two states.
 
+another example is in this code below
+
+?const nameInputChangeHandler = (event) => {
+?    setEnteredName(event.target.value);
+?
+?    // the reason why we're accessing event target value here and not 
+?    // the enteredName state is, because the way react works, it schedules 
+?    // the state changes, so when this code below executes, we may not have\
+?    // the latest state changes yet
+?    
+?    if (event.target.value.trim() !== "") {
+?      setNameIsValid(true);
+?    }
+?  };
+
 TODO: useMemo
 so if we do a performance intensive task like sorting in the child component, and we pass props to that child component, even if the sorting doesn't change, we'd still need to reexecute and redo the sorting if props changes. this is where useMemo can help us
 

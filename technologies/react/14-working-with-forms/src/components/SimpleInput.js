@@ -16,12 +16,26 @@ function SimpleInput(props) {
     setEnteredName(event.target.value);
   };
 
+  const nameInputChangeHandler = (event) => {
+    setEnteredName(event.target.value);
+
+    // the reason why we're accessing event target value here and not
+    // the enteredName state is, because the way react works, it schedules
+    // the state changes, so when this code below executes, we may not have\
+    // the latest state changes yet
+
+    if (event.target.value.trim() !== "") {
+      setNameIsValid(true);
+    }
+  };
+
   const nameInputBlurHandler = (event) => {
     setNameIsTouched(true);
 
     if (enteredName.trim() === "") {
       setNameIsValid(false);
-      return;
+    } else {
+      setNameIsValid(true);
     }
   };
 
@@ -54,7 +68,7 @@ function SimpleInput(props) {
         <input
           type="text"
           id="name"
-          onChange={nameInputHandler}
+          onChange={nameInputChangeHandler}
           onBlur={nameInputBlurHandler}
           value={enteredName}
           ref={nameInputRef}
