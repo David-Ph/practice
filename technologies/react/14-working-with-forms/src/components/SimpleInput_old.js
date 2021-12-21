@@ -4,52 +4,45 @@ function SimpleInput(props) {
   const [enteredName, setEnteredName] = useState("");
   const [nameIsTouched, setNameIsTouched] = useState(false);
 
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [emailIsTouched, setEmailIsTouched] = useState(false);
-
+  // because this variable will be reevaluated whenver this component
+  // is rerendered (when any of the state changes), we can make sure that
+  // this variable will have the latest state snapshot
   const nameIsValid = enteredName.trim() !== "";
   const nameInputIsInvalid = !nameIsValid && nameIsTouched;
 
-  const emailIsValid = enteredEmail.trim() !== "" && enteredEmail.includes("@");
-  const emailInputIsInvalid = !emailIsValid && emailIsTouched;
-
   let formIsValid = false;
 
-  if (nameIsValid && emailIsValid) {
-    formIsValid = true;
+  if (nameIsValid) {
+    formIsValid(true);
   }
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
+
+    // the reason why we're accessing event target value here and not
+    // the enteredName state is, because the way react works, it schedules
+    // the state changes, so when this code below executes, we may not have\
+    // the latest state changes yet
+
+    // if (event.target.value.trim() !== "") {
+    //   setNameIsValid(true);
+    // }
   };
 
   const nameInputBlurHandler = (event) => {
     setNameIsTouched(true);
   };
 
-  const emailInputChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
-  };
-
-  const emailInputBlurHandler = (event) => {
-    setEmailIsTouched(true);
-  };
-
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    if (!nameIsValid || !emailIsValid) return;
+    if (!nameIsValid) return;
 
     setEnteredName("");
-    setEnteredEmail("");
     setNameIsTouched(false);
-    setEmailIsTouched(false);
+    // nameInputRef.current.value = "" => NOT IDEAL, DON'T TRY TO MANIPULATE THE DOM
   };
 
   const nameInputClases = !nameInputIsInvalid
-    ? "form-control"
-    : "form-control invalid";
-
-  const emailInputClasses = !emailInputIsInvalid
     ? "form-control"
     : "form-control invalid";
 
@@ -68,17 +61,6 @@ function SimpleInput(props) {
       {nameInputIsInvalid && (
         <p className="error-text">Name must not be empty</p>
       )}
-      <div className={emailInputClasses}>
-        <label htmlFor="name">Your Email</label>
-        <input
-          type="email"
-          id="email"
-          onChange={emailInputChangeHandler}
-          onBlur={emailInputBlurHandler}
-          value={enteredEmail}
-        />
-      </div>
-      {emailInputIsInvalid && <p className="error-text">Invalid Email</p>}
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
       </div>
