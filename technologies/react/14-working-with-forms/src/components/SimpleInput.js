@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function SimpleInput(props) {
   const nameInputRef = useRef();
@@ -6,8 +6,23 @@ function SimpleInput(props) {
   const [nameIsValid, setNameIsValid] = useState(false);
   const [nameIsTouched, setNameIsTouched] = useState(false);
 
+  useEffect(() => {
+    if (nameIsValid) {
+      console.log("Name is valid!");
+    }
+  }, [nameIsValid]);
+
   const nameInputHandler = (event) => {
     setEnteredName(event.target.value);
+  };
+
+  const nameInputBlurHandler = (event) => {
+    setNameIsTouched(true);
+
+    if (enteredName.trim() === "") {
+      setNameIsValid(false);
+      return;
+    }
   };
 
   const formSubmitHandler = (event) => {
@@ -40,6 +55,7 @@ function SimpleInput(props) {
           type="text"
           id="name"
           onChange={nameInputHandler}
+          onBlur={nameInputBlurHandler}
           value={enteredName}
           ref={nameInputRef}
         />
