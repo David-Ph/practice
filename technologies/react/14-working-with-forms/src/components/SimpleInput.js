@@ -1,20 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 function SimpleInput(props) {
-  const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
-  const [nameIsValid, setNameIsValid] = useState(false);
   const [nameIsTouched, setNameIsTouched] = useState(false);
 
-  useEffect(() => {
-    if (nameIsValid) {
-      console.log("Name is valid!");
-    }
-  }, [nameIsValid]);
-
-  const nameInputHandler = (event) => {
-    setEnteredName(event.target.value);
-  };
+  // because this variable will be reevaluated whenver this component
+  // is rerendered (when any of the state changes), we can make sure that
+  // this variable will have the latest state snapshot
+  const nameIsValid = enteredName.trim() !== "";
+  const nameInputIsInvalid = !nameIsValid && nameIsTouched;
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -24,38 +18,23 @@ function SimpleInput(props) {
     // the state changes, so when this code below executes, we may not have\
     // the latest state changes yet
 
-    if (event.target.value.trim() !== "") {
-      setNameIsValid(true);
-    }
+    // if (event.target.value.trim() !== "") {
+    //   setNameIsValid(true);
+    // }
   };
 
   const nameInputBlurHandler = (event) => {
     setNameIsTouched(true);
-
-    if (enteredName.trim() === "") {
-      setNameIsValid(false);
-    } else {
-      setNameIsValid(true);
-    }
   };
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    setNameIsTouched(true);
-    // basic validation, check if enteredname is empty
-    if (enteredName.trim() === "") {
-      setNameIsValid(false);
-      return;
-    }
+    if (!nameIsValid) return;
 
-    // console.log(enteredName);
-    // console.log(nameInputRef.current.value);
-    setNameIsValid(true);
     setEnteredName("");
+    setNameIsTouched(false);
     // nameInputRef.current.value = "" => NOT IDEAL, DON'T TRY TO MANIPULATE THE DOM
   };
-
-  const nameInputIsInvalid = !nameIsValid && nameIsTouched;
 
   const nameInputClases = !nameInputIsInvalid
     ? "form-control"
@@ -71,7 +50,6 @@ function SimpleInput(props) {
           onChange={nameInputChangeHandler}
           onBlur={nameInputBlurHandler}
           value={enteredName}
-          ref={nameInputRef}
         />
       </div>
       {nameInputIsInvalid && (
