@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -7,6 +7,9 @@ import CartContext from "../../store/cart-context";
 import Checkout from "./Checkout";
 
 const Cart = (props) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
+
   const [isCheckout, setIsCheckout] = useState(false);
   const cartCtx = useContext(CartContext);
 
@@ -54,6 +57,7 @@ const Cart = (props) => {
   );
 
   const onCheckoutHandler = async (userData) => {
+    setIsSubmitting(true);
     await fetch(
       "https://learn-react-c51fe-default-rtdb.asia-southeast1.firebasedatabase.app/orders.json",
       {
@@ -64,10 +68,12 @@ const Cart = (props) => {
         }),
       }
     );
+    setIsSubmitting(false);
+    setDidSubmit(true);
   };
 
-  return (
-    <Modal onClose={props.onClose}>
+  const cartContent = (
+    <React.Fragment>
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
@@ -77,6 +83,27 @@ const Cart = (props) => {
         <Checkout onConfirm={onCheckoutHandler} onCancel={props.onClose} />
       )}
       {!isCheckout && modalActions}
+    </React.Fragment>
+  );
+
+  const didSubmitContent = (
+    <React.Fragment>
+      <p>Orders submitted</p>
+      <div className={classes.actions}>
+        <button className={classes["button--alt"]} onClick={props.onClose}>
+          Close
+        </button>
+      </div>
+    </React.Fragment>
+  );
+
+  const isSubmittingContent = <p>Submitting Orders...</p>;
+
+  return (
+    <Modal onClose={props.onClose}>
+      {!isSubmitting && !didSubmit && cartContent}
+      {!isSubmitting && didSubmit && didSubmitContent}
+      {isSubmitting && !didSubmit && isSubmittingContent}
     </Modal>
   );
 };
