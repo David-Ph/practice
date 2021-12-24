@@ -3,8 +3,12 @@ import React from "react";
 import classes from "./Checkout.module.css";
 
 function Checkout(props) {
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <form>
+    <form onSubmit={formSubmitHandler}>
       <div className={classes.control}>
         <label htmlFor="name">Your name</label>
         <input type="text" id="name" />
@@ -21,7 +25,9 @@ function Checkout(props) {
         <label htmlFor="city">City</label>
         <input type="text" id="city" />
       </div>
-      <button type="button" onClick={props.onCancel}>Cancel</button>
+      <button type="button" onClick={props.onCancel}>
+        Cancel
+      </button>
       <button type="submit">Submit</button>
     </form>
   );
