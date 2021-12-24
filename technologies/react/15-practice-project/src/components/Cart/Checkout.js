@@ -40,7 +40,13 @@ const Checkout = (props) => {
     if (!nameIsValid || !streetIsValid || !cityIsValid || !postalIsValid) {
       return;
     }
-    return;
+
+    props.onConfirm({
+      name: nameInput,
+      street: streetInput,
+      city: cityInput,
+      postal: postalInput,
+    });
   };
 
   const nameClasses = `${classes.control} ${
