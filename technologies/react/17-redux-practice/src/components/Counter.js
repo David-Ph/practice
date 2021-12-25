@@ -12,7 +12,10 @@ const Counter = () => {
   // to the redux store
   const dispatch = useDispatch();
   const counter = useSelector((state) => state.counter);
-  const toggleCounterHandler = () => {};
+  const visible = useSelector((state) => state.visible);
+  const toggleCounterHandler = () => {
+    dispatch({ type: "TOGGLE" });
+  };
 
   const incrementHandler = () => {
     dispatch({ type: "INCREMENT" });
@@ -33,7 +36,10 @@ const Counter = () => {
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {/* <div className={classes.value}>{counter}</div> */}
+      <div className={classes.value}>
+        {visible ? counter : "Counter Hidden"}
+      </div>
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={incrementBy5Handler}>Increment By 5</button>
