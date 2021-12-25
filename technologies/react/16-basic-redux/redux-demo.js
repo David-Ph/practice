@@ -6,9 +6,19 @@ const redux = require("redux");
 // which is basically the data that we receive from the trigger/dispatcher
 // and it has to return the new state
 const counterReducer = (state, action) => {
-  return {
-    counter: state.counter + 1,
-  };
+  if (action.type === "INCREMENT") {
+    return {
+      counter: state.counter + 1,
+    };
+  }
+
+  if (action.type === "DECREMENT") {
+    return {
+      counter: state.counter - 1,
+    };
+  }
+
+  return state;
 };
 
 // 2. create redux store
@@ -28,5 +38,9 @@ store.subscribe(counterSubscriber);
 
 // 6. Dispatch/trigger an action
 store.dispatch({
-    type: "INCREMENT",
-})
+  type: "INCREMENT",
+});
+
+store.dispatch({
+  type: "DECREMENT",
+});
