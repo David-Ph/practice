@@ -2,7 +2,7 @@
 // import { createStore } from "redux";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
-const initialState = { counter: 0, visible: true };
+const initialCounterState = { counter: 0, visible: true };
 
 // so the way this works is
 // first we import createSlice from redux tookit
@@ -12,7 +12,7 @@ const initialState = { counter: 0, visible: true };
 // so even if we're mutating it with state.counter++, the original state is still immutable.
 const counterSlice = createSlice({
   name: "counter",
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state) {
       state.counter++;
@@ -32,16 +32,33 @@ const counterSlice = createSlice({
   },
 });
 
+const authInitialState = { isAuthenticated: false };
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState: authInitialState,
+  reducers: {
+    login(state, payload) {
+      if (payload.email.includes("@") && payload.password.length >= 5) {
+        state.isAuthenticated = true;
+      }
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
+});
+
 // configureStore would create and configure the store for us, and it can help us manage multiple reducers easier
 const store = configureStore({
-  reducer: counterSlice.reducer,
-  // reducer: {counter: counterSlice.reducer} // this is how we would do it if we have multiple reducers, it will combine every reducer into one big reducer
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer }, // this is how we would do it if we have multiple reducers, it will combine every reducer into one big reducer
 });
 
 // this is how we can use the dispatcher
 // behing the scenes, this will create an action object for us
 // so we don't need to specifically create the action identifier
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 export default store;
 
 // const counterReducer = (state, action) => {

@@ -13,8 +13,8 @@ const Counter = () => {
   // and this will also automatically subscribe this component
   // to the redux store
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter);
-  const visible = useSelector((state) => state.visible);
+  const counter = useSelector((state) => state.counter.counter);
+  const visible = useSelector((state) => state.counter.visible);
   const toggleCounterHandler = () => {
     // dispatch({ type: "TOGGLE" });
     dispatch(counterActions.toggle());
