@@ -1,6 +1,6 @@
 // import { connect } from 'react-redux'
-import { createStore } from "redux";
-import { createSlice } from "@reduxjs/toolkit";
+// import { createStore } from "redux";
+import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const initialState = { counter: 0, visible: true };
 
@@ -10,7 +10,7 @@ const initialState = { counter: 0, visible: true };
 // it needs a name, an initial state, and all the methods we want it to be
 // behind the scene, createSlice creates a copy of the state and gives us that copied state to work with
 // so even if we're mutating it with state.counter++, the original state is still immutable.
-createSlice({
+const counterSlice = createSlice({
   name: "counter",
   initialState,
   increment(state) {
@@ -30,45 +30,51 @@ createSlice({
   },
 });
 
-const counterReducer = (state, action) => {
-  if (action.type === "INCREMENT") {
-    return {
-      counter: state.counter + 1,
-      visible: state.visible,
-    };
-  }
+// configureStore would create and configure the store for us, and it can help us manage multiple reducers easier
+const store = configureStore({
+  reducer: counterSlice.reducer,
+  // reducer: {counter: counterSlice.reducer} // this is how we would do it if we have multiple reducers, it will combine every reducer into one big reducer
+});
 
-  if (action.type === "INCREASE") {
-    return {
-      counter: state.counter + action.amount,
-      visible: state.visible,
-    };
-  }
+// const counterReducer = (state, action) => {
+//   if (action.type === "INCREMENT") {
+//     return {
+//       counter: state.counter + 1,
+//       visible: state.visible,
+//     };
+//   }
 
-  if (action.type === "DECREMENT") {
-    return {
-      counter: state.counter - 1,
-      visible: state.visible,
-    };
-  }
+//   if (action.type === "INCREASE") {
+//     return {
+//       counter: state.counter + action.amount,
+//       visible: state.visible,
+//     };
+//   }
 
-  if (action.type === "DECREASE") {
-    return {
-      counter: state.counter - action.amount,
-      visible: state.visible,
-    };
-  }
+//   if (action.type === "DECREMENT") {
+//     return {
+//       counter: state.counter - 1,
+//       visible: state.visible,
+//     };
+//   }
 
-  if (action.type === "TOGGLE") {
-    return {
-      counter: state.counter,
-      visible: !state.visible,
-    };
-  }
+//   if (action.type === "DECREASE") {
+//     return {
+//       counter: state.counter - action.amount,
+//       visible: state.visible,
+//     };
+//   }
 
-  return state;
-};
+//   if (action.type === "TOGGLE") {
+//     return {
+//       counter: state.counter,
+//       visible: !state.visible,
+//     };
+//   }
 
-const store = createStore(counterReducer, initialState);
+//   return state;
+// };
+
+// const store = createStore(counterReducer, initialState);
 
 export default store;

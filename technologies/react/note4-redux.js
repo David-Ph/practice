@@ -36,4 +36,23 @@ One of the most important thing to remember about reducer function in useReducer
 Todo: Absolutely never, EVER, directly mutate existing states
 ! Always, ALWAYS override existing states if you want to change the value.
 Max didn't explain it in his video in Redux, but I think this is because the way React updates states, it schedules that changes and only changes it when it got the chance to. Sometimes so many things may happens at once and this schedules might be full. So if you mutate states directly, it may cause bugs.
+
+Todo: @reduxjs/tookit
+this tool is a tool created by react team to help us work with redux easier.
+one of the tool provided by it is 
+
+Todo: createSlice() from @reduxjs/toolkit
+so the way this works is
+first we import createSlice from redux tookit
+then we call it, and it receives an object as an argument
+it needs a name, an initial state, and all the methods we want it to be
+behind the scene, createSlice creates a copy of the state and gives us that copied state to work with
+so even if we're mutating it with state.counter++, the original state is still immutable.
+
+Todo: configureStore
+configureStore would create and configure the store for us, and it can help us manage multiple reducers easier
+?const store = configureStore({
+?  reducer: counterSlice.reducer,
+?  // reducer: {counter: counterSlice.reducer} // this is how we would do it if we have multiple reducers, it will combine every reducer into one big reducer
+?});
 */
