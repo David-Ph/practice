@@ -24,4 +24,16 @@ Todo: How Redux works
 The way redux works is we store all the cross component/app wide state state we need in just one big store, and then we'll have the components that needs it subscribe to that, so whenever a state changes in that store, the component will be reevaluated.
 
 to change the state in that store, the component needs to call a trigger/dispatch function, that sends an action to the reducer function stored in the store, and that will change the state depending on the action.
+
+Todo: Reducer Function
+One of the most important thing to remember about reducer function in useReducer/Redux is, what we return does not get merged with the existing states, it OVERWRITES the existing state. So if there were 5 fields, and we only return 1 field, the new state will lose the 4 remaining fields. In this case, that's why we can use spread operator like
+
+? return {
+?     ...state,
+?     counter: state.counter + 1,
+? }
+
+Todo: Absolutely never, EVER, directly mutate existing states
+! Always, ALWAYS override existing states if you want to change the value.
+Max didn't explain it in his video in Redux, but I think this is because the way React updates states, it schedules that changes and only changes it when it got the chance to. Sometimes so many things may happens at once and this schedules might be full. So if you mutate states directly, it may cause bugs.
 */

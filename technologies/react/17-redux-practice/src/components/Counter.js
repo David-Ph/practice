@@ -22,7 +22,7 @@ const Counter = () => {
   };
 
   const incrementBy5Handler = () => {
-    dispatch({ type: "INCREASE", increase: 5 });
+    dispatch({ type: "INCREASE", amount: 5 });
   };
 
   const decrementHandler = () => {
@@ -30,7 +30,7 @@ const Counter = () => {
   };
 
   const decrementBy5Handler = () => {
-    dispatch({ type: "DECREASE", decrease: 5 });
+    dispatch({ type: "DECREASE", amount: 5 });
   };
 
   return (
