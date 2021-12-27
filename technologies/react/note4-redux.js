@@ -55,4 +55,14 @@ configureStore would create and configure the store for us, and it can help us m
 ?  reducer: counterSlice.reducer,
 ?  // reducer: {counter: counterSlice.reducer} // this is how we would do it if we have multiple reducers, it will combine every reducer into one big reducer
 ?});
+
+Todo: Using the dispatcher
+this is how we can use the dispatcher
+behing the scenes, this will create an action object for us
+so we don't need to specifically create the action identifier
+? export const counterActions = counterSlice.actions;
+
+and we call it like this 
+
+? dispatch(counterActions.increase({ amount: 5 })); // behind this scene, this is what we'll receive: {type: SOME_UNIQUE_ID, payload: {amount: 5}}
 */

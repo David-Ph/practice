@@ -13,20 +13,22 @@ const initialState = { counter: 0, visible: true };
 const counterSlice = createSlice({
   name: "counter",
   initialState,
-  increment(state) {
-    state.counter++;
-  },
-  decrement(state) {
-    state.counter--;
-  },
-  increase(state, action) {
-    state.counter += action.amount;
-  },
-  decrease(state, action) {
-    state.counter += action.amount;
-  },
-  toggle(state) {
-    state.visible = !state.visbile;
+  reducers: {
+    increment(state) {
+      state.counter++;
+    },
+    decrement(state) {
+      state.counter--;
+    },
+    increase(state, action) {
+      state.counter += action.payload.amount;
+    },
+    decrease(state, action) {
+      state.counter -= action.payload.amount;
+    },
+    toggle(state) {
+      state.visible = !state.visible;
+    },
   },
 });
 
@@ -35,6 +37,12 @@ const store = configureStore({
   reducer: counterSlice.reducer,
   // reducer: {counter: counterSlice.reducer} // this is how we would do it if we have multiple reducers, it will combine every reducer into one big reducer
 });
+
+// this is how we can use the dispatcher
+// behing the scenes, this will create an action object for us
+// so we don't need to specifically create the action identifier
+export const counterActions = counterSlice.actions;
+export default store;
 
 // const counterReducer = (state, action) => {
 //   if (action.type === "INCREMENT") {
@@ -77,4 +85,4 @@ const store = configureStore({
 
 // const store = createStore(counterReducer, initialState);
 
-export default store;
+// export default store;

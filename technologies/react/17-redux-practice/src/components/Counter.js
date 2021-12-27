@@ -2,6 +2,8 @@
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./Counter.module.css";
 
+import { counterActions } from "../store/index";
+
 const Counter = () => {
   // 2. And call the hooks here
   // this hook is used to "select" which part of the store that
@@ -14,23 +16,28 @@ const Counter = () => {
   const counter = useSelector((state) => state.counter);
   const visible = useSelector((state) => state.visible);
   const toggleCounterHandler = () => {
-    dispatch({ type: "TOGGLE" });
+    // dispatch({ type: "TOGGLE" });
+    dispatch(counterActions.toggle());
   };
 
   const incrementHandler = () => {
-    dispatch({ type: "INCREMENT" });
+    // dispatch({ type: "INCREMENT" });
+    dispatch(counterActions.increment());
   };
 
   const incrementBy5Handler = () => {
-    dispatch({ type: "INCREASE", amount: 5 });
+    // dispatch({ type: "INCREASE", amount: 5 });
+    dispatch(counterActions.increase({ amount: 5 })); // behind this scene, this is what we'll receive: {type: SOME_UNIQUE_ID, payload: {amount: 5}}
   };
 
   const decrementHandler = () => {
-    dispatch({ type: "DECREMENT" });
+    // dispatch({ type: "DECREMENT" });
+    dispatch(counterActions.decrement());
   };
 
   const decrementBy5Handler = () => {
-    dispatch({ type: "DECREASE", amount: 5 });
+    // dispatch({ type: "DECREASE", amount: 5 });
+    dispatch(counterActions.decrease({ amount: 5 }));
   };
 
   return (
