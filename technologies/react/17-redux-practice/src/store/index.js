@@ -39,7 +39,10 @@ const authSlice = createSlice({
   initialState: authInitialState,
   reducers: {
     login(state, payload) {
-      if (payload.email.includes("@") && payload.password.length >= 5) {
+      if (
+        payload.payload.email.includes("@") &&
+        payload.payload.password.length >= 5
+      ) {
         state.isAuthenticated = true;
       }
     },
