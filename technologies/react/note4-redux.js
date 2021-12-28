@@ -65,4 +65,9 @@ so we don't need to specifically create the action identifier
 and we call it like this 
 
 ? dispatch(counterActions.increase({ amount: 5 })); // behind this scene, this is what we'll receive: {type: SOME_UNIQUE_ID, payload: {amount: 5}}
+
+Todo: One rule about reducers
+Reducers function must be pure, side effect free, synchronous functions. It's not allowed to have async code in there. So if we want to make a http request, where do we write it? there are 2 ways:
+    1. Inside the component (e.g useEffect())
+    2. Inside the action creators
 */
