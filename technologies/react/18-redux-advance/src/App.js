@@ -5,7 +5,7 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
-import { uiActions } from "./store/ui-slice";
+import { sendCartData } from "./store/cart-slice";
 
 let isInitial = true;
 
@@ -20,48 +20,16 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
-    const sendData = async () => {
-      dispatch(
-        uiActions.setNotification({
-          status: "pending",
-          title: "Sending...",
-          message: "Sending cart data...",
-        })
-      );
-      const response = await fetch(
-        "https://learn-react-c51fe-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
-        { method: "PUT", body: JSON.stringify(cart) }
-      );
-
-      if (!response.ok) {
-        throw new Error("Sending cart data failed");
-      }
-
-      dispatch(
-        uiActions.setNotification({
-          status: "success",
-          title: "Success!",
-          message: "Send cart data success!",
-        })
-      );
-
-      const data = await response.json();
-    };
-
     if (isInitial) {
       isInitial = false;
       return;
     }
 
-    sendData().catch((err) => {
-      dispatch(
-        uiActions.setNotification({
-          status: "error",
-          title: "Error!",
-          message: "Send cart data failed!",
-        })
-      );
-    });
+    // the thing about dispatch in redux toolkit
+    // it does not only accepts actions creators with a type property(functions that returns action object)
+    // it also accepts action creators that return functions,
+    // and in the case that it accepts the latter, it will execute the function for us, and it will give us a dispatch as argument
+    dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
   return (

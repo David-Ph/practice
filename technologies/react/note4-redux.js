@@ -70,4 +70,8 @@ Todo: One rule about reducers
 Reducers function must be pure, side effect free, synchronous functions. It's not allowed to have async code in there. So if we want to make a http request, where do we write it? there are 2 ways:
     1. Inside the component (e.g useEffect())
     2. Inside the action creators
+
+Todo: What is a thunk?
+A function that delays an action until later
+An action creator that does NOT return the action itself, but another function which eventually returns the action    
 */
