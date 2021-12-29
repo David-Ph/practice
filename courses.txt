@@ -9,7 +9,7 @@ Docker:
 ! https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 
 Clean Code: 
-https://www.udemy.com/course/writing-clean-code/
+! https://www.udemy.com/course/writing-clean-code/
 
 NodeJS + Express + GraphQL + bunch others: 
 https://www.udemy.com/course/nodejs-the-complete-guide/
@@ -33,7 +33,3 @@ Web Socket / Socket IO :
 RabbitMQ: 
 
 DSA with Javascript: https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/
-
-Design Pattern with JS: https://www.udemy.com/course/design-patterns-javascript/
-
-Design Pattern with TS: https://www.udemy.com/course/design-patterns-typescript/
