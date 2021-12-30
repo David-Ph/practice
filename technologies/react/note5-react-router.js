@@ -9,4 +9,10 @@ Todo: How to use linking
     1. If we use the a tag, it will send a brand new request for html file to the server
     2. instead, we want to import {Link} and use it instead of the a tag
     3. Behind the scene, this will just render an a tag, and then it will prevent event default, and manually update the url for us, and then also rerender the components
+?   <Link to="/welcome">Welcome</Link>
+
+Todo: NavLink   
+    1. We can also import {NavLink}
+    2. This works the same with {Link}, but this also sets up an extra classname when we click it
+?   <NavLink activeClassName={classes.active} to="/welcome">Welcome</NavLink>
 */
