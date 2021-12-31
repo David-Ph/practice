@@ -37,4 +37,14 @@ Todo: {Switch} from "react-router"
 ?          <Welcome />
 ?        </Route>
 ?    </Switch>
+
+Todo: Nested Route
+    1. We can also define a route inside a component, so that component will only render if the route matches the path
+?    <div>
+?      <h1>Welcome page</h1>
+?      <Route path="/welcome/new-user">
+?        <p>Welcome, new user!</p>
+?      </Route>
+?    </div>
+    in the example above, if we only go to /welcome, it will only render the h1. if we go to /welcome/new-user, it will render h1 and p
 */
