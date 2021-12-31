@@ -15,4 +15,12 @@ Todo: NavLink
     1. We can also import {NavLink}
     2. This works the same with {Link}, but this also sets up an extra classname when we click it
 ?   <NavLink activeClassName={classes.active} to="/welcome">Welcome</NavLink>
+
+Todo: Dynamic URL
+    1. If we want to use react router to get a dynamic url, for example clicking to get a detailed info of a product, we can use route like this
+?   <Route path="/products-detail/:productId">
+
+Todo: useParams
+    1. We can import useParams from "react-router-dom" from the component to get access to the :params
+
 */
