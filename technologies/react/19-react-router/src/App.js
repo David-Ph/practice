@@ -16,10 +16,9 @@ function App() {
         <Route path="/products">
           <Product />
         </Route>
-        <Route path="/products-detail/:productId">
+        <Route path="/products/:productId">
           <ProductDetail />
         </Route>
-        <h2>Let's get started!</h2>
       </main>
     </div>
   );

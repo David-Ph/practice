@@ -23,4 +23,18 @@ Todo: Dynamic URL
 Todo: useParams
     1. We can import useParams from "react-router-dom" from the component to get access to the :params
 
+Todo: How do react rounter handle routes with same prefixes?
+    1. So react router will look for routes with same prefixes, for example
+        ? /product
+        ? /product/:id
+    in this example, react router will render both /product and /product/:id page on screen
+
+Todo: {Switch} from "react-router"
+    1. So if we want react router to render only 1 component, we can wrap the routers in switch. But the problem with this is, it will only return the one it first match with. So in the example above, it will only render /product and not /product/:id
+    2. How to get around that? we use exact. so it will only render that component if the route is exactly the same
+?    <Switch>
+?        <Route exact path="/welcome">
+?          <Welcome />
+?        </Route>
+?    </Switch>
 */
