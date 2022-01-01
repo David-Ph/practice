@@ -3,7 +3,7 @@ import React from "react";
 function Quotes() {
   return (
     <div>
-      <h1>New Quote</h1>
+      <h1>All Quotes</h1>
     </div>
   );
 }

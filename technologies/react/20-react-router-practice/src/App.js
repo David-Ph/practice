@@ -6,7 +6,7 @@ import Quotes from "./pages/Quotes";
 function App() {
   return (
     <Switch>
-      <Route path="/quotes">
+      <Route path="/quotes" exact>
         <Quotes />
       </Route>
       <Route path="/quotes/:quoteId">
