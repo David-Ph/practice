@@ -47,4 +47,9 @@ Todo: Nested Route
 ?      </Route>
 ?    </div>
     in the example above, if we only go to /welcome, it will only render the h1. if we go to /welcome/new-user, it will render h1 and p
+
+Todo: Redirect
+? <Route path="/" exact>
+?    <Redirect to="/welcome" />
+? </Route>
 */
