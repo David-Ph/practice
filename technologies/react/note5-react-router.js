@@ -75,4 +75,10 @@ useHistory allows you to access information about the currently loaded url
 ? const location = useLocation();
 ? const queryParams = new URLSearchParams(location.search);
 ? const isSortingAsc = queryParams.get("sort") === "asc";
+
+todo: useRouteMatch();
+useRouteMatch() we don't need to hard code link, we can just get the useROuteMatch and get the path or url from it
+?  const match = useRouteMatch();
+?  <Route path={`${match.path}/comments`}>
+
 */
