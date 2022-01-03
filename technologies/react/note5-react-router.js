@@ -52,4 +52,10 @@ Todo: Redirect
 ? <Route path="/" exact>
 ?    <Redirect to="/welcome" />
 ? </Route>
+
+Todo: useHistory
+you can use useHistory to programmatically redirect users for example after they submit a form. There are 2 kinds of redirect for history, push and replace
+
+Push: pushes a new page into our stack of pages, which allows the users to go back to the previous page
+replace: replaces the page with a new page, which doesn't allow the user to go back 
 */
