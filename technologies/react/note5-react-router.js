@@ -54,6 +54,7 @@ Todo: Redirect
 ? </Route>
 
 Todo: useHistory
+useHistory allows you to access the history object that allows you access and manage the URL.
 you can use useHistory to programmatically redirect users for example after they submit a form. There are 2 kinds of redirect for history, push and replace
 
 Push: pushes a new page into our stack of pages, which allows the users to go back to the previous page
@@ -69,4 +70,9 @@ When a user is working on a form, sometimes they can accidentally leave the page
 
 ? <Prompt when={isFocused} message={(location) => "Are you sure?"} />
 
+todo: useLocation
+useHistory allows you to access information about the currently loaded url
+? const location = useLocation();
+? const queryParams = new URLSearchParams(location.search);
+? const isSortingAsc = queryParams.get("sort") === "asc";
 */
