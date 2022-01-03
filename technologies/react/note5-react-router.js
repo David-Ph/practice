@@ -58,4 +58,15 @@ you can use useHistory to programmatically redirect users for example after they
 
 Push: pushes a new page into our stack of pages, which allows the users to go back to the previous page
 replace: replaces the page with a new page, which doesn't allow the user to go back 
+
+Todo: Prompt
+When a user is working on a form, sometimes they can accidentally leave the page, and then suddenly everything they're working on is lost. To prevent this, we can add a prompt like "Are you sure" when a user is working on the form. 
+
+1. create a state to see if the user is working on the form or not
+2. create the prompt component on the page
+3. the when prop is the condition for the prompt to appear
+4. the message is the message you want to see, it accepts a function with the location/url as argument
+
+? <Prompt when={isFocused} message={(location) => "Are you sure?"} />
+
 */
