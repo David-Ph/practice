@@ -1,28 +1,46 @@
 import { useParams, Route, Link, useRouteMatch } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 
 import HighlightedQuote from "../components/quotes/HighlightedQuote";
 import Comments from "../components/comments/Comments";
+import NoQuotesFound from "../components/quotes/NoQuotesFound";
+import LoadingSpinner from "../components/UI/LoadingSpinner";
 
-const DUMMY_QUOTES = [
-  { id: "q1", author: "MaoMao", text: "Learning React" },
-  { id: "q2", author: "Captain", text: "To be or not to be" },
-  { id: "q3", author: "Huya", text: "Random stuff" },
-];
+import useHttp from "../hooks/use-http";
+import { getSingleQuote } from "../lib/api";
 
 function QuoteDetail() {
+  const { sendRequest, status, data, error } = useHttp(getSingleQuote, true);
   const match = useRouteMatch();
   const { quoteId } = useParams();
 
-  const findQuote = DUMMY_QUOTES.find((quote) => quote.id === quoteId);
+  useEffect(() => {
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
 
-  if (!findQuote) {
-    return <h2>No Quote Found</h2>;
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="centered focused">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if ((status === "completed" && (!data || data.length === 0)) || !data.text) {
+    return <NoQuotesFound />;
   }
 
   return (
     <div>
-      <HighlightedQuote author={findQuote.author} text={findQuote.text} />
+      <HighlightedQuote author={data.author} text={data.text} />
       <Route path={`${match.path}`} exact>
         <div className="centered">
           <Link className="btn--flat" to={`${match.url}/comments`}>
