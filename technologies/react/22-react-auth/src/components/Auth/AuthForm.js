@@ -21,34 +21,42 @@ const AuthForm = () => {
     const password = passwordInputRef.current.value;
 
     setIsLoading(true);
+
+    let url;
     if (isLogin) {
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
     } else {
-      fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-            password,
-            returnSecuredToken: true,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((res) => {
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_FIREBASE_API_KEY}`;
+    }
+
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+        returnSecuredToken: true,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
         setIsLoading(false);
+
         if (res.ok) {
-          alert("Account created!");
+          return res.json();
         } else {
-          res.json().then((data) => {
-            // check data.error.message for error
-            // alert the error
-            alert("Authentication Error");
+          return res.json().then((data) => {
+            throw new Error("Authentication Error");
           });
         }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        alert(err.message);
       });
-    }
   };
 
   return (
