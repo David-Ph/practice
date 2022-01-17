@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+        .ads {
+            width: 500px;
+            height: 500px
+        }
+
+        .test-visibility {
+            content-visibility: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ads"></div>
+    <h1>How long will your trip be?</h1>
+    <img width="640" height="360"
+        src="https://images.unsplash.com/photo-1542029722221-1c7dc4b06781?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1075&q=80"
+        alt="pic">
+
+    <img width="640" height="360"
+        src="https://images.unsplash.com/photo-1541890289-b86df5bafd81?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1145&q=80"
+        alt="pic">
+
+    <img class="test-visibility" width="640" height="360"
+        src="https://images.unsplash.com/photo-1541882270037-d3cf216b2ca4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=60"
+        alt="">
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae qui laboriosam veritatis! Necessitatibus,
+        accusantium rerum doloremque sequi, pariatur nostrum ex fuga exercitationem dolor ut architecto! Labore delectus
+        magni nostrum sequi quas harum consectetur recusandae voluptate quam similique quod ipsa est, unde illo pariatur
+        aut ea id. Ratione illo odit enim. Quas soluta facilis quod, veritatis omnis sapiente nam minus excepturi odio
+        fugiat reiciendis, accusantium non aperiam nihil nesciunt ullam? Ipsam amet recusandae magnam nostrum a
+        reiciendis nemo illo hic libero!</p>
+
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum deleniti reiciendis asperiores quia! Consequatur
+        reprehenderit labore dolore aut vitae, ab maiores dignissimos. Labore quod officia accusamus fuga ipsa neque
+        quaerat tenetur similique odio ut voluptatibus dolor totam suscipit illum laudantium a dignissimos nesciunt qui,
+        doloremque quos earum nam officiis nobis! Consequatur, eveniet repellendus quam facilis nulla aliquid
+        voluptatibus sapiente magni dolor eum nobis doloremque libero incidunt dolore autem, repellat cumque sunt
+        ducimus deserunt. Esse illo possimus modi incidunt laboriosam omnis!</p>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia nobis repudiandae, officiis minima accusamus id
+        voluptatem totam soluta magnam nihil, neque omnis quod expedita consequuntur perferendis possimus dignissimos.
+        Nesciunt aliquam odit repellendus soluta, dicta vitae nemo, eius corporis totam laboriosam vel eos suscipit
+        deleniti eaque deserunt tenetur est in cum. Cumque dignissimos sit mollitia quas iure modi, nesciunt, magnam
+        doloremque perferendis vitae suscipit totam facilis odit. Nihil tempore et error enim cum molestias, veritatis
+        magni soluta. Eum nobis possimus accusantium.</p>
+
+    <script defer>
+        const h1 = document.querySelector('.ads');
+        console.log(h1)
+        setTimeout(() => {
+            const div = document.createElement('div');
+            const image = document.createElement('img');
+            image.setAttribute('src', "https://images.unsplash.com/photo-1542029722221-1c7dc4b06781?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1075&q=80");
+
+            h1.insertAdjacentElement("beforeend", image);
+        }, 5000);
+    </script>
+</body>
+
+</html>
