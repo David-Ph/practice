@@ -17,4 +17,13 @@ or
 ***************
 contant in go is the same as constant with others
 
+* Converting data type
+**********************
+sometimes in golang you need to convert a data type
+for example from int to float, or int32 to int64
+? var nilai32 int32 = 32768
+? var nilai64 int64 = int64(nilai32)
+? var nilai16 int16 = int16(nilai64)
+be careful when converting bigger to smaller, for example int8 will not be able to handle values above 128
+
 */
