@@ -1,0 +1,6 @@
+/* 
+* Comparisons
+*************
+? available comparisons are > < == >= <= != 
+
+*/
