@@ -22,7 +22,8 @@ func getCompleteName() (firstName, lastName string) {
 	firstName = "Fey"
 	lastName = "Syllenae"
 
-	return firstName, lastName
+	// return firstName, lastName
+	return
 }
 
 func main() {
