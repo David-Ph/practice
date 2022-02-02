@@ -26,6 +26,15 @@ func getCompleteName() (firstName, lastName string) {
 	return
 }
 
+func sumAll(numbers ...int) int {
+	total := 0
+	for _, number := range numbers {
+		total += number
+	}
+
+	return total
+}
+
 func main() {
 	sayHello()
 	sayFullName("Fey", "Syllenae")
@@ -37,4 +46,10 @@ func main() {
 
 	namaDepan, namaBelakang := getCompleteName()
 	fmt.Println(namaDepan, namaBelakang)
+
+	mySlice := []int{1, 2, 3, 4, 5}
+	myTotal := sumAll(mySlice...)
+	total := sumAll(10, 15, 25, 30)
+	fmt.Println(myTotal)
+	fmt.Println(total)
 }
