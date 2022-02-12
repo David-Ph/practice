@@ -53,6 +53,16 @@ func spamFilter(name string) string {
 	}
 }
 
+type Blacklist func(string) bool
+
+func registerUser(name string, blacklist Blacklist) {
+	if blacklist(name) {
+		fmt.Println("Your are blocked", name)
+	} else {
+		fmt.Println("Welcome", name)
+	}
+}
+
 func main() {
 	sayHello()
 	sayFullName("Fey", "Syllenae")
@@ -76,4 +86,8 @@ func main() {
 
 	filter := spamFilter
 	fmt.Println(sayHelloWithFilter("Anjing", filter))
+
+	registerUser("admin", func(name string) bool {
+		return name == "admin"
+	})
 }
