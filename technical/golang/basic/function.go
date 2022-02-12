@@ -35,6 +35,24 @@ func sumAll(numbers ...int) int {
 	return total
 }
 
+func getGoodBye(name string) string {
+	return "Good bye " + name
+}
+
+type FilterFunc func(string) string
+
+func sayHelloWithFilter(name string, filter FilterFunc) string {
+	return "Hello, " + filter(name)
+}
+
+func spamFilter(name string) string {
+	if name == "Anjing" {
+		return "..."
+	} else {
+		return name
+	}
+}
+
 func main() {
 	sayHello()
 	sayFullName("Fey", "Syllenae")
@@ -52,4 +70,10 @@ func main() {
 	total := sumAll(10, 15, 25, 30)
 	fmt.Println(myTotal)
 	fmt.Println(total)
+
+	goodByeFuncAsVar := getGoodBye
+	fmt.Println(goodByeFuncAsVar("MaoMao"))
+
+	filter := spamFilter
+	fmt.Println(sayHelloWithFilter("Anjing", filter))
 }
