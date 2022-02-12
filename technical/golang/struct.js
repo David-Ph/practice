@@ -1,0 +1,8 @@
+/* 
+struct adalah template data yang digunakan untuk menggabungkan nol atau lebih tipe data lainnya dalam satu eksatuan
+struct biasanya representasi data dalam programa plikasi yang kita buat
+data di struct disimmpan dalam field
+sederhananya struct adalah kumpulan dari field
+
+
+*/
