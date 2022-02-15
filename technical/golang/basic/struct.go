@@ -8,6 +8,16 @@ type Customer struct {
 	Married       bool
 }
 
+type Buyer struct {
+	Name        string
+	Address     string
+	phoneNumber string
+}
+
+func (customer Customer) sayHello() {
+	fmt.Println("Hello, my name is", customer.Name)
+}
+
 func main() {
 	var eko Customer
 	eko.Name = "Eko"
@@ -27,4 +37,7 @@ func main() {
 	Fey := Customer{"Fey Syllenae", "Indonesia", 30, false}
 
 	fmt.Println(Fey)
+
+	Jack := Customer{Name: "Jack"}
+	Jack.sayHello()
 }

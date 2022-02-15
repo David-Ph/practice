@@ -4,5 +4,7 @@ struct biasanya representasi data dalam programa plikasi yang kita buat
 data di struct disimmpan dalam field
 sederhananya struct adalah kumpulan dari field
 
+struct adalah tipe data seperti tipe datalainnya dia bisa digunakan sebagai paramter untuk function
+
 
 */
