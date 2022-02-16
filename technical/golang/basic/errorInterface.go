@@ -15,8 +15,12 @@ func Pembagian(nilai int, pembagi int) (int, error) {
 
 func main() {
 	hasil, errorHasil := Pembagian(10, 0)
-	fmt.Println(hasil)
-	fmt.Println(errorHasil)
+
+	if errorHasil == nil {
+		fmt.Println(hasil)
+	} else {
+		fmt.Println(errorHasil.Error())
+	}
 
 	var contohError error = errors.New("Contoh Error")
 	fmt.Println(contohError.Error())
