@@ -77,4 +77,10 @@ Kadang dalam keadaan tertentu, kita ingin membatalkan eksekusi unit test
 Di Go-Lang juga kita bisa membatalkan eksekusi unit test jika kita mau
 Untuk membatalkan unit test kita bisa menggunakan function Skip() 
 
+* Sub test
+Go-Lang mendukung fitur pembuatan function unit test di dalam function unit test
+Fitur ini memang sedikit aneh dan jarang sekali dimiliki di unit test di bahasa pemrograman yang lainnya
+Untuk membuat sub test, kita bisa menggunakan function Run()
+
+
 */
