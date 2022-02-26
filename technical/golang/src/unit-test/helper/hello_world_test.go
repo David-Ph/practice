@@ -74,3 +74,48 @@ func TestSkip(t *testing.T) {
 	result := HelloWorld("MaoMao")
 	require.Equal(t, "Hello MaoMao", result, "Result must be Hello MaoMao")
 }
+
+func BenchmarkHelloWork(b *testing.B) {
+	// for i := 0; i < b.N; i++ {
+	// 	HelloWorld("Eko")
+	// }
+	b.Run("Eko", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Eko")
+		}
+	})
+	b.Run("Kurniawan", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Kurniawan")
+		}
+	})
+	b.Run("Say it! Say my name!", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Say it! Say my name!")
+		}
+	})
+}
+
+func BenchmarkHelloWorkTable(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "HelloWorld(Eko)",
+			request: "Eko",
+		},
+		{
+			name:    "HelloWorld(Kurniawan)",
+			request: "Kurniawan",
+		},
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(benchmark.name)
+			}
+		})
+	}
+}
