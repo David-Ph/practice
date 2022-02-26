@@ -40,7 +40,7 @@ func Ups(i int) interface{} {
 func main() {
 	MaoMao := Customer{Name: "MaoMao"}
 	SayHello(MaoMao)
-
+	// MaoMao.GetName()
 	// error
 	// Boss := Owner{Name: "Boss"}
 	// SayHello(Boss)
