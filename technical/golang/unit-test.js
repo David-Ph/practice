@@ -82,5 +82,11 @@ Go-Lang mendukung fitur pembuatan function unit test di dalam function unit test
 Fitur ini memang sedikit aneh dan jarang sekali dimiliki di unit test di bahasa pemrograman yang lainnya
 Untuk membuat sub test, kita bisa menggunakan function Run()
 
+* Table test
+Sebelumnya kita sudah belajar tentang sub test
+Jika diperhatikan, sebenarnya dengan sub test, kita bisa membuat test secara dinamis
+Dan fitur sub test ini, biasa digunaka oleh programmer Go-Lang untuk membuat test dengan konsep table test
+Table test yaitu dimana kita menyediakan data beruba slice yang berisi parameter dan ekspektasi hasil dari unit test
+Lalu slice tersebut kita iterasi menggunakan sub test
 
 */

@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"testing"
 
-	_ "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -37,6 +37,32 @@ func TestHelloWorld(t *testing.T) {
 	// 	// unit test failed
 	// 	t.Fatal("TestHelloWorld Failed, Expected: 'Hello Eko', Result: " + result)
 	// }
+}
+
+func TestHelloWorldTable(t *testing.T) {
+	tests := []struct {
+		name     string
+		request  string
+		expected string
+	}{
+		{
+			name:     "HelloWorld(Eko)",
+			request:  "Eko",
+			expected: "Hello Eko",
+		},
+		{
+			name:     "HelloWorld(MaoMao)",
+			request:  "MaoMao",
+			expected: "Hello MaoMao",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := HelloWorld(test.request)
+			assert.Equal(t, test.expected, result)
+		})
+	}
 }
 
 func TestSkip(t *testing.T) {
