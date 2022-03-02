@@ -41,4 +41,27 @@ B ----------
 
 Concurrency
 A =-=-=-=-=-=-=-=-=-=-=-
+
+* Pengenalan Goroutine
+Goroutine adalah sebuah thread ringan yang dikelola oleh Go Runtime
+Ukuran Goroutine sangat kecil, sekitar 2kb, jauh lebih kecil dibandingkan Thread yang bisa sampai 1mb atau 1000kb
+Namun tidak seperti thread yang berjalan parallel, goroutine berjalan secara concurrent
+
+* Cara Kerja Goroutine
+Sebenarnya, Goroutine dijalankan oleh Go Scheduler dalam thread, dimana jumlah thread nya sebanyak GOMAXPROCS (biasanya sejumlah core CPU)
+Jadi sebenarnya tidak bisa dibilang Goroutine itu pengganti Thread, karena Goroutine sendiri berjalan di atas Thread
+Namun yang mempermudah kita adalah, kita tidak perlu melakukan manajemen Thread secara manual, semua sudah diatur oleh Go Scheduler
+
+* Cara Kerja Go Scheduler
+Dalam Go-Scheduler, kita akan mengenal beberapa terminologi
+G : Goroutine
+M : Thread (Machine)
+P : Processor
+
+* Membuat Goroutine
+Untuk membuat goroutine di Golang sangatlah sederhana
+Kita hanya cukup menambahkan perintah go sebelum memanggil function yang akan kita jalankan dalam goroutine
+Saat sebuah function kita jalankan dalam goroutine, function tersebut akan berjalan secara asynchronous, artinya tidak akan ditunggu sampai function tersebut selesai
+Aplikasi akan lanjut berjalan ke kode program selanjutnya tanpa menunggu goroutine yang kita buat selesai
+
 */
