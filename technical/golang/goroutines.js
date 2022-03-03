@@ -64,4 +64,33 @@ Kita hanya cukup menambahkan perintah go sebelum memanggil function yang akan ki
 Saat sebuah function kita jalankan dalam goroutine, function tersebut akan berjalan secara asynchronous, artinya tidak akan ditunggu sampai function tersebut selesai
 Aplikasi akan lanjut berjalan ke kode program selanjutnya tanpa menunggu goroutine yang kita buat selesai
 
+Seperti yang sebelumnya dijelaskan, bahwa goroutine itu sangat ringan
+Kita bisa membuat ribuan, bahkan sampai jutaan goroutine tanpa takut boros memory
+Tidak seperti thread yang ukurannya berat, goroutine sangatlah ringan
+
+* Pengenalan Channel
+Channel adalah tempat komunikasi secara synchronous yang bisa dilakukan oleh goroutine
+Di Channel terdapat pengirim dan penerima, biasanya pengirim dan penerima adalah goroutine yang berbeda
+Saat melakukan pengiriman data ke Channel, goroutine akan ter-block, sampai ada yang menerima data tersebut
+Maka dari itu, channel disebut sebagai alat komunikasi synchronous (blocking)
+Channel cocok sekali sebagai alternatif seperti mekanisme async await yang terdapat di beberapa bahasa pemrograman lain
+
+* Karakteristik Channel
+Secara default channel hanya bisa menampung satu data, jika kita ingin menambahkan data lagi, harus menunggu data yang ada di channel diambil
+Channel hanya bisa menerima satu jenis data
+Channel bisa diambil dari lebih dari satu goroutine
+Channel harus di close jika tidak digunakan, atau bisa menyebabkan memory leak
+
+* Membuat Channel
+Channel di Go-Lang direpresentasikan dengan tipe data chan
+Untuk membuat channel sangat mudah, kita bisa menggunakan make(), mirip ketika membuat map
+Namun saat pembuatan channel, kita harus tentukan tipe data apa yang bisa dimasukkan kedalam channel tersebut
+
+* Mengirim dan Menerima Data dari Channel
+Seperti yang sudah dibahas sebelumnya, channel bisa digunakan untuk mengirim dan menerima data
+Untuk mengirim data, kita bisa gunakan kode : channel <- data
+Sedangkan untuk menerima data, bisa gunakan kode : data <- channel
+Jika selesai, jangan lupa untuk menutup channel menggunakan function close()
+
+
 */
