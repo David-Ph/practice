@@ -92,5 +92,14 @@ Untuk mengirim data, kita bisa gunakan kode : channel <- data
 Sedangkan untuk menerima data, bisa gunakan kode : data <- channel
 Jika selesai, jangan lupa untuk menutup channel menggunakan function close()
 
+* Channel Sebagai Parameter
+Dalam kenyataan pembuatan aplikasi, seringnya kita akan mengirim channel ke function lain via parameter
+Sebelumnya kita tahu bahkan di Go-Lang by default, parameter adalah pass by value, artinya value akan diduplikasi lalu dikirim ke function parameter, sehingga jika kita ingin mengirim data asli, kita biasa gunakan pointer (agar pass by reference). 
+Berbeda dengan Channel, kita tidak perlu melakukan hal tersebut
+
+* Channel In dan Out
+Saat kita mengirim channel sebagai parameter, isi function tersebut bisa mengirim dan menerima data dari channel tersebut
+Kadang kita ingin memberi tahu terhadap function, misal bahwa channel tersebut hanya digunakan untuk mengirim data, atau hanya dapat digunakan untuk menerima data
+Hal ini bisa kita lakukan di parameter dengan cara menandai apakah channel ini digunakan untuk in (mengirim data) atau out (menerima data)
 
 */
