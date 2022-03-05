@@ -1,11 +1,12 @@
-function merge(arr) {
-  if (arr.length === 1) return arr;
+// @params array number
+function mergeSort(array) {
+  if (array.length === 1) return array;
 
-  const middle = arr.length / 2;
-  const left = arr.slice(0, middle);
-  const right = arr.slice(middle);
+  const middle = array.length / 2;
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
 
-  return sort(merge(left), merge(right));
+  return sort(mergeSort(left), mergeSort(right));
 }
 
 function sort(left, right) {
@@ -18,8 +19,8 @@ function sort(left, right) {
       tempArray.push(right.shift());
     }
   }
-
+  
   return tempArray.concat(left.slice().concat(right.slice()));
 }
 
-console.log(merge([1, 6, 4, 7, 2, 9, 3, 5, 8]));
+console.log(mergeSort([5, 2, 3, 1, 4, 9, 7, 6, 8]));
