@@ -102,4 +102,52 @@ Saat kita mengirim channel sebagai parameter, isi function tersebut bisa mengiri
 Kadang kita ingin memberi tahu terhadap function, misal bahwa channel tersebut hanya digunakan untuk mengirim data, atau hanya dapat digunakan untuk menerima data
 Hal ini bisa kita lakukan di parameter dengan cara menandai apakah channel ini digunakan untuk in (mengirim data) atau out (menerima data)
 
+* Buffered Channel
+Seperti yang dijelaskan sebelumnya, bahwa secara default channel itu hanya bisa menerima 1 data
+Artinya jika kita menambah data ke-2, maka kita akan diminta menunggu sampai data ke-1 ada yang mengambil
+Kadang-kadang ada kasus dimana pengirim lebih cepat dibanding penerima, dalam hal ini jika kita menggunakan channel, maka otomatis pengirim akan ikut lambat juga
+Untuknya ada Buffered Channel, yaitu buffer yang bisa digunakan untuk menampung data antrian di Channel
+
+* Buffer Capacity
+Kita bebas memasukkan berapa jumlah kapasitas antrian di dalam buffer
+Jika kita set misal 5, artinya kita bisa menerima 5 data di buffer.
+Jika kita mengirim data ke 6, maka kita diminta untuk menunggu sampai buffer ada yang kosong
+Ini cocok sekali ketika memang goroutine yang menerima data lebih lambat dari yang mengirim data
+
+
+* Range Channel
+Kadang-kadang ada kasus sebuah channel dikirim data secara terus menerus oleh pengirim
+Dan kadang tidak jelas kapan channel tersebut akan berhenti menerima data
+Salah satu yang bisa kita lakukan adalah dengan menggunakan perulangan range ketika menerima data dari channel
+Ketika sebuah channel di close(), maka secara otomatis perulangan tersebut akan berhenti
+Ini lebih sederhana dari pada kita melakukan pengecekan channel secara manual
+
+* Select Channel
+Kadang ada kasus dimana kita membuat beberapa channel, dan menjalankan beberapa goroutine
+Lalu kita ingin mendapatkan data dari semua channel tersebut
+Untuk melakukan hal tersebut, kita bisa menggunakan select channel di Go-Lang
+Dengan select channel, kita bisa memilih data tercepat dari beberapa channel, jika data datang secara bersamaan di beberapa channel, maka akan dipilih secara random
+
+* Default Select
+Apa yang terjadi jika kita melakukan select terhadap channel yang ternyata tidak ada datanya?
+Maka kita akan menunggu sampai data ada
+Kadang mungkin kita ingin melakukan sesuatu jika misal semua channel tidak ada datanya ketika kita melakukan select channel
+Dalam select, kita bisa menambahkan default, dimana ini akan dieksekusi jika memang di semua channel yang kita select tidak ada datanya
+
+* Masalah Dengan Goroutine
+Saat kita menggunakan goroutine, dia tidak hanya berjalan secara concurrent, tapi bisa parallel juga, karena bisa ada beberapa thread yang berjalan secara parallel
+Hal ini sangat berbahaya ketika kita melakukan manipulasi data variable yang sama oleh beberapa goroutine secara bersamaan
+Hal ini bisa menyebabkan masalah yang namanya Race Condition
+
+* Mutex (Mutual Exclusion)
+Untuk mengatasi masalah race condition tersebut, di Go-Lang terdapat sebuah struct bernama sync.Mutex
+Mutex bisa digunakan untuk melakukan locking dan unlocking, dimana ketika kita melakukan locking terhadap mutex, maka tidak ada yang bisa melakukan locking lagi sampai kita melakukan unlock
+Dengan demikian, jika ada beberapa goroutine melakukan lock terhadap Mutex, maka hanya 1 goroutine yang diperbolehkan, setelah goroutine tersebut melakukan unlock, baru goroutine selanjutnya diperbolehkan melakukan lock lagi
+Ini sangat cocok sebagai solusi ketika ada masalah race condition yang sebelumnya kita hadapi
+
+* RWMutex (Read Write Mutex)
+Kadang ada kasus dimana kita ingin melakukan locking tidak hanya pada proses mengubah data, tapi juga membaca data
+Kita sebenarnya bisa menggunakan Mutex saja, namun masalahnya nanti akan rebutan antara proses membaca dan mengubah
+Di Go-Lang telah disediakan struct RWMutex (Read Write Mutex) untuk menangani hal ini, dimana Mutex jenis ini memiliki dua lock, lock untuk Read dan lock untuk Write
+
 */
