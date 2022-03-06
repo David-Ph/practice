@@ -2,167 +2,168 @@ package goroutine
 
 import (
 	"fmt"
+	"strconv"
 	"sync"
 	"testing"
 	"time"
 )
 
-// func TestCreateChannel(t *testing.T) {
-// 	channel := make(chan string)
+func TestCreateChannel(t *testing.T) {
+	channel := make(chan string)
 
-// 	// mock async function
-// 	go func() {
-// 		time.Sleep(2 * time.Second)
-// 		channel <- "Fey Syllenae"
-// 	}()
+	// mock async function
+	go func() {
+		time.Sleep(2 * time.Second)
+		channel <- "Fey Syllenae"
+	}()
 
-// 	data := <-channel
-// 	fmt.Println(data)
+	data := <-channel
+	fmt.Println(data)
 
-// 	close(channel)
-// }
+	close(channel)
+}
 
 func GiveMeResponse(channel chan string) {
 	time.Sleep(2 * time.Second)
 	channel <- "Eko Kurniawa Khannedy"
 }
 
-// func TestChannelAsParameter(t *testing.T) {
-// 	channel := make(chan string)
+func TestChannelAsParameter(t *testing.T) {
+	channel := make(chan string)
 
-// 	go GiveMeResponse(channel)
+	go GiveMeResponse(channel)
 
-// 	data := <-channel
-// 	fmt.Println(data)
-// 	close(channel)
-// }
+	data := <-channel
+	fmt.Println(data)
+	close(channel)
+}
 
 // // hanya memasukkan data
-// func OnlyIn(channel chan<- string) {
-// 	time.Sleep(1 * time.Second)
-// 	channel <- "Eko Kurniawan Khannedy"
-// }
+func OnlyIn(channel chan<- string) {
+	time.Sleep(1 * time.Second)
+	channel <- "Eko Kurniawan Khannedy"
+}
 
 // // hanya menerima data
-// func OnlyOut(channel <-chan string) {
-// 	data := <-channel
-// 	fmt.Println(data)
-// }
+func OnlyOut(channel <-chan string) {
+	data := <-channel
+	fmt.Println(data)
+}
 
-// func TestInOutChannel(t *testing.T) {
-// 	channel := make(chan string)
+func TestInOutChannel(t *testing.T) {
+	channel := make(chan string)
 
-// 	go OnlyIn(channel)
-// 	go OnlyOut(channel)
+	go OnlyIn(channel)
+	go OnlyOut(channel)
 
-// 	time.Sleep(1 * time.Second)
-// 	close(channel)
-// }
+	time.Sleep(1 * time.Second)
+	close(channel)
+}
 
-// func TestBufferedChannel(t *testing.T) {
-// 	channel := make(chan string, 3)
+func TestBufferedChannel(t *testing.T) {
+	channel := make(chan string, 3)
 
-// 	go func() {
-// 		channel <- "Eko"
-// 		channel <- "Kurniawan"
-// 		channel <- "Khannedy"
-// 	}()
+	go func() {
+		channel <- "Eko"
+		channel <- "Kurniawan"
+		channel <- "Khannedy"
+	}()
 
-// 	go func() {
-// 		fmt.Println(<-channel)
-// 		fmt.Println(<-channel)
-// 		fmt.Println(<-channel)
-// 	}()
+	go func() {
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+	}()
 
-// 	time.Sleep(2 * time.Second)
+	time.Sleep(2 * time.Second)
 
-// 	fmt.Println("Selesai")
+	fmt.Println("Selesai")
 
-// 	close(channel)
-// }
+	close(channel)
+}
 
-// func TestRangeChannel(t *testing.T) {
-// 	channel := make(chan string)
+func TestRangeChannel(t *testing.T) {
+	channel := make(chan string)
 
-// 	go func() {
-// 		for i := 0; i < 10; i++ {
-// 			channel <- "Perulangan ke " + strconv.Itoa(i)
-// 		}
-// 		close(channel)
-// 	}()
+	go func() {
+		for i := 0; i < 10; i++ {
+			channel <- "Perulangan ke " + strconv.Itoa(i)
+		}
+		close(channel)
+	}()
 
-// 	for data := range channel {
-// 		fmt.Println(data)
-// 	}
+	for data := range channel {
+		fmt.Println(data)
+	}
 
-// 	time.Sleep(2 * time.Second)
+	time.Sleep(2 * time.Second)
 
-// 	fmt.Println("Done")
-// }
+	fmt.Println("Done")
+}
 
-// func TestSelectChannel(t *testing.T) {
-// 	channel1 := make(chan string)
-// 	channel2 := make(chan string)
+func TestSelectChannel(t *testing.T) {
+	channel1 := make(chan string)
+	channel2 := make(chan string)
 
-// 	go GiveMeResponse(channel1)
-// 	go GiveMeResponse(channel2)
+	go GiveMeResponse(channel1)
+	go GiveMeResponse(channel2)
 
-// 	counter := 0
+	counter := 0
 
-// 	for {
-// 		select {
-// 		case data := <-channel1:
-// 			fmt.Println("Data dari channel 1", data)
-// 			counter++
-// 		case data := <-channel2:
-// 			fmt.Println("Data dari channel 2", data)
-// 			counter++
-// 		default:
-// 			fmt.Println("Menunggu data...")
-// 		}
+	for {
+		select {
+		case data := <-channel1:
+			fmt.Println("Data dari channel 1", data)
+			counter++
+		case data := <-channel2:
+			fmt.Println("Data dari channel 2", data)
+			counter++
+		default:
+			fmt.Println("Menunggu data...")
+		}
 
-// 		if counter == 2 {
-// 			break
-// 		}
-// 	}
+		if counter == 2 {
+			break
+		}
+	}
 
-// 	close(channel1)
-// 	close(channel2)
-// }
+	close(channel1)
+	close(channel2)
+}
 
-// func TestRaceCondition(t *testing.T) {
-// 	var x = 0
-// 	for i := 0; i <= 1000; i++ {
-// 		go func() {
-// 			for j := 1; j <= 100; j++ {
-// 				x += 1
-// 			}
-// 		}()
-// 	}
+func TestRaceCondition(t *testing.T) {
+	var x = 0
+	for i := 0; i <= 1000; i++ {
+		go func() {
+			for j := 1; j <= 100; j++ {
+				x += 1
+			}
+		}()
+	}
 
-// 	time.Sleep(5 * time.Second)
+	time.Sleep(5 * time.Second)
 
-// 	fmt.Println("Counter :", x)
-// }
+	fmt.Println("Counter :", x)
+}
 
-// func TestSynxMutex(t *testing.T) {
-// 	var x = 0
-// 	var mutex sync.Mutex
+func TestSynxMutex(t *testing.T) {
+	var x = 0
+	var mutex sync.Mutex
 
-// 	for i := 1; i <= 1000; i++ {
-// 		go func() {
-// 			for j := 1; j <= 100; j++ {
-// 				mutex.Lock()
-// 				x += 1
-// 				mutex.Unlock()
-// 			}
-// 		}()
-// 	}
+	for i := 1; i <= 1000; i++ {
+		go func() {
+			for j := 1; j <= 100; j++ {
+				mutex.Lock()
+				x += 1
+				mutex.Unlock()
+			}
+		}()
+	}
 
-// 	time.Sleep(5 * time.Second)
+	time.Sleep(5 * time.Second)
 
-// 	fmt.Println("Counter :", x)
-// }
+	fmt.Println("Counter :", x)
+}
 
 type BankAccount struct {
 	RWMUtex sync.RWMutex

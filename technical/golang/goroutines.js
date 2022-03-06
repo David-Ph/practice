@@ -150,4 +150,41 @@ Kadang ada kasus dimana kita ingin melakukan locking tidak hanya pada proses men
 Kita sebenarnya bisa menggunakan Mutex saja, namun masalahnya nanti akan rebutan antara proses membaca dan mengubah
 Di Go-Lang telah disediakan struct RWMutex (Read Write Mutex) untuk menangani hal ini, dimana Mutex jenis ini memiliki dua lock, lock untuk Read dan lock untuk Write
 
+* Deadlock
+Hati-hati saat membuat aplikasi yang parallel atau concurrent, masalah yang sering kita hadapi adalah Deadlock
+Deadlock adalah keadaan dimana sebuah proses goroutine saling menunggu lock sehingga tidak ada satupun goroutine yang bisa jalan
+Sekarang kita coba simulasikan proses deadlock
+
+* WaitGroup
+WaitGroup adalah fitur yang bisa digunakan untuk menunggu sebuah proses selesai dilakukan
+Hal ini kadang diperlukan, misal kita ingin menjalankan beberapa proses menggunakan goroutine, tapi kita ingin semua proses selesai terlebih dahulu sebelum aplikasi kita selesai
+Kasus seperti ini bisa menggunakan WaitGroup
+Untuk menandai bahwa ada proses goroutine, kita bisa menggunakan method Add(int), setelah proses goroutine selesai, kita bisa gunakan method Done()
+Untuk menunggu semua proses selesai, kita bisa menggunakan method Wait()
+
+* Once
+Once adalah fitur di Go-Lang yang bisa kita gunakan untuk memastikan bahsa sebuah function di eksekusi hanya sekali
+Jadi berapa banyak pun goroutine yang mengakses, bisa dipastikan bahwa goroutine yang pertama yang bisa mengeksekusi function nya
+Goroutine yang lain akan di hiraukan, artinya function tidak akan dieksekusi lagi
+
+* Pool
+Pool adalah implementasi design pattern bernama object pool pattern. 
+Sederhananya, design pattern Pool ini digunakan untuk menyimpan data, selanjutnya untuk menggunakan datanya, kita bisa mengambil dari Pool, dan setelah selesai menggunakan datanya, kita bisa menyimpan kembali ke Pool nya
+Implementasi Pool di Go-Lang ini sudah aman dari problem race condition
+
+* Map
+Go-Lang memiliki sebuah struct beranama sync.Map
+Map ini mirip Go-Lang map, namun yang membedakan, Map ini aman untuk menggunaan concurrent menggunakan goroutine
+Ada beberapa function yang bisa kita gunakan di Map :
+Store(key, value) untuk menyimpan data ke Map
+Load(key) untuk mengambil data dari Map menggunakan key
+Delete(key) untuk menghapus data di Map menggunakan key
+Range(function(key, value)) digunakan untuk melakukan iterasi seluruh data di Map
+
+* Cond
+Cond adalah adalah implementasi locking berbasis kondisi. 
+Cond membutuhkan Locker (bisa menggunakan Mutex atau RWMutex) untuk implementasi locking nya, namun berbeda dengan Locker biasanya, di Cond terdapat function Wait() untuk menunggu apakah perlu menunggu atau tidak
+Function Signal() bisa digunakan untuk memberi tahu sebuah goroutine agar tidak perlu menunggu lagi, sedangkan function Broadcast() digunakan untuk memberi tahu semua goroutine agar tidak perlu menunggu lagi
+Untuk membuat Cond, kita bisa menggunakan function sync.NewCond(Locker)
+
 */
