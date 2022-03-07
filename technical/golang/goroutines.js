@@ -187,4 +187,46 @@ Cond membutuhkan Locker (bisa menggunakan Mutex atau RWMutex) untuk implementasi
 Function Signal() bisa digunakan untuk memberi tahu sebuah goroutine agar tidak perlu menunggu lagi, sedangkan function Broadcast() digunakan untuk memberi tahu semua goroutine agar tidak perlu menunggu lagi
 Untuk membuat Cond, kita bisa menggunakan function sync.NewCond(Locker)
 
+* Atomic
+Go-Lang memiliki package yang bernama sync/atomic
+Atomic merupakan package yang digunakan untuk menggunakan data primitive secara aman pada proses concurrent
+Contohnya sebelumnya kita telah menggunakan Mutex untuk melakukan locking ketika ingin menaikkan angka di counter. Hal ini sebenarnya bisa digunakan menggunakan Atomic package
+Ada banyak sekali function di atomic package, kita bisa eksplore sendiri di halaman dokumentasinya
+https://golang.org/pkg/sync/atomic/ 
+
+* Timer
+Timer adalah representasi satu kejadian
+Ketika waktu timer sudah expire, maka event akan dikirim ke dalam channel
+Untuk membuat Timer kita bisa menggunakan time.NewTimer(duration)
+
+* time.After()
+Kadang kita hanya butuh channel nya saja, tidak membutuhkan data Timer nya
+Untuk melakukan hal itu kita bisa menggunakan function time.After(duration)
+
+* time.AfterFunc()
+Kadang ada kebutuhan kita ingin menjalankan sebuah function dengan delay waktu tertentu
+Kita bisa memanfaatkan Timer dengan menggunakan function time.AfterFunc()
+Kita tidak perlu lagi menggunakan channel nya, cukup kirim kan function yang akan dipanggil ketika Timer mengirim kejadiannya
+
+* time.Ticker
+Ticker adalah representasi kejadian yang berulang
+Ketika waktu ticker sudah expire, maka event akan dikirim ke dalam channel
+Untuk membuat ticker, kita bisa menggunakan time.NewTicker(duration)
+Untuk menghentikan ticker, kita bisa menggunakan Ticker.Stop()
+
+* time.Tick()
+Kadang kita tidak butuh data Ticker nya, kita hanya butuh channel nya saja
+Jika demikian, kita bisa menggunakan function timer.Tick(duration), function ini tidak akan mengembalikan Ticker, hanya mengembalikan channel timer nya saja
+
+* GOMAXPROCS
+Sebelumnya diawal kita sudah bahas bahwa goroutine itu sebenarnya dijalankan di dalam Thread
+Pertanyaannya, seberapa banyak Thread yang ada di Go-Lang ketika aplikasi kita berjalan?
+Untuk mengetahui berapa jumlah Thread, kita bisa menggunakan GOMAXPROCS, yaitu sebuah function di package runtime yang bisa kita gunakan untuk mengubah jumlah thread atau mengambil jumlah thread
+Secara default, jumlah thread di Go-Lang itu sebanyak jumlah CPU di komputer kita. 
+Kita juga bisa melihat berapa jumlah CPU kita dengan menggunakan function runtime.NumCpu()
+
+* Peringatan
+Menambah jumlah thread tidak berarti membuat aplikasi kita menjadi lebih cepat
+Karena pada saat yang sama, 1 CPU hanya akan menjalankan  1 goroutine dengan 1 thread
+Oleh karena ini, jika ingin menambah throughput aplikasi, disarankan lakukan vertical scaling (dengan menambah jumlah CPU) atau horizontal scaling (menambah node baru)
 */
