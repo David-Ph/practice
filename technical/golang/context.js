@@ -50,4 +50,23 @@ Kita bisa menambah sebuah value dengan data Pair (key - value) ke dalam context
 Saat kita menambah value ke context, secara otomatis akan tercipta child context baru, artinya original context nya tidak akan berubah sama sekali
 Untuk membuat menambahkan value ke context, kita bisa menggunakan function context.WithValue(parent, key, value)
 
+* Context With Cancel
+Selain menambahkan value ke context, kita juga bisa menambahkan sinyal cancel ke context
+Kapan sinyal cancel diperlukan dalam context?
+Biasanya ketika kita butuh menjalankan proses lain, dan kita ingin bisa memberi sinyal cancel ke proses tersebut
+Biasanya proses ini berupa goroutine yang berbeda, sehingga dengan mudah jika kita ingin membatalkan eksekusi goroutine, kita bisa mengirim sinyal cancel ke context nya
+Namun ingat, goroutine yang menggunakan context, tetap harus melakukan pengecekan terhadap context nya, jika tidak, tidak ada gunanya
+Untuk membuat context dengan cancel signal, kita bisa menggunakan function context.WithCancel(parent)
+
+* Context With Timeout
+Selain menambahkan value ke context, dan juga sinyal cancel, kita juga bisa menambahkan sinyal cancel ke context secara otomatis dengan menggunakan pengaturan timeout
+Dengan menggunakan pengaturan timeout, kita tidak perlu melakukan eksekusi cancel secara manual, cancel akan otomatis di eksekusi jika waktu timeout sudah terlewati
+Penggunaan context dengan timeout sangat cocok ketika misal kita melakukan query ke database atau http api, namun ingin menentukan batas maksimal timeout nya
+Untuk membuat context dengan cancel signal secara otomatis menggunakan timeout, kita bisa menggunakan function context.WithTimeout(parent, duration)
+
+* Context With Deadline
+Selain menggunakan timeout untuk melakukan cancel secara otomatis, kita juga bisa menggunakan deadline
+Pengaturan deadline sedikit berbeda dengan timeout, jika timeout kita beri waktu dari sekarang, kalo deadline ditentukan kapan waktu timeout nya, misal jam 12 siang hari ini
+Untuk membuat context dengan cancel signal secara otomatis menggunakan deadline, kita bisa menggunakan function context.WithDeadline(parent, time)
+
 */
