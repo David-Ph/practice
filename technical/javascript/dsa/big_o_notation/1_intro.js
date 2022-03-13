@@ -36,3 +36,25 @@ function printALlPairs(n) {
     }
   }
 }
+
+// for this function
+// we created two variables in total( total, i )
+// there are only two, and it doesn't grow
+// so this time complexity is o(1)
+function sum(array) {
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
+    total += array[i];
+  }
+  return total;
+}
+
+// this one we created a new variable after each loop
+// so this is o(n)
+function double(array) {
+  let newArr = [];
+  for (let i = 0; i < array.length; i++) {
+    newArr.push(array[i] * 2);
+  }
+  return newArr
+}

@@ -23,4 +23,6 @@ there are rules of thumb when determining big o expressions
   so there is no o(2n), there is only o(n)
   there is no o(500), there is only o(1)
   there is no o(13n*n), there is only o(n*n)
+
+for space complexity, we have to count how many variables are created during the operation
 */
