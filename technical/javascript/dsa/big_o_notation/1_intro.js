@@ -19,8 +19,20 @@ function addUpTo(n) {
 // using math formula
 // the pros of this is, it's not using a loop so this is probably very fast
 // the cons of this is, it's not very intuitive
+// the complexity of this is o(1)
 // with this solution, it doesn't matter how big n is
 // it will always do the same number of operations
 function addUpToFormula(n) {
   return (n * (n + 1)) / 2;
+}
+
+// approach 3
+// this one uses o(n*n) complexity
+// which is not very good
+function printALlPairs(n) {
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      console.log(n);
+    }
+  }
 }
