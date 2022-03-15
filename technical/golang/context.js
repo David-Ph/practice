@@ -69,4 +69,19 @@ Selain menggunakan timeout untuk melakukan cancel secara otomatis, kita juga bis
 Pengaturan deadline sedikit berbeda dengan timeout, jika timeout kita beri waktu dari sekarang, kalo deadline ditentukan kapan waktu timeout nya, misal jam 12 siang hari ini
 Untuk membuat context dengan cancel signal secara otomatis menggunakan deadline, kita bisa menggunakan function context.WithDeadline(parent, time)
 
+
+* Query SQL
+Untuk operasi SQL yang tidak membutuhkan hasil, kita bisa menggunakan perintah Exec, namun jika kita membutuhkan result, seperti SELECT SQL, kita bisa menggunakan function yang berbeda
+Function untuk melakukan query ke database, bisa menggunakan function (DB) QueryContext(context, sql, params)
+function ini akan mereturn struct rows.
+rows ini harus diclose jika sudah selesai digunakan
+
+* Rows
+Hasil Query function adalah sebuah data structs sql.Rows
+Rows digunakan untuk melakukan iterasi terhadap hasil dari query
+Kita bisa menggunakan function (Rows) Next() (boolean) untuk melakukan iterasi terhadap data hasil query, jika return data false, artinya sudah tidak ada data lagi didalam result
+Untuk membaca tiap data, kita bisa menggunakan (Rows) Scan(columns...)
+Dan jangan lupa, setelah menggunakan Rows, jangan lupa untuk menutupnya menggunakan (Rows) Close()
+
+
 */
