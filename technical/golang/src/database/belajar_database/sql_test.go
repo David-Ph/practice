@@ -16,7 +16,7 @@ func TestExecSQL(t *testing.T) {
 
 	ctx := context.Background()
 
-	script := "INSERT INTO customer(id, name) VALUES('MAO127', 'Fey Syllenae')"
+	script := "INSERT INTO customer(id, name) VALUES('MAO128', 'Fey Syllenae')"
 
 	_, err := db.ExecContext(ctx, script)
 	if err != nil {
@@ -99,4 +99,27 @@ func TestSelectCustomer(t *testing.T) {
 		fmt.Println("rating: ", rating)
 	}
 	defer rows.Close()
+}
+
+func TestLastInsert(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	inputEmail := "myemail@gmail.com"
+	inputComment := "hello there"
+
+	script := "INSERT INTO comments(email, comment) VALUES(?, ?)"
+
+	result, err := db.ExecContext(ctx, script, inputEmail, inputComment)
+	if err != nil {
+		panic(err)
+	}
+
+	insertId, err := result.LastInsertId()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("Inserted ID:", insertId)
 }
