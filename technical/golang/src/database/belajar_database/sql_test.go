@@ -150,3 +150,30 @@ func TestPreparedStatement(t *testing.T) {
 	}
 
 }
+
+func TestDatabaseTransaction(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	tx, err := db.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	// do transaction here
+	sqlQuery := "INSERT INTO comments(email, comment) VALUES(?, ?)"
+	for i := 0; i < 10; i++ {
+		email := "maomao" + strconv.Itoa(i) + "@gmail.com"
+		comment := "Ini comment ke " + strconv.Itoa(i)
+		_, err := tx.ExecContext(ctx, sqlQuery, email, comment)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	// tx.Commit()
+	tx.Rollback()
+
+}
