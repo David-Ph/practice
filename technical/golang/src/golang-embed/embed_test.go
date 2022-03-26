@@ -19,6 +19,9 @@ var logo []byte
 //go:embed docs/third.txt
 var files embed.FS
 
+//go:embed docs/*.txt
+var path embed.FS
+
 func TestString(t *testing.T) {
 	fmt.Println("Printing version")
 	fmt.Println(version)
@@ -40,4 +43,15 @@ func TestMultipleFiles(t *testing.T) {
 
 	third, _ := files.ReadFile("docs/third.txt")
 	fmt.Println(string(third))
+}
+
+func TestPathMatcher(t *testing.T) {
+	dir, _ := path.ReadDir("docs")
+	for _, entry := range dir {
+		if !entry.IsDir() {
+			fmt.Println(entry.Name())
+			content, _ := path.ReadFile("docs/" + entry.Name())
+			fmt.Println("Content: " + string(content))
+		}
+	}
 }
