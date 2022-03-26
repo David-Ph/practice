@@ -18,5 +18,11 @@ Secara otomatis isi file akan dibaca sebagai text dan masukkan ke variable terse
 Selain ke tipe data String, embed file juga bisa dilakukan ke variable tipe data []byte
 Ini cocok sekali jika kita ingin melakukan embed file dalam bentuk binary, seperti gambar dan lain-lain
 
+* Embed Multiple Files
+Kadang ada kebutuhan kita ingin melakukan embed beberapa file sekaligus
+Hal ini juga bisa dilakukan menggunakan embed package
+Kita bisa menambahkan komentar //go:embed lebih dari satu baris
+Selain itu variable nya bisa kita gunakan tipe data embed.FS
+
 
 */
