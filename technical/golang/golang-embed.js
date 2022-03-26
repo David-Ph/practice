@@ -29,6 +29,10 @@ Selain manual satu per satu, kita bisa mengguakan patch matcher untuk membaca mu
 Ini sangat cocok ketika misal kita punya pola jenis file yang kita inginkan untuk kita baca
 Caranya, kita perlu menggunakan path matcher seperti pada package function path.Match
 
+* Hasil Embed di Compile
+Perlu diketahui, bahwa hasil embed yang dilakukan oleh package embed adalah permanent dan data file yang dibaca disimpan dalam binary file golang nya
+Artinya bukan dilakukan secara realtime membaca file yang ada diluar
+Hal ini menjadikan jika binary file golang sudah di compile, kita tidak butuh lagi file external nya, dan bahkan jika diubah file external nya, isi variable nya tidak akan berubah lagi
 
 
 */
