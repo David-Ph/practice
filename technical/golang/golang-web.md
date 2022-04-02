@@ -91,3 +91,11 @@ Namun pada course ini, kita akan fokus menggunakan package net/http untuk membua
   Untuk membuat web, kita wajib membuat Server
 - Saat membuat data Server, ada beberapa hal yang perlu kita tentukan, seperti host dan juga port tempat dimana Web kita berjalan
 - Setelah membuat Server, kita bisa menjalankan Server tersebut menggunakan function ListenAndServe()
+
+# Handler
+- Server hanya bertugas sebagai Web Server, sedangkan untuk menerima HTTP Request yang masuk ke Server, kita butuh yang namanya Handler
+- Handler di Go-Lang di representasikan dalam interface, dimana dalam kontraknya terdapat sebuah function bernama ServeHTTP() yang digunakan sebagai function yang akan di eksekusi ketika menerima HTTP Request
+
+# HandlerFunc
+- Salah satu implementasi dari interface Handler adalah HandlerFunc
+- Kita bisa menggunakan HandlerFunc untuk membuat function handler HTTP
