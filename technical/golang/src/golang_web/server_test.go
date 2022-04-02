@@ -22,3 +22,27 @@ func TestServer(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestServeMux(t *testing.T) {
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", func(res http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(res, "Hello From Root")
+	})
+	mux.HandleFunc("/profile", func(res http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(res, "Hello From Profile")
+	})
+	mux.HandleFunc("/profile/settings", func(res http.ResponseWriter, req *http.Request) {
+		fmt.Fprint(res, "Hello From Profile Settings")
+	})
+
+	server := http.Server{
+		Addr:    "localhost:8080",
+		Handler: mux,
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+}
