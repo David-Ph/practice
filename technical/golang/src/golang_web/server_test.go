@@ -5,6 +5,8 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
+	"strings"
 	"testing"
 )
 
@@ -84,5 +86,64 @@ func TestHelloHandler(t *testing.T) {
 
 	fmt.Println(response.StatusCode)
 	fmt.Println(response.Status)
+	fmt.Println(string(body))
+}
+
+func SayHello(writer http.ResponseWriter, request *http.Request) {
+	name := request.URL.Query().Get("name")
+	if name == "" {
+		fmt.Fprint(writer, "Hello")
+	} else {
+		fmt.Fprintf(writer, "Hello %s", name)
+	}
+}
+
+func MultipleQueryParameter(writer http.ResponseWriter, request *http.Request) {
+	firstName := request.URL.Query().Get("first_name")
+	lastName := request.URL.Query().Get("last_name")
+
+	fmt.Fprintf(writer, "Hello, %s %s", firstName, lastName)
+}
+
+func MultipleValueParameter(writer http.ResponseWriter, request *http.Request) {
+	var query url.Values = request.URL.Query()
+	var names []string = query["name"]
+
+	fmt.Fprintln(writer, strings.Join(names, ", "))
+}
+
+func TestQueryParameter(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost:8080/hello?name=Eko", nil)
+	recorder := httptest.NewRecorder()
+
+	SayHello(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
+	fmt.Println(string(body))
+}
+
+func TestMultipleQueryParameter(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost:8080/hello?first_name=Fey&last_name=Syllenae", nil)
+	recorder := httptest.NewRecorder()
+
+	MultipleQueryParameter(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
+	fmt.Println(string(body))
+}
+
+func TestMultipleValueParameter(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost:8080/hello?name=Fey&name=Syllenae", nil)
+	recorder := httptest.NewRecorder()
+
+	MultipleValueParameter(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
 	fmt.Println(string(body))
 }
