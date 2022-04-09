@@ -190,3 +190,31 @@ Di Go-Lang, untuk mengambil data Form Post sangatlah mudah
 Semua data form post yang dikirim dari client, secara otomatis akan disimpan dalam attribute Request.PostForm
 Namun sebelum kita bisa mengambil data di attribute PostForm, kita wajib memanggil method Request.ParseForm() terlebih dahulu, method ini digunakan untuk melakukan parsing data body apakah bisa di parsing menjadi form data atau tidak, jika tidak bisa di parsing, maka akan menyebabkan error
 
+# Response Code
+Dalam HTTP, terdapat yang namanya response code
+Response code merupakan representasi kode response
+Dari response code ini kita bisa melihat apakah sebuah request yang kita kirim itu sukses diproses oleh server atau gagal
+Ada banyak sekali response code yang bisa kita gunakan saat membuat web
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status 
+Mengubah Response Code
+
+# Mengubah Response Code
+Secara default, jika kita tidak menyebutkan response code, maka response code nya adalah 200 OK
+Jika kita ingin mengubahnya, kita bisa menggunakan function ResponseWriter.WriteHeader(int)
+Semua data status code juga sudah disediakan di Go-Lang, jadi kita ingin, kita bisa gunakan variable yang sudah disediakan : https://github.com/golang/go/blob/master/src/net/http/status.go 
+
+# Cookie
+Cookie adalah fitur di HTTP dimana server bisa memberi response cookie (key-value) dan client akan menyimpan cookie tersebut di web browser
+Request selanjutnya, client akan selalu membawa cookie tersebut secara otomatis
+Dan server secara otomatis akan selalu menerima data cookie yang dibawa oleh client setiap kalo client mengirimkan request
+
+# Stateless
+HTTP merupakan stateless antara client dan server, artinya server tidak akan menyimpan data apapun untuk mengingat setiap request dari client
+Hal ini bertujuan agar mudah melakukan scalability di sisi server
+Lantas bagaimana caranya agar server bisa mengingat sebuah client? Misal ketika kita sudah login di website, server otomatis harus tahu jika client tersebut sudah login, sehingga request selanjutnya, tidak perlu diminta untuk login lagi
+Untuk melakukan hal ini, kita bisa memanfaatkan Cookie
+
+# Membuat Cookie
+Cookie merupakan data yang dibuat di server dan sengaja agar disimpan di web browser
+Untuk membuat cookie di server, kita bisa menggunakan function http.SetCookie()
+
