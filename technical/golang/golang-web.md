@@ -93,61 +93,89 @@ Namun pada course ini, kita akan fokus menggunakan package net/http untuk membua
 - Setelah membuat Server, kita bisa menjalankan Server tersebut menggunakan function ListenAndServe()
 
 # Handler
+
 - Server hanya bertugas sebagai Web Server, sedangkan untuk menerima HTTP Request yang masuk ke Server, kita butuh yang namanya Handler
 - Handler di Go-Lang di representasikan dalam interface, dimana dalam kontraknya terdapat sebuah function bernama ServeHTTP() yang digunakan sebagai function yang akan di eksekusi ketika menerima HTTP Request
 
 # HandlerFunc
+
 - Salah satu implementasi dari interface Handler adalah HandlerFunc
 - Kita bisa menggunakan HandlerFunc untuk membuat function handler HTTP
 
 # ServeMux
+
 Saat membuat web, kita biasanya ingin membuat banyak sekali endpoint URL
 HandlerFunc sayangnya tidak mendukung itu
 Alternative implementasi dari Handler adalah ServeMux
 ServeMux adalah implementasi Handler yang bisa mendukung multiple endpoint
 
 # URL Pattern
-- URL Pattern dalam ServeMux sederhana, kita tinggal menambahkan string yang ingin kita gunakan sebagai  endpoint, tanpa perlu memasukkan domain web kita
+
+- URL Pattern dalam ServeMux sederhana, kita tinggal menambahkan string yang ingin kita gunakan sebagai endpoint, tanpa perlu memasukkan domain web kita
 - Jika URL Pattern dalam ServeMux kita tambahkan di akhirnya dengan garis miring, artinya semua url tersebut akan menerima path dengan awalan tersebut, misal /images/ artinya akan dieksekusi jika endpoint nya /images/, /images/contoh, /images/contoh/lagi
 - Namun jika terdapat URL Pattern yang lebih panjang, maka akan diprioritaskan yang lebih panjang, misal jika terdapat URL /images/ dan /images/thumbnails/, maka jika mengakses /images/thumbnails/ akan mengakses /images/thumbnails/, bukan /images
 
 # Request
+
 - Request adalah struct yang merepresentasikan HTTP Request yang dikirim oleh Web Browser
 - Semua informasi request yang dikirim bisa kita dapatkan di Request
 - Seperti, URL, http method, http header, http body, dan lain-lain
 
 # HTTP Test
+
 Go-Lang sudah menyediakan package khusus untuk membuat unit test terhadap fitur Web yang kita buat
-Semuanya ada di dalam package net/http/httptest https://golang.org/pkg/net/http/httptest/ 
+Semuanya ada di dalam package net/http/httptest https://golang.org/pkg/net/http/httptest/
 Dengan menggunakan package ini, kita bisa melakukan testing handler web di Go-Lang tanpa harus menjalankan aplikasi web nya
 Kita bisa langsung fokus terhadap handler function yang ingin kita test
 
 # httptest.NewRequest()
+
 NewRequest(method, url, body) merupakan function yang digunakan untuk membuat http.Request
 Kita bisa menentukan method, url dan body yang akan kita kirim sebagai simulasi unit test
 Selain itu, kita juga bisa menambahkan informasi tambahan lainnya pada request yang ingin kita kirim, seperti header, cookie, dan lain-lain
 
 # httptest.NewRecorder()
+
 httptest.NewRecorder() merupakan function yang digunakan untuk membuat ResponseRecorder
 ResponseRecorder merupakan struct bantuan untuk merekam HTTP response dari hasil testing yang kita lakukan
 
 # Query Parameter
+
 Query parameter adalah salah satu fitur yang biasa kita gunakan ketika membuat web
 Query parameter biasanya digunakan untuk mengirim data dari client ke server
 Query parameter ditempatkan pada URL
 Untuk menambahkan query parameter, kita bisa menggunakan ?nama=value pada URL nya
 
 # url.URL
+
 Dalam parameter Request, terdapat attribute URL yang berisi data url.URL
 Dari data URL ini, kita bisa mengambil data query parameter yang dikirim dari client dengan menggunakan method Query() yang akan mengembalikan map
 
 # Multiple Query Parameter
+
 Dalam spesifikasi URL, kita bisa menambahkan lebih dari satu query parameter
 Ini cocok sekali jika kita memang ingin mengirim banyak data ke server, cukup tambahkan query parameter lainnya
 Untuk menambahkan query parameter, kita bisa gunakan tanda & lalu diikuti dengan query parameter berikutnya
 
 # Multiple Value Query Parameter
+
 Sebenarnya URL melakukan parsing query parameter dan menyimpannya dalam map[string][]string
 Artinya, dalam satu key query parameter, kita bisa memasukkan beberapa value
 Caranya kita bisa menambahkan query parameter dengan nama yang sama, namun value berbeda, misal :
 name=Eko&name=Kurniawan
+
+# Header
+
+Selain Query Parameter, dalam HTTP, ada juga yang bernama Header
+Header adalah informasi tambahan yang biasa dikirim dari client ke server atau sebaliknya
+Jadi dalam Header, tidak hanya ada pada HTTP Request, pada HTTP Response pun kita bisa menambahkan informasi header
+Saat kita menggunakan browser, biasanya secara otomatis header akan ditambahkan oleh browser, seperti informasi browser, jenis tipe content yang dikirim dan diterima oleh browser, dan lain-lain
+
+# Request Header
+
+Untuk menangkap request header yang dikirim oleh client, kita bisa mengambilnya di Request.Header
+Header mirip seperti Query Parameter, isinya adalah map[string][]string
+Berbeda dengan Query Parameter yang case sensitive, secara spesifikasi, Header key tidaklah case sensitive
+
+# Response Header
+Sedangkan jika kita ingin menambahkan header pada response, kita bisa menggunakan function ResponseWriter.Header()
