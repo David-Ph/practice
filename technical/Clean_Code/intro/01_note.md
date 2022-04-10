@@ -9,3 +9,11 @@
 - should be fun to write and to maintain
 - should follow common best practices and patterns
 - should avoid unintuitive names, complex nesting, and big code blocks
+
+# Key Points: 
+
+- Names: variables, functions, classes
+- Structures & Comments: Code Formatting, good & bad comments
+- Functions: Length, Parameters
+- Conditionals & Error Handling: Deep nesting, missing error handling
+- Classes & data structures: Missing distinction, bloated classes
