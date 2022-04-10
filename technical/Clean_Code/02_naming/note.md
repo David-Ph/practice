@@ -15,8 +15,29 @@ It should explain explain to us what is the variable/function doing without us h
   - use nouns or short phrases with nouns -> User(), RequestBody()
 
 # Name Casing
+
 - snake_case: is_valid, send_response -> python (variables, functions, methods)
 - camelCase: isValid, sendResponse -> javascript, java (variables, functions, methods)
 - PascalCase: AdminRole, UserRepository -> python, javsacript, java (classes)
 - kebab-case: <side-drawer> -> html (custom html elements)
 
+# Naming Variables, Constants & Properties
+
+- Value is an object:
+  - describe the value -> user, database -> authenticatedUser, sqlDatabase
+- Value is number or string:
+  - desribe the value -> name, age -> firstName, age
+- value is a boolean:
+  - answers a true/false question -> isValid, isLoggedIn
+
+# Examples
+
+- What is stored?
+  - A user object (name, email, age)
+    - Bad names -> u, data (u and data could contain anything)
+    - Okay names -> userData, person (userData is a bit redundant, and person is too unspecific)
+    - Good names -> user, customer (user is descriptive, and customer is specific)
+  - User input validation
+    - bad names -> v, val
+    - okay names -> correct, validatedInput
+    - good names -> isCorrect, isValid, inputIsValid
