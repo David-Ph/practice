@@ -41,3 +41,23 @@ It should explain explain to us what is the variable/function doing without us h
     - bad names -> v, val
     - okay names -> correct, validatedInput
     - good names -> isCorrect, isValid, inputIsValid
+
+# Naming functions and methods
+
+- functions performs and operation
+  - Describe the operation: getUser(), response.send()
+  - More descriptibe: getUserByEmail(), response.send()
+- function computes a boolean
+  - answers a true/false question: isValid, purchase.isPaid()
+  - More descriptibe: emailIsValid(), purchase.isPaid()
+
+# examples
+
+- Save user data to database
+  - Bad names -> process, handle (both very unspecific)
+  - Okay names -> save, storeData
+  - Good names -> saveUser(), user.Store()
+- Validate user input
+  - Bad names -> process(), save()
+  - Okay names -> validateSave(), check()
+  - Good names -> validate(), isValid()
