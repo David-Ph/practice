@@ -147,3 +147,154 @@ func TestMultipleValueParameter(t *testing.T) {
 
 	fmt.Println(string(body))
 }
+
+// Header
+func RequestHeader(writer http.ResponseWriter, request *http.Request) {
+	contentType := request.Header.Get("content-type")
+	fmt.Fprint(writer, contentType)
+}
+
+func TestRequestHeader(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	request.Header.Add("Content-Type", "application/json")
+	recorder := httptest.NewRecorder()
+
+	RequestHeader(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
+	fmt.Println(string(body))
+}
+
+func ResponseHeader(writer http.ResponseWriter, request *http.Request) {
+	writer.Header().Add("X-Powered-By", "Programmer Zaman Now")
+	fmt.Fprint(writer, "OK")
+}
+
+func TestResponseHeader(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	ResponseHeader(recorder, request)
+
+	poweredBy := recorder.Header().Get("x-powered-by")
+	fmt.Println(poweredBy)
+}
+
+// Form Post
+
+func FormPost(writer http.ResponseWriter, request *http.Request) {
+	err := request.ParseForm()
+	if err != nil {
+		panic(err)
+	}
+
+	firstName := request.PostForm.Get("firstName")
+	lastName := request.PostForm.Get("lastName")
+	fmt.Fprintf(writer, "%s %s", firstName, lastName)
+}
+
+func TestFormPost(t *testing.T) {
+	requestBody := strings.NewReader("firstName=Fey&lastName=Syllenae")
+	request := httptest.NewRequest("POST", "http://localhost/", requestBody)
+	request.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	recorder := httptest.NewRecorder()
+
+	FormPost(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+// Response Code
+
+func ResponseCode(writer http.ResponseWriter, request *http.Request) {
+	name := request.URL.Query().Get("name")
+	if name == "" {
+		writer.WriteHeader(400) // Badrequest
+		fmt.Fprint(writer, "name is empty")
+	} else {
+		writer.WriteHeader(200) // ok
+		fmt.Fprintf(writer, "Hi %s", name)
+	}
+}
+
+func TestResponseCode(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost?name=David", nil)
+	recorder := httptest.NewRecorder()
+
+	ResponseCode(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(response.StatusCode)
+	fmt.Println(response.Status)
+	fmt.Println(string(body))
+}
+
+// cookie
+func SetCookie(writer http.ResponseWriter, request *http.Request) {
+	cookie := new(http.Cookie)
+	cookie.Name = "X-PZN-Name"
+	cookie.Value = request.URL.Query().Get("name")
+	cookie.Path = "/"
+
+	http.SetCookie(writer, cookie)
+	fmt.Fprint(writer, "Success Create Cookie")
+}
+
+func GetCookie(writer http.ResponseWriter, request *http.Request) {
+	cookie, err := request.Cookie("X-PZN-Name")
+	if err != nil {
+		fmt.Fprint(writer, "No Cookie")
+	} else {
+		fmt.Fprintf(writer, "Hello %s", cookie.Value)
+	}
+}
+
+func TestCookie(t *testing.T) {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/set-cookie", SetCookie)
+	mux.HandleFunc("/get-cookie", GetCookie)
+
+	server := http.Server{
+		Addr:    "localhost:8080",
+		Handler: mux,
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func TestCreatingCookie(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "http://localhost/?name=MaoMao", nil)
+	recorder := httptest.NewRecorder()
+
+	SetCookie(recorder, request)
+
+	cookies := recorder.Result().Cookies()
+
+	for _, cookie := range cookies {
+		fmt.Printf("%s : %s\n", cookie.Name, cookie.Value)
+	}
+}
+
+func TestGettingCookie(t *testing.T) {
+	request := httptest.NewRequest(http.MethodGet, "http://localhost/", nil)
+	cookie := new(http.Cookie)
+	cookie.Name = "X-PZN-Name"
+	cookie.Value = "Fey"
+	request.AddCookie(cookie)
+
+	recorder := httptest.NewRecorder()
+
+	GetCookie(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
