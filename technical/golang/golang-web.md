@@ -164,18 +164,6 @@ Artinya, dalam satu key query parameter, kita bisa memasukkan beberapa value
 Caranya kita bisa menambahkan query parameter dengan nama yang sama, namun value berbeda, misal :
 name=Eko&name=Kurniawan
 
-# FileServer
-Go-Lang memiliki sebuah fitur yang bernama FileServer
-Dengan ini, kita bisa membuat Handler di Go-Lang web yang digunakan sebagai static file server
-Dengan menggunakan FileServer, kita tidak perlu manual me-load file lagi
-FileServer adalah Handler, jadi bisa kita tambahka ke dalam http.Server atau http.ServeMux
-
-# 404 Not Found
-Jika kita coba jalankan, saat kita membuka misal /static/index.js, maka akan dapat error 404 Not Found
-Kenapa ini terjadi?
-Hal ini dikarenakan FileServer akan membaca url, lalu mencari file berdasarkan url nya, jadi jika kita membuat /static/index.js, maka FileServer akan mencari ke file /resources/static/index.js
-Hal ini menyebabkan 404 Not Found karena memang file nya tidak bisa ditemukan
-Oleh karena itu, kita bisa menggunakan function http.StripPrefix() untuk menghapus prefix di url
 # Header
 
 Selain Query Parameter, dalam HTTP, ada juga yang bernama Header
@@ -190,43 +178,65 @@ Header mirip seperti Query Parameter, isinya adalah map[string][]string
 Berbeda dengan Query Parameter yang case sensitive, secara spesifikasi, Header key tidaklah case sensitive
 
 # Response Header
+
 Sedangkan jika kita ingin menambahkan header pada response, kita bisa menggunakan function ResponseWriter.Header()
 
 # Form Post
+
 Saat kita belajar HTML, kita tahu bahwa saat kita membuat form, kita bisa submit datanya dengan method GET atau POST
 Jika menggunakan method GET, maka hasilnya semua data di form akan menjadi query parameter
 Sedangkan jika menggunakan POST, maka semua data di form akan dikirim via body HTTP request
 Di Go-Lang, untuk mengambil data Form Post sangatlah mudah
 
 # Request.PostForm
+
 Semua data form post yang dikirim dari client, secara otomatis akan disimpan dalam attribute Request.PostForm
 Namun sebelum kita bisa mengambil data di attribute PostForm, kita wajib memanggil method Request.ParseForm() terlebih dahulu, method ini digunakan untuk melakukan parsing data body apakah bisa di parsing menjadi form data atau tidak, jika tidak bisa di parsing, maka akan menyebabkan error
 
 # Response Code
+
 Dalam HTTP, terdapat yang namanya response code
 Response code merupakan representasi kode response
 Dari response code ini kita bisa melihat apakah sebuah request yang kita kirim itu sukses diproses oleh server atau gagal
 Ada banyak sekali response code yang bisa kita gunakan saat membuat web
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Status 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 Mengubah Response Code
 
 # Mengubah Response Code
+
 Secara default, jika kita tidak menyebutkan response code, maka response code nya adalah 200 OK
 Jika kita ingin mengubahnya, kita bisa menggunakan function ResponseWriter.WriteHeader(int)
-Semua data status code juga sudah disediakan di Go-Lang, jadi kita ingin, kita bisa gunakan variable yang sudah disediakan : https://github.com/golang/go/blob/master/src/net/http/status.go 
+Semua data status code juga sudah disediakan di Go-Lang, jadi kita ingin, kita bisa gunakan variable yang sudah disediakan : https://github.com/golang/go/blob/master/src/net/http/status.go
 
 # Cookie
+
 Cookie adalah fitur di HTTP dimana server bisa memberi response cookie (key-value) dan client akan menyimpan cookie tersebut di web browser
 Request selanjutnya, client akan selalu membawa cookie tersebut secara otomatis
 Dan server secara otomatis akan selalu menerima data cookie yang dibawa oleh client setiap kalo client mengirimkan request
 
 # Stateless
+
 HTTP merupakan stateless antara client dan server, artinya server tidak akan menyimpan data apapun untuk mengingat setiap request dari client
 Hal ini bertujuan agar mudah melakukan scalability di sisi server
 Lantas bagaimana caranya agar server bisa mengingat sebuah client? Misal ketika kita sudah login di website, server otomatis harus tahu jika client tersebut sudah login, sehingga request selanjutnya, tidak perlu diminta untuk login lagi
 Untuk melakukan hal ini, kita bisa memanfaatkan Cookie
 
 # Membuat Cookie
+
 Cookie merupakan data yang dibuat di server dan sengaja agar disimpan di web browser
 Untuk membuat cookie di server, kita bisa menggunakan function http.SetCookie()
 
+# FileServer
+
+Go-Lang memiliki sebuah fitur yang bernama FileServer
+Dengan ini, kita bisa membuat Handler di Go-Lang web yang digunakan sebagai static file server
+Dengan menggunakan FileServer, kita tidak perlu manual me-load file lagi
+FileServer adalah Handler, jadi bisa kita tambahka ke dalam http.Server atau http.ServeMux
+
+# 404 Not Found
+
+Jika kita coba jalankan, saat kita membuka misal /static/index.js, maka akan dapat error 404 Not Found
+Kenapa ini terjadi?
+Hal ini dikarenakan FileServer akan membaca url, lalu mencari file berdasarkan url nya, jadi jika kita membuat /static/index.js, maka FileServer akan mencari ke file /resources/static/index.js
+Hal ini menyebabkan 404 Not Found karena memang file nya tidak bisa ditemukan
+Oleh karena itu, kita bisa menggunakan function http.StripPrefix() untuk menghapus prefix di url
