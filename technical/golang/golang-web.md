@@ -252,3 +252,13 @@ Go-Lang Embed juga memiliki fitur yang bernama embed.FS, fitur ini bisa diintegr
 Jika kita coba jalankan, dan coba buka /static/index.js, maka kita akan mendapatkan error 404 Not Found
 Kenapa ini terjadi? Hal ini karena di Go-Lang embed, nama folder ikut menjadi nama resource nya, misal resources/index.js, jadi untuk mengaksesnya kita perlu gunakan URL /static/resources/index.js
 Jika kita ingin langsung mengakses file index.js tanpa menggunakan resources, kita bisa menggunakan function fs.Sub() untuk mendapatkan sub directory
+
+# ServeFile
+
+Kadang ada kasus misal kita hanya ingin menggunakan static file sesuai dengan yang kita inginkan
+Hal ini bisa dilakukan menggunakan function http.ServeFile()
+Dengan menggunakan function ini, kita bisa menentukan file mana yang ingin kita tulis ke http response
+
+# Go-Lang Embed
+Parameter function http.ServeFile hanya berisi string file name, sehingga tidak bisa menggunakan Go-Lang Embed
+Namun bukan berarti kita tidak bisa menggunakan Go-Lang embed, karena jika untuk melakukan load file, kita hanya butuh menggunakan package fmt dan ResponseWriter saja
