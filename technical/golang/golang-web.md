@@ -260,5 +260,26 @@ Hal ini bisa dilakukan menggunakan function http.ServeFile()
 Dengan menggunakan function ini, kita bisa menentukan file mana yang ingin kita tulis ke http response
 
 # Go-Lang Embed
+
 Parameter function http.ServeFile hanya berisi string file name, sehingga tidak bisa menggunakan Go-Lang Embed
 Namun bukan berarti kita tidak bisa menggunakan Go-Lang embed, karena jika untuk melakukan load file, kita hanya butuh menggunakan package fmt dan ResponseWriter saja
+
+# Web Dinamis
+
+Sampai saat ini kita hanya membahas tentang membuat response menggunakan String dan juga static file
+Pada kenyataannya, saat kita membuat web, kita pasti akan membuat halaman yang dinamis, bisa berubah-ubah sesuai dengan data yang diakses oleh user
+Di Go-Lang terdapat fitur HTML Template, yaitu fitur template yang bisa kita gunakan untuk membuat HTML yang dinamis
+
+# HTML Template
+
+Fitur HTML template terdapat di package html/template
+Sebelum menggunakan HTML template, kita perlu terlebih dahulu membuat template nya
+Template bisa berubah file atau string
+Bagian dinamis pada HTML Template, adalah bagian yang menggunakan tanda {{  }}
+
+# Membuat Template
+
+Saat membuat template dengan string, kira perlu memberi tahu nama template nya
+Dan untuk membuat text template, cukup buat text html, dan untuk konten yang dinamis, kita bisa gunakan tanda {{.}}, contoh :
+
+<html><body>{{.}}</body></html>
