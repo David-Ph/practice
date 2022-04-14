@@ -283,3 +283,16 @@ Saat membuat template dengan string, kira perlu memberi tahu nama template nya
 Dan untuk membuat text template, cukup buat text html, dan untuk konten yang dinamis, kita bisa gunakan tanda {{.}}, contoh :
 
 <html><body>{{.}}</body></html>
+
+# Template Dari File
+
+Selain membuat template dari string, kita juga bisa membuat template langsung dari file
+Hal ini mempermudah kita, karena bisa langsung membuat file html
+Saat membuat template menggunakan file, secara otomatis nama file akan menjadi nama template nya, misal jika kita punya file simple.html, maka nama template nya adalah simple.html
+
+# Template Directory
+
+Kadang biasanya kita jarang sekali menyebutkan file template satu persatu
+Alangkah baiknya untuk template kita simpan di satu directory
+Go-Lang template mendukung proses load template dari directory
+Hal ini memudahkan kita, sehingga tidak perlu menyebutkan nama file nya satu per satu
