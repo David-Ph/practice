@@ -93,3 +93,39 @@ func TestTemplateEmbed(t *testing.T) {
 	body, _ := io.ReadAll(response.Body)
 	fmt.Println(string(body))
 }
+
+// menggunakan map
+func TemplateDataMap(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/name.gohtml"))
+
+	t.ExecuteTemplate(writer, "name.gohtml", map[string]interface{}{
+		"Title": "Title Template Data Struct",
+		"Name":  "Fey Syllenae",
+	})
+}
+
+type Page struct {
+	Title string
+	Name  string
+}
+
+// menggunakan struct
+func TemplateDataStruct(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/name.gohtml"))
+
+	t.ExecuteTemplate(writer, "name.gohtml", Page{
+		Title: "Title template dengan struct",
+		Name:  "MaoMao",
+	})
+}
+
+func TestTemplateDataStruct(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateDataStruct(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}

@@ -301,3 +301,9 @@ Hal ini memudahkan kita, sehingga tidak perlu menyebutkan nama file nya satu per
 
 Sejak Go-Lang 1.16, karena sudah ada Go-Lang Embed, jadi direkomendasikan menggunakan Go-Lang embed untuk menyimpan data template
 Menggunakan Go-Lang embed menjadi kita tidak perlu ikut meng-copy template file lagi, karena sudah otomatis di embed di dalam distribution file
+
+# Template Data
+Saat kita membuat template, kadang kita ingin menambahkan banyak data dinamis
+Hal ini bisa kita lakukan dengan cara menggunakan data struct atau map
+Namun perlu dilakukan perubahan di dalam text template nya, kita perlu memberi tahu Field atau Key mana yang akan kita gunakan untuk mengisi data dinamis di template
+Kita bisa menyebutkan dengan cara seperti ini {{.NamaField}}
