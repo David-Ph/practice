@@ -129,3 +129,89 @@ func TestTemplateDataStruct(t *testing.T) {
 	body, _ := io.ReadAll(response.Body)
 	fmt.Println(string(body))
 }
+
+// ? Template Action If
+func TemplateIf(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/if.gohtml"))
+
+	t.ExecuteTemplate(writer, "if.gohtml", map[string]interface{}{
+		"Name": "Fey Syllenae",
+	})
+}
+
+func TestTemplateIf(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateIf(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+// ? Template Action Oeprator
+func TemplateOperator(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/operator.gohtml"))
+
+	t.ExecuteTemplate(writer, "operator.gohtml", map[string]interface{}{
+		"FinalValue": 69,
+	})
+}
+
+func TestTemplateOperator(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateOperator(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+// ? Template Action Range
+func TemplateRange(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/range.gohtml"))
+
+	t.ExecuteTemplate(writer, "range.gohtml", map[string]interface{}{
+		"Hobbies": []string{
+			"Gaming", "Reading", "Coding",
+		},
+	})
+}
+
+func TestTemplateRange(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateRange(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+// ? Template Action With
+func TemplateWith(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles("./templates/with.gohtml"))
+
+	t.ExecuteTemplate(writer, "with.gohtml", map[string]interface{}{
+		"Name": "Fey Syllenae",
+		"Address": map[string]interface{}{
+			"Street": "Nama Jalan",
+			"City":   "Nama Kota",
+		},
+	})
+}
+
+func TestTemplateWith(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateWith(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
