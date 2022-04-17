@@ -80,4 +80,17 @@ It should explain explain to us what is the variable/function doing without us h
   - Okay names -> Db, Data
   - Good names -> Database, SQLDatabase
 
-# Exceptions
+# Common errors and pitfalls
+
+- Don't include redundant information in names
+  - userWithNameAndAge -> even without knowing the class definition, user probably has name and age
+  - bettername would be: user, newUser, loggedinUser
+- avoid slang, unclear abbreviations, or disinformation
+  - product.diePlease(), user.facePalm() -> don't do this
+  - product.remove(), user.sendErrorMessage() -> isGood
+  - ymdt -> bad, not clear what it means
+  - dateWithTimeZone -> better
+  - userList, allAccounts -> disinformation
+  - userMap, filteredAccounts -> better
+- Be consistent!
+  - If you have getUsers, make sure you also use getProducts and not fetchProducts.
