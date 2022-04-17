@@ -79,3 +79,5 @@ It should explain explain to us what is the variable/function doing without us h
   - Bad names -> Data, DataStorage
   - Okay names -> Db, Data
   - Good names -> Database, SQLDatabase
+
+# Exceptions
