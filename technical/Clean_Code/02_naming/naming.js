@@ -37,6 +37,11 @@ var BlogPost = /** @class */ (function () {
         this.description = description;
         this.datePosted = datePosted;
     }
+    BlogPost.prototype.printBlogPost = function () {
+        console.log("Title is", this.title);
+        console.log("Description is", this.description);
+        console.log("Posted on", this.datePosted);
+    };
     return BlogPost;
 }());
 function printBlogPost(post) {
@@ -46,3 +51,4 @@ function printBlogPost(post) {
 }
 var firstBlogPost = new BlogPost("Welcome to Dota, you suck.", "My guide on how to not suck at dota", new Date());
 printBlogPost(firstBlogPost);
+firstBlogPost.printBlogPost();

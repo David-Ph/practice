@@ -72,7 +72,7 @@ class BlogPost implements Post {
     this.datePosted = datePosted;
   }
 
-  printBlogPost() {
+  print() {
     console.log("Title is", this.title);
     console.log("Description is", this.description);
     console.log("Posted on", this.datePosted);
@@ -92,4 +92,4 @@ const firstBlogPost = new BlogPost(
 );
 
 printBlogPost(firstBlogPost);
-firstBlogPost.printBlogPost();
+firstBlogPost.print();
