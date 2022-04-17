@@ -71,6 +71,12 @@ class BlogPost implements Post {
     this.description = description;
     this.datePosted = datePosted;
   }
+
+  printBlogPost() {
+    console.log("Title is", this.title);
+    console.log("Description is", this.description);
+    console.log("Posted on", this.datePosted);
+  }
 }
 
 function printBlogPost(post: BlogPost) {
@@ -86,3 +92,4 @@ const firstBlogPost = new BlogPost(
 );
 
 printBlogPost(firstBlogPost);
+firstBlogPost.printBlogPost();
