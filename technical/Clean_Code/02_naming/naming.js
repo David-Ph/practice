@@ -31,3 +31,18 @@ var DateUtil = /** @class */ (function () {
     return DateUtil;
 }());
 console.log(DateUtil.getFormattedToday());
+var BlogPost = /** @class */ (function () {
+    function BlogPost(title, description, datePosted) {
+        this.title = title;
+        this.description = description;
+        this.datePosted = datePosted;
+    }
+    return BlogPost;
+}());
+function printBlogPost(post) {
+    console.log("Title is", post.title);
+    console.log("Description is", post.description);
+    console.log("Posted on", post.datePosted);
+}
+var firstBlogPost = new BlogPost("Welcome to Dota, you suck.", "My guide on how to not suck at dota", new Date());
+printBlogPost(firstBlogPost);

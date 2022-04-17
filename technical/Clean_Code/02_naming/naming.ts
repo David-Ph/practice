@@ -32,24 +32,57 @@ class DateUtil {
 
 console.log(DateUtil.getFormattedToday());
 
-class Database {
-  private client: any;
+// class Database {
+//   private client: any;
 
-  // for getter and setter method
-  // even though it's technically a method
-  // it's oaky to name it as if it's a property
-  // because we're accessing it like a property
-  get connectedClient() {
-    if (!this.client) {
-      throw new Error("Database not connected!");
-    }
-    return this.client;
-  }
+//   // for getter and setter method
+//   // even though it's technically a method
+//   // it's oaky to name it as if it's a property
+//   // because we're accessing it like a property
+//   get connectedClient() {
+//     if (!this.client) {
+//       throw new Error("Database not connected!");
+//     }
+//     return this.client;
+//   }
 
-  connect() {
-    this.client = {};
+//   connect() {
+//     this.client = {};
+//   }
+// }
+
+// const db = new Database();
+// db.connectedClient.query();
+
+// good example
+interface Post {
+  title: string;
+  description: string;
+  datePosted: Date;
+}
+
+class BlogPost implements Post {
+  title: string;
+  description: string;
+  datePosted: Date;
+
+  constructor(title: string, description: string, datePosted: Date) {
+    this.title = title;
+    this.description = description;
+    this.datePosted = datePosted;
   }
 }
 
-const db = new Database();
-db.connectedClient.query();
+function printBlogPost(post: BlogPost) {
+  console.log("Title is", post.title);
+  console.log("Description is", post.description);
+  console.log("Posted on", post.datePosted);
+}
+
+const firstBlogPost = new BlogPost(
+  "Welcome to Dota, you suck.",
+  "My guide on how to not suck at dota",
+  new Date()
+);
+
+printBlogPost(firstBlogPost);
