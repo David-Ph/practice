@@ -61,3 +61,21 @@ It should explain explain to us what is the variable/function doing without us h
   - Bad names -> process(), save()
   - Okay names -> validateSave(), check()
   - Good names -> validate(), isValid()
+
+# Classes
+
+- Should describe the Object
+  - UserProduct -> Provide more details without introducing redundancy
+  - CustomerCourse -> Avoid redundant suffixes
+  - DatabaseManager
+
+# Examples
+
+- A user
+  - Bad names -> UEntity, ObjA (both very unspecific)
+  - Okay names -> UserObj, AppUser
+  - Good names -> User, Admin
+- A Database
+  - Bad names -> Data, DataStorage
+  - Okay names -> Db, Data
+  - Good names -> Database, SQLDatabase
