@@ -330,10 +330,12 @@ gt artinya arg1 > arg2
 ge artinya arg1 >= arg2
 
 # Kenapa Operatornya di Depan?
+
 Hal ini dikarenakan, sebenarnya operator perbandingan tersebut adalah sebuah function
 Jadi saat kita menggunakan {{eq First Second}}, sebenarnya dia akan memanggil function eq dengan parameter First dan Second : eq(First, Second)
 
 # Range
+
 Range digunakan untuk melakukan iterasi data template
 Tidak ada perulangan biasa seperti menggunakan for di Go-Lang template
 Yang kita bisa lakukan adalah menggunakan range untuk mengiterasi tiap data array, slice, map atau channel
@@ -341,13 +343,27 @@ Yang kita bisa lakukan adalah menggunakan range untuk mengiterasi tiap data arra
 {{range $index, $element := .Value}} T1 {{else}} T2 {{end}}, sama seperti sebelumnya, namun jika value tidak memiliki element apapun, maka T2 yang akan dieksekusi
 
 # With
-Kadang kita sering membuat nested struct 
+
+Kadang kita sering membuat nested struct
 Jika menggunakan template, kita bisa mengaksesnya menggunakan .Value.NestedValue
 Di template terdapat action with, yang bisa digunakan mengubah scope dot menjadi object yang kita mau
 {{with .Value}} T1 {{end}}, jika value tidak kosong, di T1 semua dot akan merefer ke value
 {{with .Value}} T1 {{else}} T2 {{end}}, sama seperti sebelumnya, namun jika value kosong, maka T2 yang akan dieksekusi
 
 # Comment
+
 Template juga mendukung komentar
 Komentar secara otomatis akan hilang ketika template text di parsing
 Untuk membuat komentar sangat sederhana, kita bisa gunakan {{/* Contoh Komentar */}}
+
+# Template Layout
+
+Saat kita membuat halaman website, kadang ada beberapa bagian yang selalu sama, misal header dan footer
+Best practice nya jika terdapat bagian yang selalu sama, disarankan untuk disimpan pada template yang terpisah, agar bisa digunakan di template lain
+Go-Lang template mendukung import dari template lain
+
+# Import Template
+
+Untuk melakukan import, kita bisa menggunakan perintah berikut :
+{{template “nama”}}, artinya kita akan meng-import template “nama” tanpa memberikan data apapun
+{{template “nama” .Value}}, artinya kita akan meng-import template “nama” dengan memberikann data value

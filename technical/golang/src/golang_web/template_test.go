@@ -215,3 +215,28 @@ func TestTemplateWith(t *testing.T) {
 	body, _ := io.ReadAll(response.Body)
 	fmt.Println(string(body))
 }
+
+// Template Layout
+func TemplateLayout(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.ParseFiles(
+		"./templates/layout.gohtml",
+		"./templates/layout/header.gohtml",
+		"./templates/layout/footer.gohtml",
+	))
+
+	t.ExecuteTemplate(writer, "mainLayout", map[string]interface{}{
+		"Name":  "Fey Syllenae",
+		"Title": "Template Layout",
+	})
+}
+
+func TestTemplateLayout(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateLayout(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
