@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -235,6 +236,105 @@ func TestTemplateLayout(t *testing.T) {
 	recorder := httptest.NewRecorder()
 
 	TemplateLayout(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+type MyPage struct {
+	Name string
+}
+
+func (mypage MyPage) SayHello(name string) string {
+	return "Hello " + name + ", my name is " + mypage.Name
+}
+
+func TemplateFunction(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.New("FUNCTION").Parse(`{{ .SayHello "MaoMao" }}`))
+
+	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
+		Name: "Fey Syllenae",
+	})
+}
+
+func TestTemplateFunction(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateFunction(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+func TemplateFunctionGlobal(writer http.ResponseWriter, request *http.Request) {
+	t := template.Must(template.New("FUNCTION").Parse(`{{ len .Name }}`))
+
+	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
+		Name: "Fey Syllenae",
+	})
+}
+
+func TestTemplateFunctionGlobal(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateFunctionGlobal(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+func TemplateFunctionMap(writer http.ResponseWriter, request *http.Request) {
+	t := template.New("FUNCTION")
+	t = t.Funcs(map[string]interface{}{
+		"upper": func(value string) string {
+			return strings.ToUpper(value)
+		},
+	})
+	t = template.Must(t.Parse(`{{ upper .Name }}`))
+
+	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
+		Name: "Fey Syllenae",
+	})
+}
+
+func TestTemplateFunctionMap(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateFunctionMap(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+func TemplateFunctionPipeline(writer http.ResponseWriter, request *http.Request) {
+	t := template.New("FUNCTION")
+	t = t.Funcs(map[string]interface{}{
+		"sayHello": func(value string) string {
+			return "Hello, " + value
+		},
+		"upper": func(value string) string {
+			return strings.ToUpper(value)
+		},
+	})
+	t = template.Must(t.Parse(`{{ sayHello .Name | upper }}`)) // HELLO, FEY SYLLENAE
+
+	t.ExecuteTemplate(writer, "FUNCTION", MyPage{
+		Name: "Fey Syllenae",
+	})
+}
+
+func TestTemplateFunctionPipeline(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateFunctionPipeline(recorder, request)
 
 	response := recorder.Result()
 	body, _ := io.ReadAll(response.Body)
