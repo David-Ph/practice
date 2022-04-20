@@ -360,3 +360,39 @@ func TestTemplateCaching(t *testing.T) {
 	body, _ := io.ReadAll(response.Body)
 	fmt.Println(string(body))
 }
+
+func TemplateAutoEscape(writer http.ResponseWriter, request *http.Request) {
+	myTemplates.ExecuteTemplate(writer, "post.gohtml", map[string]interface{}{
+		"Title": "Go-Lang Auto Escape",
+		"Body":  template.HTML("<p>Selamat belajar Go-Lang Web</p>"),
+	})
+}
+
+func TestTemplateAutoEscape(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateAutoEscape(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
+
+func TemplateXSS(writer http.ResponseWriter, request *http.Request) {
+	myTemplates.ExecuteTemplate(writer, "post.gohtml", map[string]interface{}{
+		"Title": "Go-Lang Auto Escape",
+		"Body":  template.HTML(request.URL.Query().Get("Body")),
+	})
+}
+
+func TestTemplateXSS(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateXSS(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}
