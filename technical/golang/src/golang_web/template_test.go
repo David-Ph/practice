@@ -340,3 +340,23 @@ func TestTemplateFunctionPipeline(t *testing.T) {
 	body, _ := io.ReadAll(response.Body)
 	fmt.Println(string(body))
 }
+
+// // go:embed templates/*.gohtml
+// var templates embed.FS
+
+var myTemplates = template.Must(template.ParseFS(templates, "templates/*.gohtml"))
+
+func TemplateCaching(writer http.ResponseWriter, request *http.Request) {
+	myTemplates.ExecuteTemplate(writer, "simple.gohtml", "Hello HTML Template")
+}
+
+func TestTemplateCaching(t *testing.T) {
+	request := httptest.NewRequest("GET", "http://localhost/", nil)
+	recorder := httptest.NewRecorder()
+
+	TemplateCaching(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+	fmt.Println(string(body))
+}

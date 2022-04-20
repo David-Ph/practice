@@ -389,7 +389,16 @@ Untuk menambah global function, kita bisa menggunakan method Funcs pada template
 Perlu diingat, bahwa menambahkan global function harus dilakukan sebelum melakukan parsing template
 
 # Function Pipelines
+
 Go-Lang template mendukung function pipelines, artinya hasil dari function bisa dikirim ke function berikutnya
 Untuk menggunakan function pipelines, kita bisa menggunakan tanda | , misal :
 {{ sayHello .Name | upper }}, artinya akan memanggil global function sayHello(Name) hasil dari sayHello(Name) akan dikirim ke function upper(hasil)
 Kita bisa menambahkan function pipelines lebih dari satu
+
+# Template Caching
+
+Kode-kode diatas yang sudah kita praktekan sebenarnya tidak efisien
+Hal ini dikarenakan, setiap Handler dipanggil, kita selalu melakukan parsing ulang template nya
+Idealnya template hanya melakukan parsing satu kali diawal ketika aplikasinya berjalan
+Selanjutnya data template akan di caching (disimpan di memory), sehingga kita tidak perlu melakukan parsing lagi
+Hal ini akan membuat web kita semakin cepat
