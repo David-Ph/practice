@@ -434,3 +434,14 @@ Misal setelah selesai login, kita lakukan redirect ke halaman dashboard
 Redirect sendiri sebenarnya sudah standard di HTTP https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections
 Kita hanya perlu membuat response code 3xx dan menambah header Location
 Namun untungnya di Go-Lang, ada function yang bisa kita gunakan untuk mempermudah ini
+
+# Upload File
+
+Saat membuat web, selain menerima input data berupa form dan query param, kadang kita juga menerima input data berupa file dari client
+Go-Lang Web sudah memiliki fitur untuk management upload file
+Hal ini memudahkan kita ketika butuh membuat web yang menerima input file upload
+
+# MultiPart
+
+Saat kita ingin menerima upload file, kita perlu melakukan parsing terlebih dahulu menggunakan Request.ParseMultipartForm(size), atau kita bisa langsung ambil data file nya menggunakan Request.FormFile(name), di dalam nya secara otomatis melakukan parsing terlebih dahulu
+Hasilnya merupakan data-data yang terdapat pada package multipart, seperti multipart.File sebagai representasi file nya, dan multipart.FileHeader sebagai informasi file nya
