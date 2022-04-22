@@ -120,3 +120,28 @@ func TestUploadFile(t *testing.T) {
 	bodyResponse, _ := io.ReadAll(recorder.Result().Body)
 	fmt.Println(string(bodyResponse))
 }
+
+func DownloadFile(writer http.ResponseWriter, request *http.Request) {
+	file := request.URL.Query().Get("file")
+
+	if file == "" {
+		writer.WriteHeader(http.StatusBadRequest)
+		fmt.Fprint(writer, "Bad Request")
+		return
+	}
+
+	writer.Header().Add("Content-Disposition", "attachment; filename=\""+file+"\"")
+	http.ServeFile(writer, request, "./resources/"+file)
+}
+
+func TestDownloadFile(t *testing.T) {
+	server := http.Server{
+		Addr:    "localhost:8080",
+		Handler: http.HandlerFunc(DownloadFile),
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		panic(err)
+	}
+}

@@ -445,3 +445,10 @@ Hal ini memudahkan kita ketika butuh membuat web yang menerima input file upload
 
 Saat kita ingin menerima upload file, kita perlu melakukan parsing terlebih dahulu menggunakan Request.ParseMultipartForm(size), atau kita bisa langsung ambil data file nya menggunakan Request.FormFile(name), di dalam nya secara otomatis melakukan parsing terlebih dahulu
 Hasilnya merupakan data-data yang terdapat pada package multipart, seperti multipart.File sebagai representasi file nya, dan multipart.FileHeader sebagai informasi file nya
+
+# Download File
+
+Selain upload file, kadang kita ingin membuat halaman website yang digunakan untuk download sesuatu
+Sebenarnya di Go-Lang sudah disediakan menggunakan FileServer dan ServeFile
+Dan jika kita ingin memaksa file di download (tanpa di render oleh browser, kita bisa menggunakan header Content-Disposition)
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
