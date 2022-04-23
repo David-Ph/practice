@@ -44,9 +44,13 @@ func TestMiddleware(t *testing.T) {
 		Handler: mux,
 	}
 
+	errorHandler := &ErrorHandler{
+		Handler: loggerMiddleware,
+	}
+
 	server := http.Server{
 		Addr:    "localhost:8080",
-		Handler: loggerMiddleware,
+		Handler: errorHandler, // the flow is this: server will send the data to errorhandler, error handler will send the data to loggermiddleware, loggermiddleware will send the data to mux
 	}
 
 	err := server.ListenAndServe()
