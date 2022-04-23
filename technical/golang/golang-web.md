@@ -468,3 +468,10 @@ Namun karena struktur handler yang baik menggunakan interface, kita bisa membuat
 Kadang middleware juga biasa digunakan untuk melakukan error handler
 Hal ini sehingga jika terjadi panic di Handler, kita bisa melakukan recover di middleware, dan mengubah panic tersebut menjadi error response
 Dengan ini, kita bisa menjaga aplikasi kita tidak berhenti berjalan
+
+# Routing Library
+
+Walaupun Go-Lang sudah menyediakan ServeMux sebagai handler yang bisa menghandle beberapa endpoint atau istilahnya adalah routing
+Tapi kebanyakan programmer Go-Lang biasanya akan menggunakan library untuk melakukan routing
+Hal ini dikarenakan ServeMux tidak memiliki advanced fitur seperti path variable, auto binding parameter dan middleware
+Banyak alternatif lain yang bisa kita gunakan untuk library routing selain ServeMux
