@@ -74,3 +74,10 @@ Secara otomatis akan terjadi error, dan web akan berhenti mengembalikan response
 Kadang saat terjadi panic, kita ingin melakukan sesuatu, misal memberitahu jika terjadi kesalahan di web, atau bahkan mengirim informasi log kesalahan yang terjadi
 Sebelumnya, seperti yang sudah kita bahas di materi Go-Lang Web, jika kita ingin menangani panic, kita harus membuat Middleware khusus secara manual
 Namun di Router, sudah disediakan untuk menangani panic, caranya dengan menggunakan attribute PanicHandler : func(http.ResponseWriter, \*http.Request, interface{})
+
+# Not Found Handler
+
+Selain panic handler, Router juga memiliki not found handler
+Not found handler adalah handler yang dieksekusi ketika client mencoba melakukan request URL yang memang tidak terdapat di Router
+Secara default, jika tidak ada route tidak ditemukan, Router akan melanjutkan request ke http.NotFound, namun kita bisa mengubah nya
+Caranya dengan mengubah router.NotFound = http.Handler
