@@ -140,3 +140,53 @@ func TestNotFound(t *testing.T) {
 
 	assert.Equal(t, "Gak ketemu", string(body))
 }
+
+func TestNotAllowed(t *testing.T) {
+	router := httprouter.New()
+	router.MethodNotAllowed = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "Gak boleh")
+	})
+
+	router.POST("/", func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		fmt.Fprint(w, "POST")
+	})
+
+	request := httptest.NewRequest("GET", "http://localhost:8080/", nil)
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
+	assert.Equal(t, "Gak boleh", string(body))
+}
+
+type LogMiddleware struct {
+	http.Handler
+}
+
+func (middleware *LogMiddleware) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Request Middleware")
+	middleware.Handler.ServeHTTP(w, r)
+}
+
+func TestMiddleware(t *testing.T) {
+	router := httprouter.New()
+
+	router.GET("/", func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+		fmt.Fprint(w, "Middleware")
+	})
+
+	middleware := LogMiddleware{Handler: router}
+
+	request := httptest.NewRequest("GET", "http://localhost:8080/", nil)
+	recorder := httptest.NewRecorder()
+
+	middleware.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
+	assert.Equal(t, "Middleware", string(body))
+}
