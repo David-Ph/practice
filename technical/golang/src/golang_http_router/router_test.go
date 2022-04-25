@@ -27,3 +27,21 @@ func TestRouter(t *testing.T) {
 
 	assert.Equal(t, "Hello World", string(body))
 }
+
+func TestParams(t *testing.T) {
+	router := httprouter.New()
+	router.GET("/products/:id", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		text := "Product " + p.ByName("id")
+		fmt.Fprint(w, text)
+	})
+
+	request := httptest.NewRequest("GET", "http://localhost:8080/products/322", nil)
+	recorder := httptest.NewRecorder()
+
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	body, _ := io.ReadAll(response.Body)
+
+	assert.Equal(t, "Product 322", string(body))
+}
