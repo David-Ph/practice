@@ -66,3 +66,11 @@ Pada materi Go-Lang Web, kita sudah pernah membahas tentang Serve File
 Pada Router pun, mendukung serve static file menggunakan function ServeFiles(Path, FileSystem)
 Dimana pada Path, kita harus menggunakan Catch All Parameter
 Sedangkan pada FileSystem kita bisa melakukan manual load dari folder atau menggunakan golang embed, seperti yang pernah kita bahas di materi Go-Lang Web
+
+# Panic Handler
+
+Apa yang terjadi jika terjadi panic pada logic Handler yang kita buat?
+Secara otomatis akan terjadi error, dan web akan berhenti mengembalikan response
+Kadang saat terjadi panic, kita ingin melakukan sesuatu, misal memberitahu jika terjadi kesalahan di web, atau bahkan mengirim informasi log kesalahan yang terjadi
+Sebelumnya, seperti yang sudah kita bahas di materi Go-Lang Web, jika kita ingin menangani panic, kita harus membuat Middleware khusus secara manual
+Namun di Router, sudah disediakan untuk menangani panic, caranya dengan menggunakan attribute PanicHandler : func(http.ResponseWriter, \*http.Request, interface{})
