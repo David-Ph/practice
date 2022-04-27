@@ -81,3 +81,63 @@ Menggunakan HTTP sebagai protokol komunikasi, dimana sudah sangat populer saat i
 Pembuatan RESTful API sangat mudah karena seperti membuat web pada umumnya
 Mudah digunakan oleh client baik itu berupa aplikasi web ataupun aplikasi non web seperti aplikasi desktop atau aplikasi mobile
 Ringan dan mudah dimengerti oleh manusia
+
+# Architectural Constraints
+
+REST (REpresentational State Transfer) merupakan architecture pattern yang dikenalkan oleh Roy Fielding tahun 2000
+REST di desain berjalan menggunakan HTTP, dan sering digunakan sebagai Web Services
+Roy Fielding memperkenalkan beberapa design principal ketika kita akan membuat REST
+
+# Architectural Constraints
+
+Berikut adalah beberapa design principal agar web services benar-benar sesuai dengan RESTful API
+Client–server
+Stateless
+Cacheable
+Uniform interface
+Layered system
+Code on demand
+
+# Client Server
+
+Design principal pertama adalah Client Server
+RESTful API haruslah memisahkan antara kompleksitas data internal dengan yang akan diekpose ke client
+Oleh karena ini, RESTful API haruslah menggunakan arsitektur Client Server, sehingga Client tidak perlu tahu kompleksitas logic yang terjadi di Server
+
+# Stateless
+
+Interaksi antar client dan server dalam RESTful haruslah stateless
+Artinya tiap interaksi harus tidak tergantung dengan interaksi sebelumnya atau setelahnya, dan setiap interaksi harus mengirim seluruh informasi yang dibutuhkan
+Ini mirip dengan stateless di protocol HTTP
+Salah satu kegunaan stateless adalah sehingga mudah untuk di scaling, baik itu jumlah client juga server karena server atau client tidak perlu peduli harus berinteraksi dengan client atau server manapun
+
+# Cachable
+
+Untuk menghemat komunikasi, RESTful API bisa mengimplementasikan Cache
+Mirip seperti Cache di HTTP, di client pada RESTful API juga bisa melakukan cache data di local, sehingga tidak perlu selalu meminta data terbaru dari Server
+Cara implementasi Cache di RESTful API tidak sesederhana seperti di HTTP, nanti akan kita bahas di materi tersendiri tentang Cache
+
+# Uniform Interface
+
+Salah satu yang membedakan RESTful API dengan teknologi RPC lain adalah, penggunaan antarmuka komunikasi yang seragam untuk semua pihak (client & server teknologi apapun)
+Hal ini dikarenakan salah satunya karena RESTful API menggunakan teknologi HTTP yang sudah standard sehingga seragam di semua teknologi atau bahasa pemrograman
+Data yang di ekspose di RESTful API juga haruslah generatel, tidak melihatkan kompleksitas internal dari pemilik data, hal ini membuat perubahan apapun yang terjadi pada internal aplikasi, tidak akan berpengaruh dengan data yang di ekspose di API
+
+# Layered System
+
+Untuk melakukan improvement pada sistem RESTful API, sistem RESTful API juga dapat menggunakan Layered System
+Layered System menjadikan sistem bisa disusun sesuai dengan data nya, dan agar kompleksitas pada RESTful API tidak harus diketahui oleh Client
+Layer juga bisa digunakan untuk melakukan enkapsulasi aplikasi lama yang tidak memiliki kemampuan RESTful API, atau menjadi load balancer untuk RESTful API lain
+
+# Code on Demand
+
+RESTful API juga diperbolehkan mengembalikan script yang bisa dieksekusi oleh client jika diperlukan
+Hal ini bisa mempermudah dari sisi Client sehingga tidak perlu mengimplementasikan kode terlalu banyak, karena kode bisa dikirim oleh Server
+Misal Server mengembalikan kode JavaScript yang akan dieksekusi oleh Client Web, atau mengembalikan Layout XML untuk di render oleh aplikasi Android
+Code on Demand adalah design principal yang tidak wajib diimplementasikan ketika kita membuat RESTful API
+
+# Perhatian
+
+Design principal ini adalah panduan jika kita ingin membuat RESTful API yang baik
+Namun pada kenyataanya, kadang kita melakukan hal-hal yang tidak sesuai dengan design principal
+Walaupun masih tetap kita membuat RESTful API, namun kemungkinan RESTful API kita tidak bisa dibilang “truly RESTful API”
