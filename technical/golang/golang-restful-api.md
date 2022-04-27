@@ -265,3 +265,39 @@ HTTP Header If-Not-Match berisikan data ETag yang sebelumnya didapat
 Jika data tidak berubah, maka server akan mengembalikan HTTP Response Code 304 : Not Modified
 
 If-None-Match: "33a64df551425fcc55e4d42a148795d9f25f89d4"
+
+# Idempotent RESTful API
+
+Dalam RESTful API, ketika membuat multiple request yang identik, harus memiliki efek yang sama seperti membuat satu request. Dalam hal ini, maka RESTful API kita bisa dibilang idempotent.
+Idempotent itu sangat penting, karena saat membuat RESTful API, kita akan melakukan komunikasi antara client dan server via network, sehingga error bisa terjadi.
+Belum lagi, banyak framework atau library client yang bisa secara otomatis melakukan request ulang ketika terjadi error pada network
+
+# Implementasi Idempotent di RESTful API
+
+Saat implementasi RESTful API sesuai kaidah HTTP Method yang standar, secara otomatis sebenarnya kita sudah melakukan proses idempotent.
+
+# Idempotent di HTTP Method POST
+
+Umumnya, pada POST, kita tidak perlu membuat API nya menjadi idempotent. Request berkali-kali menggunakan POST dengan data yang sama akan selalu membuat record baru.
+Namun kadang hal ini berbahaya, misal ketika terjadi kesalahan client mengirim dua data yang sama, maka akan menjadi 2 record di server, padahal awalnya hanya ingin membuat 1 record.
+Hal ini bisa diselesaikan dengan trik id record baru dikirim dari client, tidak menggunakan auto generate atau auto increment. Dengan demikian, jika server menerima POST untuk membuat record baru, server bisa mengecek apakah data pernah dibuat, jika pernah dibuat, request selanjutnya bisa di hiraukan, atau dijadikan proses update
+Namun perlu diingat, ini optional, pada POST implementasi idempotent tidak diwajibkan
+
+# Idempotent di HTTP Method GET
+
+Method GET tidak pernah mengubah data di server. Method GET hanya digunakan untuk mengambil data yang ada di server.
+Jadi mengirim request GET berkali-kali ke server tidak akan mengubah data apapun di server, sehingga GET secara default sudah idempotent.
+
+# Idempotent di HTTP Method PUT & PATCH
+
+Method PUT & PATCH digunakan untuk mengubah data yang sudah ada
+Jika kita mengirim request PUT & PATCH berkali-kali dengan data yang sama, maka server akan melakukan proses update data berkali-kali dengan data yang sama.
+Request pertama akan mengubah data di database, request selanjutnya hanya akan mengubah data request pertama, sehingga hasil akhirnya sebenarnya tetap sama
+Oleh karena itu PUT & PATCH bisa dibilang idempotent, karena hasil akhirnya tetap sama
+
+# Idempotent di HTTP Method DELETE
+
+Method DELETE digunakan untuk menghapus data di server.
+Ketika kita mengirim perintah DELETE berkali-kali di server, response nya mungkin akan berbeda.
+Response pertama mungkin akan 200 OK atau 204 No Content. Selanjutnya request akan mengembalikan response 404 Not Found, karena datanya sudah terhapus pada request pertama.
+Walaupun secara response mungkin berbeda, namun sebenarnya DELETE sudah secara default idempotent, karena mengirim request DELETE berkali-kali, hasilnya tetap sama, data yang ada di server terhapus.
