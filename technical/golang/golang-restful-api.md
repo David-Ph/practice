@@ -374,3 +374,18 @@ HTTP Header => API-Version : 1
 HTTP Header => API-Version : 2
 HTTP Header => X-API-Version : 2019
 HTTP Header => X-API-Version : 2020
+
+# Stateless RESTful API
+
+Stateless sederhananya adalah tidak menyimpan state atau data
+RESTful API yang baik tidak pernah menyimpan state atau data antar request
+Setiap request dari client ke server, harus berisikan semua informasi lengkap yang dibutuhkan oleh server.
+Client bertanggung jawab menyimpan dan melakukan manajemen state yang berhubungan dengan client.
+Stateless artinya setiap HTTP Request adalah proses independent, tidak bergantung dengan HTTP Request lainnya.
+Server tidak boleh tergantung dengan request dari client sebelumnya.
+
+# Keuntungan Stateless RESTful API
+
+RESTful API yang stateless akan mudah di scaling secara horizontal, karena request dari client bisa masuk ke server mana saja, sehingga untuk scaling hanya tinggal menambah server baru.
+Sederhana, karena tidak perlu tahu state sebelumnya yang sangat kompleks.
+Setiap request client akan sangat lengkap, sehingga mudah untuk di track dan di cek request nya.
