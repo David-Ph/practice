@@ -244,3 +244,24 @@ Selalu gunakan response status code yang sesuai dengan Standarisasi HTTP
 Misal jika sukses, gunakan Response Status 2xx
 Jika data yang dikirim oleh client tidak valid, gunakan 4xx
 Jika terjadi masalah di Server, gunakan 5xx
+
+# Apa itu Cache?
+
+Secara sederhana cache adalah data bersifat sementara yang disimpan pada sistem penyimpanan.
+Dalam RESTful API, data cache biasanya disimpan di client (misal di web browser, atau di mobile app)
+Cache biasa digunakan untuk menurunkan jumlah data transfer antara client dan server sehingga proses komunikasi lebih cepat
+
+# HTTP Header Response ETag
+
+HTTP Header ETag digunakan untuk menambah informasi terhadap resource yang dikembalikan di server
+ETag berisikan versi dari resource yang diminta, misal
+
+ETag: "33a64df551425fcc55e4d42a148795d9f25f89d4"
+
+# HTTP Header Request If-Not-Match
+
+Setelah client menyimpan data cache, setiap client mengirim request ke server, client akan menambahkan HTTP Header If-Not-Match
+HTTP Header If-Not-Match berisikan data ETag yang sebelumnya didapat
+Jika data tidak berubah, maka server akan mengembalikan HTTP Response Code 304 : Not Modified
+
+If-None-Match: "33a64df551425fcc55e4d42a148795d9f25f89d4"
