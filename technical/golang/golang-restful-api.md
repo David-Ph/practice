@@ -141,3 +141,66 @@ Code on Demand adalah design principal yang tidak wajib diimplementasikan ketika
 Design principal ini adalah panduan jika kita ingin membuat RESTful API yang baik
 Namun pada kenyataanya, kadang kita melakukan hal-hal yang tidak sesuai dengan design principal
 Walaupun masih tetap kita membuat RESTful API, namun kemungkinan RESTful API kita tidak bisa dibilang “truly RESTful API”
+
+# Resource Naming
+
+Banyak orang yang asal dalam pembuatan URL untuk RESTful API
+Walaupun pembuatan URL RESTful API sendiri tidak ada standar baku nya, namun alangkah baiknya mengikuti best practice yang ada
+
+# Resource
+
+Resource dalam RESTful API adalah data yang sifatnya bisa satu atau banyak
+Misal, “customers” adalah kumpulan dari “customer”, dimana “customer” adalah satu data customer.
+
+# Gunakan Kata Benda, Bukan Kata Kerja
+
+Contoh Benar :
+http://api.example.com/products
+http://api.example.com/members
+Contoh Salah :
+http://api.example.com/get-all-products
+http://api.example.com/select-members-table
+
+# Gunakan Hirarki
+
+Contoh Benar :
+http://api.example.com/products/{productId}/images
+http://api.example.com/merchants/{merchantId}/addresses
+Contoh Salah :
+http://api.example.com/product-images/{productId}
+http://api.example.com/merchant-addresses/{merchantId}
+
+# Gunakan Action Pada Resource
+
+Contoh Benar :
+http://api.example.com/users/login
+http://api.example.com/users/forget-password
+Contoh Salah :
+http://api.example.com/login-user
+http://api.example.com/forget-password-user
+
+# Gunakan - dan lowercase
+
+Contoh Benar :
+http://api.example.com/products/{productId}/warehouse-locations
+Contoh Salah :
+http://api.example.com/products/{productId}/warehouse_locations
+http://api.example.com/products/{productId}/warehouseLocations
+
+# Gunakan CRUD pada HTTP Method
+
+Contoh Benar :
+GET http://api.example.com/products/{productId}
+POST http://api.example.com/products
+Contoh Salah :
+GET http://api.example.com/get-products-by-id/{productId}
+POST http://api.example.com/create-product
+
+# Gunakan Query untuk Filter
+
+Contoh Benar :
+http://api.example.com/products?name=Indomie
+http://api.example.com/products?name=Indomie&page=10
+Contoh Salah :
+http://api.example.com/products/filter-by-name/{name}
+http://api.example.com/products/page/1
