@@ -204,3 +204,43 @@ http://api.example.com/products?name=Indomie&page=10
 Contoh Salah :
 http://api.example.com/products/filter-by-name/{name}
 http://api.example.com/products/page/1
+
+# Content Negotiation
+
+Saat membuat Web menggunakan HTTP, maka biasanya content (Body) yang akan kita gunakan akan menggunakan HTML
+Pada RESTful API pun, untuk berkomunikasi antara Client dan Server, biasanya menggunakan Body
+Ada banyak sekali Body Content yang biasa digunakan di REStful API, seperti JSON (JavaScript Object Notation), XML, dan lain-lain
+Namun yang paling populer dan banyak digunakan saat ini adalah JSON
+
+# HTTP Headers
+
+Sama seperti pada HTTP, untuk melakukan content negotiation, pada RESTful API akan menggunakan standard HTTP Header : Accept dan Content-Type
+Accept digunakan untuk memberi tahu Server, tentang tipe data yang diterima oleh Client
+dan Content-Type digunakan untuk memberi tahu Server, tipe data apa yang dikirim oleh Client
+
+# JSON
+
+JSON singkatan dari JavaScript Object Notation
+JSON adalah tipe data object pada JavaScript
+https://www.json.org/
+
+# Kenapa Menggunakan JSON
+
+JSON sangat populer digunakan dalam pembuatan RESTful API saat ini
+Data JSON sangat mudah dibuat dan juga dimengerti oleh manusia
+JSON tidak hanya mudah dibuat dalam JavaScript, namun hampir di semua bahasa pemrograman
+Data dalam bentuk JSON sangat ringan, sehingga cocok untuk digunakan sebagai data komunikasi antara Client dan Server
+
+# Konsisten Menggunakan JSON
+
+Tidak seperti SOAP yang format request dan response nya sudah ditentukan, menggunakan RESTful API tidak ada standar baku dalam membuat request dan response
+Menggunakan JSON jika tidak dibuat dengan baik bisa terlalu liar, karena memang bisa dibuat sesuka kita
+Disarankan untuk membuat standard request dan response agar tidak membingungkan ketika menggunakan RESTful API yang kita buat
+Response JSON yang dinamis akan sangat menyulitkan client terutama yang menggunakan bahasa pemrograman static typed
+
+# Response Status
+
+Selalu gunakan response status code yang sesuai dengan Standarisasi HTTP
+Misal jika sukses, gunakan Response Status 2xx
+Jika data yang dikirim oleh client tidak valid, gunakan 4xx
+Jika terjadi masalah di Server, gunakan 5xx
