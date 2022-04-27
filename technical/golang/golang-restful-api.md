@@ -348,3 +348,29 @@ Banyak digunakan untuk integrasi antara aplikasi Mobile dan Server
 https://tools.ietf.org/html/rfc6749
 https://tools.ietf.org/html/rfc6750
 
+# Jangan Merusak RESTful API
+
+Saat membuat RESTful API, usahakan tidak pernah merusak kompatibilitas tiap kita melakukan upgrade.
+Versioning hanya diperlukan ketika kita memang perlu merusak kompatibilitas RESTful API kita
+Namun saya sarankan sebisa mungkin tidak pernah melakukan ini, karena cost nya sangat mahal di sisi client, client harus merubah aplikasi yang sudah berjalan
+Namun jika memang harus dilakukan, maka kita wajib melakukan versioning pada RESTful API kita
+
+# Versioning
+
+Ada banyak cara melakukan versioning pada RESTful API
+Versioning adalah memberi tahu bahwa kita memiliki banyak versi terhadap aplikasi RESTful API kita
+Client bisa memilih versi yang mana yang akan digunakan
+
+# Versioning Pada URL
+
+http://api.example.com/v1/products
+http://api.example.com/v2/products
+http://api.example.com/2019/products
+http://api.example.com/2020/products
+
+# Versioning Menggunakan HTTP Header
+
+HTTP Header => API-Version : 1
+HTTP Header => API-Version : 2
+HTTP Header => X-API-Version : 2019
+HTTP Header => X-API-Version : 2020
