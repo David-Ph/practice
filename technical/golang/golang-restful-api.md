@@ -389,3 +389,13 @@ Server tidak boleh tergantung dengan request dari client sebelumnya.
 RESTful API yang stateless akan mudah di scaling secara horizontal, karena request dari client bisa masuk ke server mana saja, sehingga untuk scaling hanya tinggal menambah server baru.
 Sederhana, karena tidak perlu tahu state sebelumnya yang sangat kompleks.
 Setiap request client akan sangat lengkap, sehingga mudah untuk di track dan di cek request nya.
+
+# HATEOAS
+
+HATEOAS singkatan dari Hypermedia as the Engine of Application State
+Hypermedia artinya content yang memiliki link menuju resource yang ada
+
+# Keuntungan Menggunakan HATEOAS
+
+Biasanya URL API pada RESTful API sudah di hardcode di Client
+Dengan menggunakan HATEOAS, client bisa secara dinamis mendapatkan URL lokasi resource dari response data Server
