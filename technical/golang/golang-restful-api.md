@@ -461,3 +461,24 @@ POST /orders
 
 Order Detail :
 GET /orders/{orderId}
+
+# Maintenance RESTful API
+
+Dalam membuat produk, fitur pasti akan selalu bertambah
+Tak jarang kita mungkin melakukan perubahan di screen Web atau Mobile yang sama
+Oleh karena itu, maintenance RESTful API sangatlah penting, agar RESTful API kita tidak menjadi masalah di kemudian hari
+
+# Maintenance : yang Boleh Dilakukan
+
+Menambah data baru di API yang sudah ada
+Menambah API baru di endpoint URL berbeda
+Mempercepat proses di API yang sudah ada
+Menggabungkan beberapa API menjadi satu, tanpa menghilangkan API lama
+
+# Maintenance : yang Tidak Boleh Dilakukan
+
+Mengubah total response data di API yang sudah ada
+Merubah field response data di API yang sudah ada
+Menghilangkan API yang sudah ada
+Men-split API yang sudah ada menjadi dua atau lebih
+Menggabungkan beberapa API menjadi satu dengan menghapus API lama
