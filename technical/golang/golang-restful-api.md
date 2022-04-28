@@ -399,3 +399,65 @@ Hypermedia artinya content yang memiliki link menuju resource yang ada
 
 Biasanya URL API pada RESTful API sudah di hardcode di Client
 Dengan menggunakan HATEOAS, client bisa secara dinamis mendapatkan URL lokasi resource dari response data Server
+
+# RESTful API Documentation
+
+RESTful API tidak memiliki standar baku seperti SOAP, sehingga untuk memudahkan client dalam menggunakan RESTful API yang kita buat, sebaiknya kita menyediakan dokumentasi.
+Dokumentasi RESTful API bisa dibuat menggunakan apapun, dari dokumen sederhana menggunakan microsoft word, google doc, sampai menggunakan tool khusus untuk dokumentasi API
+Sangat disarankan untuk menggunakan tool khusus dokumentasi API.
+
+# Contoh API Documentation
+
+Swagger
+Stoplight
+Redoc
+dan lain-lain
+
+# OpenAPI
+
+OpenAPI adalah spesifikasi yang banyak diadopsi oleh industri untuk mendeskripsikan API.
+https://www.openapis.org/
+Contoh OpenAPI : https://github.com/OAI/OpenAPI-Specification/tree/master/examples/v3.0
+
+# Keuntungan Menggunakan OpenAPI
+
+Standard, sehingga bisa dibuat oleh programmer bahasa pemrograman apapun
+Mudah digunakan oleh client, karena sudah banyak tersedia generator untuk melakukan generate kode client dari OpenAPI Specification
+
+# Development
+
+# Kesalahan Ketika Membuat RESTful API
+
+Selalu membuat CRUD API untuk table di database
+Membuat response data sama dengan table di database
+Membuat API terlebih dahulu, baru mengerjakan Web atau Mobile menggunakan API yang sudah dibuat
+Mengembalikan data selengkap-lengkapnya di API
+Membuat API yang tidak dibutuhkan oleh Client
+
+# Contoh : RESTful API Shopping Cart : Business Flow
+
+Customer menambahkan barang ke keranjang, bisa lebih dari satu barang
+Customer membuka halaman keranjang, bisa mengubah data quantity barang
+Customer memasukkan alamat pengiriman
+Customer menekan tombol order untuk membuat order
+...
+
+# Contoh : RESTful API Shopping Cart : API Doc
+
+Product Detail :
+GET /products/{productId}
+POST /carts
+
+Shopping Cart
+GET /carts
+PATCH /carts/products
+PATCH /carts/products/{productId}
+
+Shipping Address :
+GET /addresses
+POST /addresses
+PUT /carts/addresses
+POST /orders
+
+Order Detail :
+GET /orders/{orderId}
