@@ -1,0 +1,5 @@
+openapi: 3.0.0
+info:
+  title: Judul API
+  description: Disini deskripsi terkait API yang kita buat.
+  version: 0.1.1

@@ -45,4 +45,21 @@ string date
 string date-time
 string password
 
-#
+# Document
+
+OpenAPI sangatlah sederhana, kita hanya perlu membuat satu file berisi semua data OpenAPI nya
+OpenAPI memiliki struktur yang sudah ditentukan ketika membuat document nya
+Kita bisa menggunakan JSON atau YAML untuk file nya
+https://spec.openapis.org/oas/v3.0.3#openapi-object
+
+# OpenAPI Object (1)
+
+fieldname type description
+openapi string
+info info object
+servers [server object]
+paths paths objet
+components components object
+security security requirement object
+tags tag object
+externalDocs external documentation object
