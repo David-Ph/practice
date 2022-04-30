@@ -2,7 +2,18 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Golang OpenAPI",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "description": "OpenAPI Learning",
+    "termsOfService": "https://maomao.com",
+    "contact": {
+      "name": "MaoMao",
+      "email": "MaoMao@gmail.com",
+      "url": "https://www.maomao.com/"
+    },
+    "license": {
+      "name": "apache 2.0",
+      "url": "https://apache.org"
+    }
   },
   "servers": [],
   "paths": {}

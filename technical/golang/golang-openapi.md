@@ -63,3 +63,19 @@ components components object
 security security requirement object
 tags tag object
 externalDocs external documentation object
+
+# Info
+
+Info merupakan bagian dari informasi metadata tentang API yang kita buat
+Kita bisa memasukkan author, lisensi, dan lain-lain
+
+## Info Object
+
+title string
+description string
+termsOfService string
+contact contactobject
+license licenseobject
+version string
+
+### contact object

@@ -3,3 +3,13 @@ info:
   title: Judul API
   description: Disini deskripsi terkait API yang kita buat.
   version: 0.1.1
+  termsOfService: www.google.com
+  contact:
+    email: maomao@gmail.com
+    name: maomao
+    url: maomao.com
+  license:
+    name: apache 2.0
+    url: apache.org
+servers: []
+paths: {}
