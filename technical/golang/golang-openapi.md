@@ -100,3 +100,10 @@ Setiap Path yang kita buat di OpenAPI, bisa memiliki lebih dari satu Operation
 Hal ini dikarenakan, dalam HTTP, satu URL bisa memiliki beberapa HTTP Method
 Misal url untuk mengambil semua data dan membuat data baru, mungkin url nya sama, yang membedakan adalah HTTP Method nya, GET untuk mengambil data, POST untuk membuat data
 Inti dari API Documentation adalah dokumentasi operation yang terdapat pada RESTful API yang kita buat
+
+# Parameter
+
+Parameter adalah data yang dikirim tidak melalui Request Body
+Operation bisa memiliki parameter lebih dari satu
+OpenAPI mendukung beberapa jenis parameter, yaitu Query Parameter, Path Variable, Header, dan Cookie
+Kita bisa menambahkan parameter pada Operation, sehingga pengguna bisa tahu bahwa ada parameter yang perlu dikirim ketika memanggil Operation tersebut

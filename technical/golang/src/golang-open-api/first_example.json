@@ -37,7 +37,21 @@
           "default": {
             "description": "GET TODOLIST"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "include_done",
+            "description": "include done todo list",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "name": "name",
+            "description": "filter by name",
+            "required": false,
+            "in": "query"
+          }
+        ]
       },
       "post": {
         "summary": "post a todolist",
@@ -51,6 +65,16 @@
     },
     "/todolist/{todolistId}": {
       "delete": {
+        "summary": "delete todolist",
+        "description": "delete a todo",
+        "parameters": [
+          {
+            "name": "todolistId",
+            "description": "todolistid for deleted",
+            "in": "path",
+            "required": true
+          }
+        ],
         "responses": {
           "default": {
             "description": "DELETE TODOLIST"

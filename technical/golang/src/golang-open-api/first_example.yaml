@@ -48,6 +48,16 @@ paths: {
   },
   /todolist/:todolistId: {
     delete: {
+      summary: "delete todolist",
+      description: "delete a todo",
+      parameters: [
+        {
+          name: todolistId,
+          description: "todolist id for deleting",
+          in: path,
+          required: true,
+        }
+      ],
       responses: {
         default: {
           description: "delete TODOLIST" 
