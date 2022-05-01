@@ -28,7 +28,40 @@
       }
     }
   ],
-  "paths": {},
+  "paths": {
+    "/todolist": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "GET TODOLIST"
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "default": {
+            "description": "POST TODOLIST"
+          }
+        }
+      }
+    },
+    "/todolist/{todolistId}": {
+      "delete": {
+        "responses": {
+          "default": {
+            "description": "DELETE TODOLIST"
+          }
+        }
+      },
+      "put": {
+        "responses": {
+          "default": {
+            "description": "PUT TODOLIST"
+          }
+        }
+      }
+    }
+  },
   "externalDocs": {
     "description": "Youtube programmer zaman now",
     "url": "https://www.youtube.com/"

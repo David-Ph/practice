@@ -88,3 +88,10 @@ Misal, terdapat server development, staging, production dan lain-lain
 
 External documentation merupakan bagian dalam OpenAPI jika kita ingin menambahkan link tambahan dalam OpenAPI
 Bisa menuju link documentation lain, atau mungkin link menuju website
+
+# Path
+
+Path merupakan representasi endpoint API di OpenAPI
+Pada Path, kita tidak perlu menuliskan seluruh URL, cukup url di belakang setelah lokasi server
+
+

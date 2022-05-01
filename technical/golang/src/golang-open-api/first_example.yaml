@@ -27,7 +27,40 @@ servers:
         },
     },
   ]
-paths: {}
+paths: {
+  /todolist: {
+    get: {
+      responses: {
+        default: {
+          description: "GET TODOLIST" 
+        }
+      }
+    },
+    post: {
+      responses: {
+        default: {
+          description: "post TODOLIST" 
+        }
+      }
+    }
+  },
+  /todolist/:todolistId: {
+    delete: {
+      responses: {
+        default: {
+          description: "delete TODOLIST" 
+        }
+      }
+    },
+    put: {
+      responses: {
+        default: {
+          description: "put TODOLIST" 
+        }
+      }
+    }
+  }
+}
 externalDocs:
   url: "http://www.youtube.com/"
   description: "Link youtube"
