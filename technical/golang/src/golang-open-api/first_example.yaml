@@ -61,6 +61,13 @@ paths: {
                   type: "string",
                   required: ["true"],
                   minimum: 1
+                },
+                tags: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                    minLength: 1
+                  }
                 }
               }
             }
