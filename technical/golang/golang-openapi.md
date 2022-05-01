@@ -159,3 +159,14 @@ Yang menarik di OpenAPI, kita bisa memberi tahu format response body sesuai deng
 
 Tag merupakan fitur tambahan, dimana kita bisa grouping beberapa Path menjadi satu Tag yang sama
 Misal ketika kita membuat OpenAPI untuk RESTful API Toko Online, kita grouping dengan Tag Product, Customer, Payment, Order, dan lain-lain
+
+# Component
+
+Component merupakan bagian dalam OpenAPI untuk menyimpan object yang bisa digunakan ulang
+Misal, saat nanti kita membuat spek untuk Request Body atau Response Body, dibanding kita buat satu persatu, jika ada beberapa yang sama, lebih baik kita buat dalam Component, sehingga bisa digunakan di beberapa Endpoint API
+Ada banyak jenis component, ada schema, request, response, parameter, header, dan lain-lain
+
+# Reference
+
+OpenAPI memiliki fitur reference, dimana dengan reference kita bisa membuat reference ke data component yang sudah kita buat
+Hal ini lebih baik, daripada kita buat component yang sama berkali kali pada beberapa path, misal jika terdapat response body yang sama, lebih baik kita gunakan reference, jika memiliki parameter yang sama, lebih baik kita gunakan reference
