@@ -94,4 +94,9 @@ Bisa menuju link documentation lain, atau mungkin link menuju website
 Path merupakan representasi endpoint API di OpenAPI
 Pada Path, kita tidak perlu menuliskan seluruh URL, cukup url di belakang setelah lokasi server
 
+# Operation
 
+Setiap Path yang kita buat di OpenAPI, bisa memiliki lebih dari satu Operation
+Hal ini dikarenakan, dalam HTTP, satu URL bisa memiliki beberapa HTTP Method
+Misal url untuk mengambil semua data dan membuat data baru, mungkin url nya sama, yang membedakan adalah HTTP Method nya, GET untuk mengambil data, POST untuk membuat data
+Inti dari API Documentation adalah dokumentasi operation yang terdapat pada RESTful API yang kita buat

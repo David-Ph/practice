@@ -30,6 +30,8 @@ servers:
 paths: {
   /todolist: {
     get: {
+      summary: "get all todolist",
+      description: "only will return active todolist",
       responses: {
         default: {
           description: "GET TODOLIST" 

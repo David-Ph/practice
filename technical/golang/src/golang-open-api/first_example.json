@@ -31,6 +31,8 @@
   "paths": {
     "/todolist": {
       "get": {
+        "summary": "Get All Todolist",
+        "description": "only will return active todolist",
         "responses": {
           "default": {
             "description": "GET TODOLIST"
@@ -38,6 +40,8 @@
         }
       },
       "post": {
+        "summary": "post a todolist",
+        "description": "create new active todolist",
         "responses": {
           "default": {
             "description": "POST TODOLIST"
