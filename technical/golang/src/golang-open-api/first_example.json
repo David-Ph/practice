@@ -48,6 +48,14 @@
               "default": "",
               "type": "string",
               "nullable": true
+            },
+            "examples": {
+              "java": {
+                "value": "Java"
+              },
+              "php": {
+                "value": "PHP"
+              }
             }
           },
           {

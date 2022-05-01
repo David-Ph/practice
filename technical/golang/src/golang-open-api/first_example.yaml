@@ -70,6 +70,22 @@ paths: {
                   }
                 }
               }
+            },
+            examples: {
+              java: {
+                value: {
+                  name: "belajar pemrograman java",
+                  tags: ["java", "belajar"],
+                  priority: 3
+                }
+              },
+              php: {
+                value: {
+                  name: "belajar pemrograman php",
+                  tags: ["php", "belajar"],
+                  priority: 3
+                }
+              }
             }
           }
         },
@@ -91,6 +107,14 @@ paths: {
             default: "",
             type: "string",
             nullable: false
+          },
+          examples: {
+            java: {
+              value: "Java" 
+            },
+            php: {
+              value: "PHP"
+            }
           }
         }
       ],
