@@ -28,3 +28,6 @@ servers:
     },
   ]
 paths: {}
+externalDocs:
+  url: "http://www.youtube.com/"
+  description: "Link youtube"

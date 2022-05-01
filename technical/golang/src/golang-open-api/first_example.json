@@ -28,5 +28,9 @@
       }
     }
   ],
-  "paths": {}
+  "paths": {},
+  "externalDocs": {
+    "description": "Youtube programmer zaman now",
+    "url": "https://www.youtube.com/"
+  }
 }
