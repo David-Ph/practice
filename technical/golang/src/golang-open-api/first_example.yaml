@@ -39,10 +39,20 @@ paths: {
       }
     },
     post: {
+      summary: "create a new todolist",
+      description: "Create new active todolist",
       responses: {
         default: {
           description: "post TODOLIST" 
         }
+      },
+      requestBody: {
+        content: {
+          application/json: {
+            schema: {}
+          }
+        },
+        required: true
       }
     }
   },

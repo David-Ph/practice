@@ -71,6 +71,14 @@
           "default": {
             "description": "POST TODOLIST"
           }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "required": true
         }
       }
     },
