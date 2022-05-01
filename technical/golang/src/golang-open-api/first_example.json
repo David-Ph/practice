@@ -36,6 +36,36 @@
         "responses": {
           "default": {
             "description": "GET TODOLIST"
+          },
+          "200": {
+            "description": "GET TODOLIST SUCCESS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "todolist id",
+                        "nullable": false
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "todolist name",
+                        "nullable": false
+                      },
+                      "priority": {
+                        "type": "integer",
+                        "description": "todolist priority",
+                        "nullable": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -102,6 +132,22 @@
                       "type": "string",
                       "minLength": 1
                     }
+                  }
+                }
+              },
+              "examples": {
+                "java": {
+                  "value": {
+                    "name": "Belajar pemrograman java",
+                    "tags": ["java", "belajar"],
+                    "priority": 3
+                  }
+                },
+                "php": {
+                  "value": {
+                    "name": "Belajar pemrograman php",
+                    "tags": ["php", "belajar"],
+                    "priority": 3
                   }
                 }
               }
