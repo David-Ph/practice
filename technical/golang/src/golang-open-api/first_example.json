@@ -15,6 +15,18 @@
       "url": "https://apache.org"
     }
   },
-  "servers": [],
+  "servers": [
+    {
+      "url": "http://{{environment}}.programmerzamannow.com/api/v1",
+      "description": "Todolist restful api",
+      "variables": {
+        "environment": {
+          "default": "dev",
+          "description": "server envionrment",
+          "enum": ["Dev", "qa", "prod"]
+        }
+      }
+    }
+  ],
   "paths": {}
 }

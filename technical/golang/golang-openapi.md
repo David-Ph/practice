@@ -78,4 +78,8 @@ contact contactobject
 license licenseobject
 version string
 
-### contact object
+# Server
+
+Saat kita membuat API sudah pasti terdapat server RESTful API yang nanti akan kita buat
+Kita bisa memberitahu server yang tersedia di OpenAPI
+Misal, terdapat server development, staging, production dan lain-lain

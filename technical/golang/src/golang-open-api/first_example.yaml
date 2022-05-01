@@ -11,5 +11,20 @@ info:
   license:
     name: apache 2.0
     url: apache.org
-servers: []
+servers:
+  [
+    {
+      url: "http://{{environment}}.programmerzamannow.com/api/v1",
+      description: "TodoList Restful API",
+      variables:
+        {
+          environment:
+            {
+              default: "dev",
+              description: "Server environment",
+              enum: ["dev", "qa", "prod"],
+            },
+        },
+    },
+  ]
 paths: {}
