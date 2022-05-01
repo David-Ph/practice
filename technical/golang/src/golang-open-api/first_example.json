@@ -43,13 +43,24 @@
             "name": "include_done",
             "description": "include done todo list",
             "required": false,
-            "in": "query"
+            "in": "query",
+            "schema": {
+              "default": "",
+              "type": "string",
+              "nullable": true
+            }
           },
           {
             "name": "name",
             "description": "filter by name",
             "required": false,
-            "in": "query"
+            "in": "query",
+            "schema": {
+              "default": "",
+              "type": "string",
+              "maxLength": 100,
+              "minLength": 0
+            }
           }
         ]
       },
@@ -72,7 +83,11 @@
             "name": "todolistId",
             "description": "todolistid for deleted",
             "in": "path",
-            "required": true
+            "required": true,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
           }
         ],
         "responses": {
