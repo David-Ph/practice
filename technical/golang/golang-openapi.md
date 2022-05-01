@@ -170,3 +170,17 @@ Ada banyak jenis component, ada schema, request, response, parameter, header, da
 
 OpenAPI memiliki fitur reference, dimana dengan reference kita bisa membuat reference ke data component yang sudah kita buat
 Hal ini lebih baik, daripada kita buat component yang sama berkali kali pada beberapa path, misal jika terdapat response body yang sama, lebih baik kita gunakan reference, jika memiliki parameter yang sama, lebih baik kita gunakan reference
+
+# Security
+
+OpenAPI mendukung dokumentasi untuk Security RESTful API
+Dengan ini kita bisa memberitahu pengguna mekanisme Security apa yang kita gunakan di RESTful API kita
+Ada banyak format security yang didukung oleh OpenAPI, seperti apiKey (query param, header, cookie), http (basic auth, bearer token), oauth2 dan openIdConnect
+Sebelum menggunakan fitur Security, kita perlu membuat requirement Security terlebih dahulu di Component, baru kita bisa gunakan di Operation
+
+# Code Generator
+
+OpenAPI adalah spesifikasi yang standard, dan banyak diadopsi oleh banyak perusahaan
+Bahkan kita bisa melakukan code generator sesuai dengan bahasa pemrograman yang kita inginkan
+Contohnya kita bisa menggunakan https://editor.swagger.io/ untuk membuat code client atau server sesuai dengan OpenAPI file yang kita buat
+Hal ini bisa mempermudah ketika kita butuh membuat kode client atau server yang sesuai dengan OpenAPI spec yang sudah dibuat
