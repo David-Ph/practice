@@ -134,3 +134,7 @@ OpenAPI juga mendukung dokumentasi untuk request body
 Dengan ini, kita memberi tahu tentang schema request body yang harus dikirim ketika menggunakan RESTful API kita
 Request body mendukung schema, sehingga kita memberi tahu bentuk schema format data, bahkan validasi yang diperlukan
 
+# Object Schema
+
+Sebelumnya kita hanya membuat schema sederhana, seperti schema tipe data boolean atau string
+Spesifikasi di JSON Schema juga mendukung pembuatan schema berupa objek, yaitu data yang memiliki attribute lebih dari satu
