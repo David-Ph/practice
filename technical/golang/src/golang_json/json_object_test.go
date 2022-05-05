@@ -143,3 +143,27 @@ func TestJsonTagDecode(t *testing.T) {
 	fmt.Println(product.Name)
 	fmt.Println(product.ImageUrl)
 }
+
+func TestJsonMapDecode(t *testing.T) {
+	jsonString := `{"id":"123","name":"David","price":10000}`
+	jsonBytes := []byte(jsonString)
+
+	var result map[string]interface{}
+	_ = json.Unmarshal(jsonBytes, &result)
+
+	fmt.Println(result)
+	fmt.Println(result["id"])
+	fmt.Println(result["name"])
+	fmt.Println(result["price"])
+}
+
+func TestJsonMapEncode(t *testing.T) {
+	product := map[string]interface{}{
+		"id":   "123",
+		"name": "Fey",
+		"age":  25,
+	}
+
+	bytes, _ := json.Marshal(product)
+	fmt.Println(string(bytes))
+}
