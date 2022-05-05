@@ -27,3 +27,25 @@ func TestJSONObject(t *testing.T) {
 
 	fmt.Println(string(bytes))
 }
+
+func TestDecodeJSON(t *testing.T) {
+	customer := Customer{
+		FirstName:  "Fey",
+		MiddleName: "Minami",
+		LastName:   "Syllenae",
+		Age:        25,
+		Married:    false,
+	}
+
+	jsonString, _ := json.Marshal(customer)
+
+	jsonBytes := []byte(jsonString)
+
+	myCustomer := &Customer{}
+
+	json.Unmarshal(jsonBytes, myCustomer)
+	fmt.Println(myCustomer)
+	fmt.Println(myCustomer.FirstName)
+	fmt.Println(myCustomer.LastName)
+	fmt.Println(myCustomer.Married)
+}
