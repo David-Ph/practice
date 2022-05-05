@@ -3,6 +3,7 @@ package golang_json
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 )
 
@@ -27,6 +28,16 @@ type Product struct {
 	Name     string `json:"name"`
 	Price    int64  `json:"price"`
 	ImageUrl string `json:"image_url"`
+}
+
+func TestStreamDecoder(t *testing.T) {
+	reader, _ := os.Open("example.json")
+	decoder := json.NewDecoder(reader)
+
+	customer := &Customer{}
+	decoder.Decode(customer)
+
+	fmt.Println(customer)
 }
 
 func TestJSONObject(t *testing.T) {
