@@ -40,6 +40,20 @@ func TestStreamDecoder(t *testing.T) {
 	fmt.Println(customer)
 }
 
+func TestStreamEncoder(t *testing.T) {
+	writer, _ := os.Create("sample_output.json")
+	encoder := json.NewEncoder(writer)
+
+	customer := Customer{
+		FirstName:  "Fey",
+		MiddleName: "Minami",
+		LastName:   "Syllenae",
+	}
+
+	_ = encoder.Encode(customer)
+	fmt.Println(customer)
+}
+
 func TestJSONObject(t *testing.T) {
 	customer := Customer{
 		FirstName:  "Fey",
