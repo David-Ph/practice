@@ -22,6 +22,13 @@ type Address struct {
 	PostalCode string
 }
 
+type Product struct {
+	Id       string `json:"id"`
+	Name     string `json:"name"`
+	Price    int64  `json:"price"`
+	ImageUrl string `json:"image_url"`
+}
+
 func TestJSONObject(t *testing.T) {
 	customer := Customer{
 		FirstName:  "Fey",
@@ -113,4 +120,26 @@ func TestComplexJsonDecode(t *testing.T) {
 	json.Unmarshal(jsonBytes, customer)
 	fmt.Println(customer.FirstName)
 	fmt.Println(customer.Addresses)
+}
+
+func TestJsonTag(t *testing.T) {
+	product := Product{
+		Id:       "123",
+		Name:     "David",
+		ImageUrl: "http://example.com/image.png",
+	}
+
+	bytes, _ := json.Marshal(product)
+	fmt.Println(string(bytes))
+}
+
+func TestJsonTagDecode(t *testing.T) {
+	jsonString := `{"id":"123","name":"David","price":0,"image_url":"http://example.com/image.png"}`
+	jsonBytes := []byte(jsonString)
+
+	product := &Product{}
+
+	json.Unmarshal(jsonBytes, product)
+	fmt.Println(product.Name)
+	fmt.Println(product.ImageUrl)
 }
