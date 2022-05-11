@@ -8,6 +8,8 @@ import (
 	"golang_restful_api/model/domain"
 )
 
+// this is category repostiory implementation
+// this is where we do our sql and return stuff. This is maybe like the Model in MVC
 type CategoryRepositoryImpl struct {
 }
 

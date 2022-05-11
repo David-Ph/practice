@@ -6,6 +6,8 @@ import (
 	"golang_restful_api/model/domain"
 )
 
+// this is basically the interface of a repository
+// it should tell us what kind of functions category repository has
 type CategoryRepository interface {
 	Save(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category
 	Update(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category
