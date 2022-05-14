@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"golang_restful_api/helper"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func NewDB() *sql.DB {
