@@ -14,11 +14,17 @@ type CategoryControllerImpl struct {
 	CategoryService service.CategoryService
 }
 
+func NewCategoryController(categoryService service.CategoryService) CategoryController {
+	return &CategoryControllerImpl{
+		CategoryService: categoryService,
+	}
+}
+
 func (controller *CategoryControllerImpl) Save(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	categoryRequest := web.CategoryRequest{}
 	helper.ReadFromRequestBody(request, &categoryRequest)
 
-	categoryResponse := controller.CategoryService.Create(request.Context(), categoryRequest)
+	categoryResponse := controller.CategoryService.Save(request.Context(), categoryRequest)
 	webResponse := web.WebResponse{
 		Code:   200,
 		Status: "Ok",

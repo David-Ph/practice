@@ -13,6 +13,10 @@ import (
 type CategoryRepositoryImpl struct {
 }
 
+func NewCategoryRepository() CategoryRepository {
+	return &CategoryRepositoryImpl{}
+}
+
 func (repository *CategoryRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
 	SQL := "INSERT INTO category(name) VALUES(?)"
 	result, err := tx.ExecContext(ctx, SQL, category.Name)
@@ -33,9 +37,9 @@ func (repository *CategoryRepositoryImpl) Update(ctx context.Context, tx *sql.Tx
 	return category
 }
 
-func (repository *CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category domain.Category) {
+func (repository *CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, categoryId int) {
 	SQL := "DELETE FROM category WHERE id = ?"
-	_, err := tx.ExecContext(ctx, SQL, category.Id)
+	_, err := tx.ExecContext(ctx, SQL, categoryId)
 	helper.PanicIfError(err)
 }
 
@@ -55,7 +59,7 @@ func (repository *CategoryRepositoryImpl) FindById(ctx context.Context, tx *sql.
 	}
 }
 
-func (repository *CategoryRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx, category domain.Category) []domain.Category {
+func (repository *CategoryRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) []domain.Category {
 	SQL := "SELECT id, name FROM category"
 	rows, err := tx.QueryContext(ctx, SQL)
 	helper.PanicIfError(err)
