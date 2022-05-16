@@ -6,7 +6,7 @@ import (
 )
 
 // this is where we do the business logic such as validation etc
-// this is like the Controller in MVC
+// this is like the Model in MVC
 type CategoryService interface {
 	Save(ctx context.Context, request web.CategoryRequest) web.CategoryResponse
 	Update(ctx context.Context, request web.CategoryUpdateRequest) web.CategoryResponse
