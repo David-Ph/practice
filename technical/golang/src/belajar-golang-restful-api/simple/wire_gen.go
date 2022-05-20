@@ -8,8 +8,11 @@ package simple
 
 // Injectors from injector.go:
 
-func CreateService() *SimpleService {
+func CreateService() (*SimpleService, error) {
 	simpleRepository := NewSimpleRepository()
-	simpleService := NewSimpleService(simpleRepository)
-	return simpleService
+	simpleService, err := NewSimpleService(simpleRepository)
+	if err != nil {
+		return nil, err
+	}
+	return simpleService, nil
 }

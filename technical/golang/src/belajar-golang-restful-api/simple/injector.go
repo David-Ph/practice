@@ -5,7 +5,7 @@ package simple
 
 import "github.com/google/wire"
 
-func CreateService() *SimpleService {
+func CreateService() (*SimpleService, error) {
 	wire.Build(NewSimpleRepository, NewSimpleService)
-	return nil
+	return nil, nil
 }
