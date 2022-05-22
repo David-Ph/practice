@@ -1,14 +1,14 @@
 package exception
 
 import (
-	"golang_restful_api/helper"
-	"golang_restful_api/model/web"
-	"net/http"
-
 	"github.com/go-playground/validator/v10"
+	"net/http"
+	"programmerzamannow/belajar-golang-restful-api/helper"
+	"programmerzamannow/belajar-golang-restful-api/model/web"
 )
 
 func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interface{}) {
+
 	if notFoundError(writer, request, err) {
 		return
 	}
@@ -21,8 +21,7 @@ func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interfa
 }
 
 func validationErrors(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
-	exception, ok := err.(validator.ValidationErrors) // I think this is conversion?
-
+	exception, ok := err.(validator.ValidationErrors)
 	if ok {
 		writer.Header().Set("Content-Type", "application/json")
 		writer.WriteHeader(http.StatusBadRequest)
@@ -32,17 +31,16 @@ func validationErrors(writer http.ResponseWriter, request *http.Request, err int
 			Status: "BAD REQUEST",
 			Data:   exception.Error(),
 		}
-		helper.WriteToResponseBody(writer, webResponse)
 
+		helper.WriteToResponseBody(writer, webResponse)
 		return true
-	} else {
+	}else{
 		return false
 	}
 }
 
 func notFoundError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
-	exception, ok := err.(NotFoundError) // I think this is conversion?
-
+	exception, ok := err.(NotFoundError)
 	if ok {
 		writer.Header().Set("Content-Type", "application/json")
 		writer.WriteHeader(http.StatusNotFound)
@@ -52,8 +50,8 @@ func notFoundError(writer http.ResponseWriter, request *http.Request, err interf
 			Status: "NOT FOUND",
 			Data:   exception.Error,
 		}
-		helper.WriteToResponseBody(writer, webResponse)
 
+		helper.WriteToResponseBody(writer, webResponse)
 		return true
 	} else {
 		return false

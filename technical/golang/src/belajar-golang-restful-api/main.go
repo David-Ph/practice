@@ -1,15 +1,15 @@
 package main
 
 import (
-	"golang_restful_api/app"
-	"golang_restful_api/controller"
-	"golang_restful_api/helper"
-	"golang_restful_api/middleware"
-	"golang_restful_api/repository"
-	"golang_restful_api/service"
-	"net/http"
-
 	"github.com/go-playground/validator/v10"
+	_ "github.com/go-sql-driver/mysql"
+	"net/http"
+	"programmerzamannow/belajar-golang-restful-api/app"
+	"programmerzamannow/belajar-golang-restful-api/controller"
+	"programmerzamannow/belajar-golang-restful-api/helper"
+	"programmerzamannow/belajar-golang-restful-api/middleware"
+	"programmerzamannow/belajar-golang-restful-api/repository"
+	"programmerzamannow/belajar-golang-restful-api/service"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 	router := app.NewRouter(categoryController)
 
 	server := http.Server{
-		Addr:    "localhost:8080",
+		Addr:    "localhost:3000",
 		Handler: middleware.NewAuthMiddleware(router),
 	}
 
