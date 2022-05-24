@@ -26,11 +26,21 @@ const array = [
     last_name: "Syllenae",
     email: "fey.syllenae@zenrooms.com",
   },
+  {
+    id: 4,
+    first_name: "Luu",
+    last_name: "Nguuyen",
+    email: "luu.nguyen@zenrooms.com",
+  },
 ];
 
-const filteredData = _.filter(array, (data) => {
-  return _.find(data, )
-})
-const paginatedData = paginateData(array, 1, 2, 3);
+const filteredData = array.filter((item) => {
+  return (
+    item.first_name.toLowerCase().includes("yen") ||
+    item.last_name.toLowerCase().includes("yen") ||
+    item.email.toLowerCase().includes("yen")
+  );
+});
+const paginatedData = paginateData(filteredData, 0, 20, 4);
 
-console.log(paginatedData)
+console.log(paginatedData);
