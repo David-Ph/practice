@@ -31,3 +31,10 @@ func InitializedFooBarService() *FooBarService {
 	)
 	return nil
 }
+
+var HelloSet = wire.NewSet(NewSayHelloImpl, wire.Bind(new(SayHello), new(*SayHelloImpl)))
+
+func InitializeHelloService() *HelloService {
+	wire.Build(HelloSet, NewSayHelloService)
+	return nil
+}

@@ -37,8 +37,16 @@ func InitializedFooBarService() *FooBarService {
 	return fooBarService
 }
 
+func InitializeHelloService() *HelloService {
+	sayHelloImpl := NewSayHelloImpl()
+	helloService := NewSayHelloService(sayHelloImpl)
+	return helloService
+}
+
 // injector.go:
 
 var fooSet = wire.NewSet(NewFooRepository, NewFooService)
 
 var barSet = wire.NewSet(NewBarRepository, NewBarService)
+
+var HelloSet = wire.NewSet(NewSayHelloImpl, wire.Bind(new(SayHello), new(*SayHelloImpl)))
