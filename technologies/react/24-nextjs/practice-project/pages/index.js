@@ -54,5 +54,20 @@ export async function getStaticProps() {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    // revalidate:10 will make it so our app wil be rebuild every 10 seconds
+    revalidate: 10,
   };
 }
+
+// export async function GetServerProps(context) {
+//   // this function is similar to getStaticProps()
+//   // but it runs for every request
+//   // you can get access to context props here
+//   const { req, res } = context;
+
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
