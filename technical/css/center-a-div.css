@@ -1,0 +1,13 @@
+/* how to center a div in the middle of page? */
+#divElement {
+  position: absolute;
+  top: 50%;
+  /* set it left to 50% */
+  left: 50%;
+  margin-top: -50px;
+  /* and then set margin-left to negative number of half the width */
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+}
