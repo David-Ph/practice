@@ -3,7 +3,12 @@
 
 package simple
 
-import "github.com/google/wire"
+import (
+	"io"
+	"os"
+
+	"github.com/google/wire"
+)
 
 func CreateService(isError bool) (*SimpleService, error) {
 	wire.Build(NewSimpleRepository, NewSimpleService)
@@ -30,4 +35,51 @@ func InitializedFooBarService() *FooBarService {
 		NewFooBarService,
 	)
 	return nil
+}
+
+var HelloSet = wire.NewSet(NewSayHelloImpl, wire.Bind(new(SayHello), new(*SayHelloImpl)))
+
+func InitializeHelloService() *HelloService {
+	wire.Build(HelloSet, NewSayHelloService)
+	return nil
+}
+
+var FooBarSet = wire.NewSet(
+	NewFoo,
+	NewBar,
+)
+
+func InitializeFooBar() *FooBar {
+	wire.Build(
+		FooBarSet,
+		wire.Struct(new(FooBar), "Foo", "Bar"),
+	)
+
+	return nil
+}
+
+var fooValue = &Foo{}
+var barValue = &Bar{}
+
+func InitalizeFooBarWithValue() *FooBar {
+	wire.Build(wire.Value(fooValue), wire.Value(barValue), wire.Struct(new(FooBar), "*"))
+	return nil
+}
+
+func InitializeReader() io.Reader {
+	wire.Build(wire.InterfaceValue(new(io.Reader), os.Stdin))
+	return nil
+}
+
+func InitializeConfiguration() *Configuration {
+	wire.Build(
+		NewApplication,
+		wire.FieldsOf(new(*Application), "Configuration"),
+	)
+	return nil
+}
+
+func InitializeConnection(name string) (*Connection, func()) {
+	wire.Build(NewConnection, NewFile)
+	return nil, nil
 }
