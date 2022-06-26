@@ -11,25 +11,25 @@ const DUMMY_MEETUPS = [
   },
   {
     id: 2,
-    title: "A first Meetup",
+    title: "A second Meetup",
     address: "Some Address 12345 Some City",
-    description: "This is our first meetup!",
+    description: "This is our second meetup!",
     image:
       "https://i.pinimg.com/originals/a2/54/41/a25441888989bf8650f2de212c7c0b43.jpg",
   },
   {
     id: 3,
-    title: "A first Meetup",
+    title: "A third Meetup",
     address: "Some Address 12345 Some City",
-    description: "This is our first meetup!",
+    description: "This is our third meetup!",
     image:
       "https://i.pinimg.com/originals/a2/54/41/a25441888989bf8650f2de212c7c0b43.jpg",
   },
   {
     id: 4,
-    title: "A first Meetup",
+    title: "A fourth Meetup",
     address: "Some Address 12345 Some City",
-    description: "This is our first meetup!",
+    description: "This is our fourth meetup!",
     image:
       "https://i.pinimg.com/originals/a2/54/41/a25441888989bf8650f2de212c7c0b43.jpg",
   },
