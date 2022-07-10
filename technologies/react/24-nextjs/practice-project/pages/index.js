@@ -1,3 +1,9 @@
+import { MongoClient } from "mongodb";
+// Keep in mind that if we import a package
+// and then only use it getStaticProps or getServerProps
+// The imported package will not be a part of the client side bundle
+
+// Component
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -50,9 +56,24 @@ export async function getStaticProps() {
   // so we can do async call here
   // this function has to return an object, and it has to have props item in it
   // this props will be sent to the main component in this page
+
+  // Fetch data from API
+  const client = new MongoClient(process.env.MONGO_URI);
+  await client.connect();
+  const database = client.db("nextjs_meetups");
+
+  const meetupsCollections = database.collection("meetups");
+  const result = await meetupsCollections.find().toArray();
+  client.close();
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: result.map((item) => ({
+        title: item.title,
+        address: item.address,
+        image: item.image,
+        id: item._id.toString(),
+      })),
     },
     // revalidate:10 will make it so our app wil be rebuild every 10 seconds
     revalidate: 10,
