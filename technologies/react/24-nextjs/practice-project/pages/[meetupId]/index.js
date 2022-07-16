@@ -33,7 +33,7 @@ export async function getStaticPaths() {
     // if set to false, if we load into a page where the id is not found here
     // it well return a 404 page
     // if set to true, it will attempt to render the page from server
-    fallback: false,
+    fallback: 'blocking',
     paths: result.map((meetup) => ({
       params: { meetupId: meetup._id.toString() },
     })),

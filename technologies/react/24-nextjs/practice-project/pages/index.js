@@ -5,9 +5,21 @@ import { MongoClient } from "mongodb";
 
 // Component
 import MeetupList from "../components/meetups/MeetupList";
+import Head from "next/head";
 
 export default function HomePage(props) {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>NextJS Meetups</title>
+        <meta
+          name="description"
+          content="Browse a huge list of highly active react meetups!"
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  );
 }
 
 // Normally, if we want to load a react page
