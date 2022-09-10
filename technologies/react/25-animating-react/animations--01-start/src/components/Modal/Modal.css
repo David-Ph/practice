@@ -15,12 +15,44 @@
 
 .ModalOpen {
   /* display: block; */
-  opacity: 1;
-  transform: translateY(0);
+  /* opacity: 1; */
+  /* transform: translateY(0); */
+  animation: openModal 400ms ease-out forwards;
 }
 
 .ModalClose {
   /* display: none; */
-  opacity: 0;
-  transform: translateY(-100vh);
+  /* opacity: 0; */
+  /* transform: translateY(-100vh); */
+  animation: closeModal 400ms ease-out forwards;
+}
+
+@keyframes openModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-100vh);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(20vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes closeModal {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(20vh);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh);
+  }
 }
