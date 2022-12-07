@@ -27,7 +27,15 @@ const modal = (props) => {
       // depending on the state of the animation
       // it will truncate enter, enter-active, exit, exit-active
       // at the end of the classNames we entered below
-      classNames="fade-slide"
+      // classNames="fade-slide"
+      // we could also put a javascript object
+      // to choose what class we want
+      classNames={{
+        enter: "",
+        enterActive: "ModalOpen",
+        exit: "",
+        exitActive: "ModalClose",
+      }}
     >
       <div className="Modal">
         <h1>A Modal</h1>
