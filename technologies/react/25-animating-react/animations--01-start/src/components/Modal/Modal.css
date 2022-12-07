@@ -27,6 +27,24 @@
   animation: closeModal 1000ms ease-out forwards;
 }
 
+.fade-slide-enter {
+  /* This activates at the start of animation */
+  /* and will be removed after it enters active */
+}
+
+.fade-slide-enter-active {
+  animation: openModal 400ms ease-out forwards;
+}
+
+.fade-slide-exit {
+    /* This activates at the start of animation */
+  /* and will be removed after it enters exit active */
+}
+
+.fade-slide-exit-active {
+  animation: closeModal 1000ms ease-out forwards;
+}
+
 @keyframes openModal {
   0% {
     opacity: 0;
