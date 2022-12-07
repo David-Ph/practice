@@ -6,11 +6,22 @@ import "./Modal.css";
 const animationTiming = {
   enter: 400,
   exit: 1000,
-}
+};
 
 const modal = (props) => {
   return (
-    <Transition mountOnEnter unmountOnExit in={props.show} timeout={animationTiming}>
+    <Transition
+      mountOnEnter
+      unmountOnExit
+      in={props.show}
+      timeout={animationTiming}
+      onEnter={() => console.log("OnEnter")}
+      onEntering={() => console.log("onEntering")}
+      onEntered={() => console.log("onEntered")}
+      onExit={() => console.log("onExit")}
+      onExiting={() => console.log("onExiting")}
+      onExited={() => console.log("onExited")}
+    >
       {(state) => {
         const cssClasses = [
           "Modal",
