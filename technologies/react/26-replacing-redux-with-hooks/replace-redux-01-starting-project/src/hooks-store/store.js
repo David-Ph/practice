@@ -16,12 +16,12 @@ const useStore = () => {
   const setState = useState(globalState)[1];
 
   // so this idea is like redux dispatch action
-  const dispatch = (actionId) => {
+  const dispatch = (type, payload) => {
     // we receive action id / action type
     // then we look for the action function in the actions vaariable
     // that action function should return the new state
     // and then we update the global state
-    const newState = actions[actionId](globalState);
+    const newState = actions[type](globalState, payload);
     globalState = { ...globalState, ...newState };
 
     // then we update every listener of the new state
@@ -48,6 +48,8 @@ const useStore = () => {
   return [globalState, dispatch];
 };
 
+// this is the init store function
+// now we need some place to create products store
 export const initStore = (userActions, initialState) => {
   if (initialState) {
     globalState = { ...globalState, ...initialState };
