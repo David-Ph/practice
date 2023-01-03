@@ -4,7 +4,7 @@ let globalState = {}; // this is the variable that stores all global staste
 let listeners = []; // this stores listeners function that we can call to update all components that are using the custom hook
 let actions = {};
 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
   // We use a global variable
   // the variable is created outside of the custom hook
   // if inside of the hook, the data will not be shared
@@ -35,12 +35,16 @@ export const useStore = () => {
     // for every import/component that uses this custom hook
     // we will push a new setState function to listeners array
     // the listeners array will grow a lot over time
-    listeners.push(setState);
+    if (shouldListen) {
+      listeners.push(setState);
+    }
 
     // remove the setState function from the listeners array
     // when the component unmounts
     return () => {
-      listeners = listeners.filter((li) => li !== setState);
+      if (shouldListen) {
+        listeners = listeners.filter((li) => li !== setState);
+      }
     };
   }, [setState]);
 
