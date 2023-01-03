@@ -15,6 +15,21 @@ const useStore = () => {
   // we're only interesting in setState function so we will only take that
   const setState = useState(globalState)[1];
 
+  // so this idea is like redux dispatch action
+  const dispatch = (actionId) => {
+    // we receive action id / action type
+    // then we look for the action function in the actions vaariable
+    // that action function should return the new state
+    // and then we update the global state
+    const newState = actions[actionId](globalState);
+    globalState = { ...globalState, ...newState };
+
+    // then we update every listener of the new state
+    for (const listener of listeners) {
+      listener(globalState);
+    }
+  };
+
   // this will only run once when the component mounts
   useEffect(() => {
     // for every import/component that uses this custom hook
@@ -28,4 +43,13 @@ const useStore = () => {
       listeners = listeners.filter((li) => li !== setState);
     };
   }, [setState]);
+
+  // then we return something from this custom hook
+  return [globalState, dispatch];
+};
+
+export const initStore = (userActions, initialState) => {
+  if (initialState) {
+    globalState = { ...globalState, ...initialState };
+  }
 };
