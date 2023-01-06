@@ -1,12 +1,19 @@
-import React from 'react'
+import { useState } from "react";
 
 function Greeting() {
+  const [changeText, setChangeText] = useState(false);
+
+  const handleChangeText = () => {
+    setChangeText((state) => !state);
+  };
+
   return (
     <div>
       <h2>Hello World!</h2>
-      <p>its good to see you!</p>
+      {!changeText ? <p>its good to see you!</p> : <p>Text is changed!</p>}
+      <button onClick={handleChangeText}>Change text!</button>
     </div>
-  )
+  );
 }
 
-export default Greeting
+export default Greeting;
