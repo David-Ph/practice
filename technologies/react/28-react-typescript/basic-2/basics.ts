@@ -41,3 +41,10 @@ people = [
   { name: "Hello", age: 17 },
   { name: "Hello", age: 17 },
 ];
+
+// Type Inference
+let course: string = "Typescript + React course";
+let someone = {
+  name: "Max",
+  age: 12,
+};
