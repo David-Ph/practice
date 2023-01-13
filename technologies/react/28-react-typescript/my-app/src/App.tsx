@@ -17,16 +17,21 @@ function App() {
   const addTodoHandler = (text: string) => {
     setTodoItems((todos) =>
       todos.concat({
-        id: todos.length + 1,
+        id: crypto.randomUUID(),
         text: text,
       })
     );
   };
 
+  const removeTodoHandler = (id: string) => {
+    const newTodos = todoItems.filter((todo) => todo.id !== id);
+    setTodoItems(newTodos);
+  };
+
   return (
     <div>
       <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={todoItems} />
+      <Todos items={todoItems} onRemoveTodo={removeTodoHandler} />
     </div>
   );
 }

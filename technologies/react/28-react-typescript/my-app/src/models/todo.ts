@@ -1,7 +1,7 @@
 // creating data model for react props
 // we can use type, interface, or class
 interface Todo {
-  id: number;
+  id: string;
   text: string;
 }
 

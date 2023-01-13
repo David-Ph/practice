@@ -5,6 +5,7 @@ import classes from "./Todos.module.css";
 
 type TodosProps = {
   items: Todo[];
+  onRemoveTodo: (id: string) => void;
   children?: ReactNode;
 };
 
@@ -19,7 +20,9 @@ const Todos = (props: TodosProps) => {
   return (
     <ul className={classes.todos}>
       {props.items.map((item) => (
-        <TodoItem key={item.id}>{item.text}</TodoItem>
+        <TodoItem key={item.id} id={item.id} onRemoveTodo={props.onRemoveTodo}>
+          {item.text}
+        </TodoItem>
       ))}
     </ul>
   );
