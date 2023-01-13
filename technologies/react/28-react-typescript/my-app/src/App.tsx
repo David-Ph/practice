@@ -2,24 +2,31 @@ import "./App.css";
 import Todos from "./components/Todos";
 import Todo from "./models/todo";
 import NewTodo from "./components/NewTodo";
+import { useState } from "react";
 
 function App() {
-  const TodoItems: Todo[] = [
-    { id: 1, text: "Learn React!" },
-    { id: 2, text: "With Typescript!" },
-  ];
+  // When using useState, we have to explicitly tell typescript
+  // what kind of array is it
+  const [todoItems, setTodoItems] = useState<Todo[]>([]);
+
+  // const TodoItems: Todo[] = [
+  //   { id: 1, text: "Learn React!" },
+  //   { id: 2, text: "With Typescript!" },
+  // ];
 
   const addTodoHandler = (text: string) => {
-    TodoItems.push({
-      id: TodoItems.length,
-      text: text,
-    });
+    setTodoItems((todos) =>
+      todos.concat({
+        id: todos.length + 1,
+        text: text,
+      })
+    );
   };
 
   return (
     <div>
       <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={TodoItems} />
+      <Todos items={todoItems} />
     </div>
   );
 }
