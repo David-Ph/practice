@@ -1,12 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+import { TodosContext } from "../store/todos-store";
 import classes from "./NewTodo.module.css";
 
 interface NewTodoProps {
   children?: React.ReactNode;
-  onAddTodo: (text: string) => void;
 }
 
 function NewTodo(props: NewTodoProps) {
+  const todosCtx = useContext(TodosContext);
   // Initially, useRef has no idea what kind of element is using this
   // it could be anything, for example like a button
   // so that's why we have to use generics to be explicit about this
@@ -22,7 +23,7 @@ function NewTodo(props: NewTodoProps) {
       return;
     }
 
-    props.onAddTodo(text);
+    todosCtx.addTodo(text);
   };
 
   return (

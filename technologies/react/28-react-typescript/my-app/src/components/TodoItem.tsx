@@ -1,15 +1,17 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useContext } from "react";
+import { TodosContext } from "../store/todos-store";
 import classes from "./TodoItem.module.css";
 
 type TodoProps = {
   children?: ReactNode;
   id: string;
-  onRemoveTodo: (id: string) => void;
 };
 
 const TodoItem = (props: TodoProps) => {
+  const todosCtx = useContext(TodosContext);
+
   const removeTodo = () => {
-    props.onRemoveTodo(props.id);
+    todosCtx.removeTodo(props.id);
   };
 
   return (
