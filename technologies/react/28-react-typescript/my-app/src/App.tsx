@@ -24,8 +24,7 @@ function App() {
   };
 
   const removeTodoHandler = (id: string) => {
-    const newTodos = todoItems.filter((todo) => todo.id !== id);
-    setTodoItems(newTodos);
+    setTodoItems((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return (

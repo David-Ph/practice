@@ -8,7 +8,7 @@ type TodoProps = {
 };
 
 const TodoItem = (props: TodoProps) => {
-  const removeTodo = (e: React.MouseEvent) => {
+  const removeTodo = () => {
     props.onRemoveTodo(props.id);
   };
 
