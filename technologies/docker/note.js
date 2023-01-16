@@ -13,4 +13,6 @@
         - docker ps -a -> to check all containers
         - docker container rm [CONTAINER ID] -> remove all containers
         - docker rmi [IMAGE ID] -> remove image
+        - docker image prune -a
+        - docker system prune -a
 */
