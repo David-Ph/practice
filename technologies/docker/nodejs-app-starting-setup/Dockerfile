@@ -4,12 +4,19 @@ FROM node
 # Set working directory
 WORKDIR /app
 
-# Which file from our local file to copy to the image
-# First . means copy everything, /app is to paste into /app directory in the image
-COPY . /app
+# This is an optimization step
+# because docker is layer based
+# we will copy package.json first
+# so if we change our code but don't change our package.json
+# it will not run npm install again
+COPY package.json /app
 
 # Run a command
 RUN npm install
+
+# Which file from our local file to copy to the image
+# First . means copy everything, /app is to paste into /app directory in the image
+COPY . /app
 
 # Expose the port run on the container
 # to our local computer
