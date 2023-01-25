@@ -19,4 +19,6 @@
         - docker container attach [CONTAINER NAME] -> attach to a container
         - docker logs -f [CONTAINER NAME] -> log a container
         - docker run -it [CONTAINER ID] -> run/create a container in interactive mode with terminal
+        - docker cp [source] [target] -> copy a file from/to a container. example is: docker cp [CONTAINER NAME]:[PATH] [PATH]
+        - dokcer run -name [CONTAINER NAME] -> create/run container with our own assigned names
 */
