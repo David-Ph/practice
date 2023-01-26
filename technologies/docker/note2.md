@@ -21,4 +21,12 @@ it can't infer if anything has changed with the RUN command, so it will also run
 
 It exists to speed up rebuilding of image
 
-# 
+- # What is volume in docker and why do we need it?
+
+In docker, container is a completely isolated environment built on top of an image. And when we change our code and the image, we need to recreate the container.
+
+This means that usually, no data will persist after we recreate a new container. But sometimes we DO want data to persist.
+
+This is where volumes can help.
+
+Volumes are folders on your host machine which are mounted into the container. Volumes persists if a container shuts down. A container and write and read data from volumes
