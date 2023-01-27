@@ -40,3 +40,12 @@ Volumes are good to store data we don't need to edit like database.
 With bind mounts, docker containers will have access to the latest snapshot of our local files, which makes it good to store data we need to edit like code.
 
 
+- # Arg and Env
+
+we can use environment variables in docker file
+
+ENV PORT 80
+EXPOSE $PORT
+
+docker run --env PORT=3000
+docker run --env-file ./.env
