@@ -22,4 +22,10 @@
         - docker cp [source] [target] -> copy a file from/to a container. example is: docker cp [CONTAINER NAME]:[PATH] [PATH]
         - dokcer run -name [CONTAINER NAME] -> create/run container with our own assigned names
         - docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes -> create a detached container, expose the port of 80 to 3000 in our local, remove the container when we stop it, give the container a name, and create a volume in feedback folder
+
+        - docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback -v "/Users/hndr/Desktop/coding/learn/practice/technologies/docker/data-volumes-01-starting-setup:/app" -v /app/node_modules feedback-node:volumes -> same as the one above, but we're also adding a bind mounts folder here
+
+        - you can also use this for shortening [-v $(pwd):/app] or [-v "%cd%":/app]
+
+
 */

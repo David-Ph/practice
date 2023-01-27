@@ -30,3 +30,13 @@ This means that usually, no data will persist after we recreate a new container.
 This is where volumes can help.
 
 Volumes are folders on your host machine which are mounted into the container. Volumes persists if a container shuts down. A container and write and read data from volumes
+
+- # Bind mounts vs volumes
+
+Volumes are managed by docker and bind mounts are managed by us as developers.
+
+Volumes are good to store data we don't need to edit like database.
+
+With bind mounts, docker containers will have access to the latest snapshot of our local files, which makes it good to store data we need to edit like code.
+
+
