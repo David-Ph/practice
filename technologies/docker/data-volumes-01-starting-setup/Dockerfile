@@ -12,4 +12,4 @@ EXPOSE 80
 
 # VOLUME ["/app/feedback"] this is anonymous volume
 
-CMD [ "node", "server.js"]
+CMD [ "npm", "run", "start"]
