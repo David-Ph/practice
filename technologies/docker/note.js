@@ -27,5 +27,6 @@
 
         - you can also use this for shortening [-v $(pwd):/app] or [-v "%cd%":/app]
 
-
+        - docker network create [NETWORK NAME] -> create a network
+        - docker run -d --name mongodb --network favorites-net mongo -> start a container under a network
 */

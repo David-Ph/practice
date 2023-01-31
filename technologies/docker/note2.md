@@ -39,7 +39,6 @@ Volumes are good to store data we don't need to edit like database.
 
 With bind mounts, docker containers will have access to the latest snapshot of our local files, which makes it good to store data we need to edit like code.
 
-
 - # Arg and Env
 
 we can use environment variables in docker file
@@ -49,3 +48,12 @@ EXPOSE $PORT
 
 docker run --env PORT=3000
 docker run --env-file ./.env
+
+- # Network in dockerized app
+
+Out of the box, sending http request to a WWW works.
+to connect to localhost from a docker app, use host.docker.internal for the main url
+to connect to another container is a bit complicated
+1st step is to create a new network
+then start all containers under the same network
+then you can use the container name as the url to connect to.

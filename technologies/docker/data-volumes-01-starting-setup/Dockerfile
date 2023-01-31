@@ -1,5 +1,8 @@
 FROM node:14-alpine
 
+# --build-arg DEFAULT_PORT=8000
+ARG DEFAULT_PORT=80
+
 WORKDIR /app 
 
 COPY package.json .
@@ -8,7 +11,7 @@ RUN npm install
 
 COPY . .
 
-ENV PORT 80
+ENV PORT $DEFAULT_PORT
 
 EXPOSE $PORT
 
