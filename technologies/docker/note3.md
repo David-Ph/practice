@@ -27,4 +27,6 @@
 
 - Polishing the nodejs container
   - Create a volume and bind mounts for our backend apps so it can store logs and receive live code whenever it changes: docker run -d --rm --name goals-backend -v /Users/hndr/Desktop/coding/learn/practice/technologies/docker/multi-01-starting-setup/backend:/app -v logs:/app/logs -v /app/node_modules -p 80:80 -d --network goals-network goals-node
-  - 
+
+- Polishing the react container
+  - docker run -v /Users/hndr/Desktop/coding/learn/practice/technologies/docker/multi-01-starting-setup/frontend/src:/app/src --name goals-frontend --rm -d -p 3000:3000 -it goals-react
