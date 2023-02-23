@@ -1,8 +1,42 @@
 version: "3.8"
 services:
-  mongodb: 
-
-  frontend: 
-
-  backend: 
-    
+  mongodb:
+    container_name: mongodb_container
+    image: "mongo"
+    volumes:
+      - data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=max
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    env_file:
+      - ./env/mongo.env
+  backend:
+    build: ./backend # Look for the Dockerfile file
+    container_name: backend_container
+    ports:
+      - "80:80" # [HOST PORT]:[INTERNAL CONTAINER PORT]
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app # [RELATIVE PATH TO THE VOLUME FOLDER]:[FOLDER NAME I CONTAINER]
+      - /app/node_modules
+    env_file:
+      - ./env/backend.env
+    depends_on: # this says that our backend container relies on mongodb, so this make sure that backend container starts after mongodb
+      - mongodb
+  frontend:
+    build: ./frontend
+    container_name: frontend_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - /app/node_modules
+    depends_on:
+      - backend
+    stdin_open: true # This is to enable interactive mode
+    tty: true
+# If you need a named volume, you need to specify it here
+# If you need a network, docker compose will automatically set it
+volumes:
+  data:
+  logs:
