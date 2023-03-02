@@ -16,7 +16,7 @@ services:
     image: mysql:5.7
     env_file:
       - ./env/mysql.env
-  composer:
+  composer: # run this utility container first with docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
     build:
       context: ./dockerfiles
       dockerfile: composer.dockerfile
