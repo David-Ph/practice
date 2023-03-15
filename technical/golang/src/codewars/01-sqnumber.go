@@ -6,9 +6,10 @@ import (
 )
 
 func NearestSq(n int) int {
-	squareRoot := math.Sqrt(float64(n))
-
+	floatNumber := float64(n)
+	squareRoot := math.Sqrt(floatNumber)
 	roundNumber := math.Round(squareRoot)
+
 	return int(roundNumber * roundNumber)
 }
 
