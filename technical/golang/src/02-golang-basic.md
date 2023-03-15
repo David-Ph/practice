@@ -1,27 +1,31 @@
-package main
+// ? Variable Declarations
 
-import "fmt"
+# Variable declaration
 
-// ? Function
+```
+// var card string = "Ace of Spades"
+card := "Ace of Spades"
+card = "Five of Diamonds"
+fmt.Println(card)
+```
+
+# Function
+
+```
 func newCard() string {
-	return "Five of Diamonds"
+  return "Five of Diamonds"
 }
+```
 
-func main() {
-	// ? Variable Declarations
-	// var card string = "Ace of Spades"
-	card := "Ace of Spades"
-	card = "Five of Diamonds"
-	fmt.Println(card)
+```
+card2 := newCard()
+fmt.Println(card2)
+```
 
-	// ? Function
-	card2 := newCard()
-	fmt.Println(card2)
+# Array and slices
 
-	getState()
-
-	// ? Array and slices
-	// Array is a fixed length list of things
+```
+  // Array is a fixed length list of things
 	// Slice is an array that can grow or shrink
 	// Every element in a slice must be of same type
 	cards := []string{"Ace of Spades", newCard()}
@@ -38,4 +42,4 @@ func main() {
 		fmt.Println(i, card)
 	}
 	fmt.Println(cards)
-}
+```
