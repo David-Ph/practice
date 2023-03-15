@@ -43,3 +43,24 @@ fmt.Println(card2)
 	}
 	fmt.Println(cards)
 ```
+
+## OO Aproach vs Go Aproach
+
+With the OO aproach, we may create a Deck class
+that deck class will contain some sort of blueprint like what properties or what methods does a deck will have.
+For example maybe an instance of deck will have a property called cards, which is a slice of cards, and then methods such as print(), shuffle(), saveToFile()
+
+In Go, it will be different
+First we'll have to create a new type of deck
+
+```
+type deck []string
+```
+
+then we'll create new functions with deck as receiver. It's basically like a composing pattern, we're attaching a method/function to the type
+
+```
+func (deck) shuffleCards() {
+  // do things
+}
+```
