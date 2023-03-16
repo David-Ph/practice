@@ -24,7 +24,7 @@ func main() {
 	// Array is a fixed length list of things
 	// Slice is an array that can grow or shrink
 	// Every element in a slice must be of same type
-	cards := []string{"Ace of Spades", newCard()}
+	cards := deck{"Ace of Spades", newCard()}
 
 	// appending slices
 	// the append function doesn't modify the original slice
@@ -32,10 +32,13 @@ func main() {
 	cards = append(cards, "Six of Spades")
 
 	// For loop
-	for i, card := range cards {
-		// i is the index
-		// card is the element itself
-		fmt.Println(i, card)
-	}
-	fmt.Println(cards)
+	// for i, card := range cards {
+	// 	// i is the index
+	// 	// card is the element itself
+	// 	fmt.Println(i, card)
+	// }
+	// fmt.Println(cards)
+
+	// calling deck method
+	cards.print()
 }
