@@ -16,6 +16,11 @@ func (d deck) print() {
 	}
 }
 
+// create a function that returns multiple values
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
+}
+
 func newDeck() deck {
 	cards := deck{}
 
