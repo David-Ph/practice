@@ -51,4 +51,9 @@ func main() {
 	hand.print()
 	fmt.Println("--------")
 	remainingCards.print()
+
+	// Deck to string
+	// greeting := "Hi there"
+	// fmt.Println([]byte(greeting))
+	fmt.Println(hand.toString())
 }
