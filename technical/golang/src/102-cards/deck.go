@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -48,4 +49,26 @@ func newDeck() deck {
 // create a function to save deck to file
 func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+// create a function to create a new deck from file
+func newDeckFromFile(filename string) deck {
+	// this is a common pattern in go to check for error
+	// a function will return 2 values, one of them is the err variable
+	// then we'll check if err is null or not
+	bs, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		// Option 1: log the error and return a call to new deck
+		// Option 2: log the error and quit the program
+		// return nil, err
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+
+	// Convert byteslice to slice string
+	s := strings.Split(string(bs), ",")
+
+	// Create new deck from string and return it
+	return deck(s)
 }

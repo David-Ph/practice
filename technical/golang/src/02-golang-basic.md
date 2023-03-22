@@ -87,3 +87,26 @@ func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 ```
+
+# Error Checking
+
+```
+
+// create a function to create a new deck from file
+func newDeckFromFile(filename string) deck {
+	// this is a common pattern in go to check for error
+	// a function will return 2 values, one of them is the err variable
+	// then we'll check if err is null or not
+	bs, err := ioutil.ReadFile(filename)
+
+	if err != nil {
+		return nil, err
+	}
+	
+	// Convert byteslice to slice string
+	s := strings.Split(string(bs), ",")
+
+	// Create new deck from string and return it
+	return deck(s)
+}
+```

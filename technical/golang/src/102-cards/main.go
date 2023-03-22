@@ -57,5 +57,8 @@ func main() {
 	// fmt.Println([]byte(greeting))
 	fmt.Println(hand.toString())
 
-	hand.saveToFile("my_hands")
+	// hand.saveToFile("my_hands")
+	deckFromFile := newDeckFromFile("my_hands")
+	fmt.Println("The deck we just read from file is:")
+	fmt.Println(deckFromFile)
 }
