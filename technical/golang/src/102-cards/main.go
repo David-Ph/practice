@@ -56,4 +56,6 @@ func main() {
 	// greeting := "Hi there"
 	// fmt.Println([]byte(greeting))
 	fmt.Println(hand.toString())
+
+	hand.saveToFile("my_hands")
 }
