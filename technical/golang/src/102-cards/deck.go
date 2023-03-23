@@ -75,12 +75,12 @@ func newDeckFromFile(filename string) deck {
 	return deck(s)
 }
 
+// Create a function to shuffle a deck
 func (d deck) shuffle() {
-	source := rand.NewSource(time.Now().UnixNano())
-	r := rand.New(source)
+	rand.Seed(time.Now().UnixNano())
 
 	for i := range d {
-		newIndex := r.Intn(len(d) - 1)
+		newIndex := rand.Intn(len(d) - 1)
 		d[i], d[newIndex] = d[newIndex], d[i]
 	}
 }
