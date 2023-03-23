@@ -110,3 +110,18 @@ func newDeckFromFile(filename string) deck {
 	return deck(s)
 }
 ```
+
+# Getting a random number 
+
+```
+// Create a function to shuffle a deck
+func (d deck) shuffle() {
+	rand.Seed(time.Now().UnixNano())
+
+	for i := range d {
+		newIndex := rand.Intn(len(d) - 1)
+		d[i], d[newIndex] = d[newIndex], d[i]
+	}
+}
+
+```
