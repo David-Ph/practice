@@ -58,7 +58,13 @@ func main() {
 	fmt.Println(hand.toString())
 
 	// hand.saveToFile("my_hands")
-	deckFromFile := newDeckFromFile("my_hands")
-	fmt.Println("The deck we just read from file is:")
-	fmt.Println(deckFromFile)
+	// deckFromFile := newDeckFromFile("my_hands")
+	// fmt.Println("The deck we just read from file is:")
+	// fmt.Println(deckFromFile)
+
+	fmt.Println("BEFORE SHUFFLE")
+	hand.print()
+	hand.shuffle()
+	fmt.Println("AFTER SHUFFLE")
+	hand.print()
 }
