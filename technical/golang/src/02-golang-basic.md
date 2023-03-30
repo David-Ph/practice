@@ -275,17 +275,30 @@ func printMap(c map[string]string) {
 ```
 
 # Maps vs Structs
-Maps:
-	- All keys must be same type
-	- use to represent a collection of related properties
-	- all values must be same type
-	- don't need to know all the keys during compile time
-	- keys are indexed - we can iterate over them
-	- reference type
-Struct:
-	- Values can be of different type
-	- you need to know all the different types at compile time
-	- keys don't support indexing
-	- use to represent a "thing" with a lot of different properties
-	- value type
 
+Maps: - All keys must be same type - use to represent a collection of related properties - all values must be same type - don't need to know all the keys during compile time - keys are indexed - we can iterate over them - reference type
+Struct: - Values can be of different type - you need to know all the different types at compile time - keys don't support indexing - use to represent a "thing" with a lot of different properties - value type
+
+# Interface
+
+In Go, when we want to create a function that accepts a parameter, you also need to enter the type of that parameter. But what if we needed a specific type of paramter? That is how interface can help us.
+
+Interface is similar to a contract, if we create a variable/struct/map of said interface, it has to have the properties which interface says it has to have.
+
+For example, we can create an interface of type IPerson. That IPerson interface has to have a greeting() method. Then anything that gets that follows the contract of this interface, can be considered of type IPerson
+
+So what's the differene between interface and struct? interface is only used as a contract to show how the data should look like, but not how the data is implemented. For example you can create 2 different struct types from IPerson, both structs has to hava a greeting() method, but the implementation can be different.
+
+so basically Interface is a set of method definitions that has no implementations yet.
+
+```
+type bot interface {
+	getGreeting() string
+}
+```
+
+# Some Interface rules
+
+1. Interface are not generic types
+2. Interfaces are implicit - we don't manually have to say that our custom types satisfies our interfaces
+3. interfaces are also a contract to help us manage types
