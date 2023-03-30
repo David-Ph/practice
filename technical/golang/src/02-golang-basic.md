@@ -132,13 +132,6 @@ What's the difference between struct and interface?
 
 ```
 
-
-Interfaces are too big of a topic to give an all-depth answer here, but some things to make their use clear.
-
-Interfaces are a tool. Whether you use them or not is up to you, but they can make code clearer, shorter, more readable, and they can provide a nice API between packages, or clients (users) and servers (providers).
-
-Yes, you can create your own struct type, and you can "attach" methods to it, for example:
-
 type Cat struct{}
 
 func (c Cat) Say() string { return "meow" }
@@ -248,3 +241,51 @@ non primitive data types are reference types and are not immutable, so in order 
 # When we create a slice, Go will automatically create which two data structures?
 
 an array and a structure that records the lenght of the slice, the capacity of the slice, and the reference/memory addres to the array.
+
+# Map
+
+Map in go is similar to Object in Javascript. The Keys of the map has to be of the same type, and the value has to be of the same type as well.
+
+```
+func main() {
+	colors := map[string]string{
+		"white": "#fff",
+		"black": "#000",
+	}
+
+	colors["red"] = "#ff000"
+	black := "black"
+
+	delete(colors, "red")
+
+	fmt.Println(colors)
+	fmt.Println(colors["white"])
+	fmt.Println(colors[black])
+}
+```
+
+# Iterating over maps
+
+```
+func printMap(c map[string]string) {
+	for color, hex := range c {
+		fmt.Println("Hex code for", color, "is", hex)
+	}
+}
+```
+
+# Maps vs Structs
+Maps:
+	- All keys must be same type
+	- use to represent a collection of related properties
+	- all values must be same type
+	- don't need to know all the keys during compile time
+	- keys are indexed - we can iterate over them
+	- reference type
+Struct:
+	- Values can be of different type
+	- you need to know all the different types at compile time
+	- keys don't support indexing
+	- use to represent a "thing" with a lot of different properties
+	- value type
+
