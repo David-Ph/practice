@@ -102,7 +102,7 @@ func newDeckFromFile(filename string) deck {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Convert byteslice to slice string
 	s := strings.Split(string(bs), ",")
 
@@ -111,7 +111,7 @@ func newDeckFromFile(filename string) deck {
 }
 ```
 
-# Getting a random number 
+# Getting a random number
 
 ```
 // Create a function to shuffle a deck
@@ -217,3 +217,34 @@ type person struct {
 
 alex := person{firstName: "Alex", lastName: "Anderson"}
 ```
+
+# Pointers
+
+you can turn value into address with &pointer
+you can turn address into value with \*pointer
+
+```
+func (p *person) updateName(newFirstName string) { // *person means it's of type address of person
+	(*p).firstName = newFirstName // *p means get me the value that is stored in the memory address of *p
+}
+
+davidPointer := &david // get me the memory address of the variable &david and store it in davidPointer
+```
+
+There is also a pointer shortcut. You can just remove the &part and go will automatically infer it as pointer if the receiver is using \*pointer
+
+# Gotcha with pointers
+
+We can't update a variable through a function directly because when we pass an argument to a function, we're passing only the value. So even if we change the value from inside the function, the original variable would still have the original value.
+That's why in order to change it, we need to pass the pointer.
+But that doesn't apply for all types of variables.
+
+There is a mutable and immutable variables. In javascript, only objects and arrays are mutable. Primitive values like string, numbers, boolean, etc are immutable.
+
+primitive types data types are value types and are immutable, so in order to change them you need to pass by pointer. In javascript these includes string, numbers, etc. In Go this includes struct, int, float, string, bool, etc.
+
+non primitive data types are reference types and are not immutable, so in order to change them you don't need to pass by pointer. In javascript these are just objects and arrays. In Go this includes slices, maps, channels, pointers, and functions.
+
+# When we create a slice, Go will automatically create which two data structures?
+
+an array and a structure that records the lenght of the slice, the capacity of the slice, and the reference/memory addres to the array.
