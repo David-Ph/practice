@@ -302,3 +302,11 @@ type bot interface {
 1. Interface are not generic types
 2. Interfaces are implicit - we don't manually have to say that our custom types satisfies our interfaces
 3. interfaces are also a contract to help us manage types
+
+# Working with the reader interface
+
+```
+bs := make([]byte, 9999)
+resp.Body.Read(bs)
+fmt.Println(string(bs))
+```
