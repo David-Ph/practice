@@ -310,3 +310,109 @@ bs := make([]byte, 9999)
 resp.Body.Read(bs)
 fmt.Println(string(bs))
 ```
+
+# Goroutines and Go Channel
+
+When we run this code:
+```
+links := []string{
+		"http://google.com",
+		"http://facebook.com",
+		"http://stackoverflow.com",
+		"http://golang.org",
+		"http://amazon.com",
+	}
+
+	for _, link := range links {
+		checkLink(link)
+	}
+```
+For each link we check, it will wait for the response to come back to us before we get to the next link. Basically our program is running in sequential flow right now.
+
+this is very slow and not ideal. Ideally we want the requests to run in parallel flow, rather than waiting for each request to finish before moving on to the next request. 
+
+THis is where goroutines can be useful.
+
+# Theory of Go Routines
+
+In Go, one CPU core can only work on one go routines, and each of these go routines can only work on one task.
+
+```
+links := []string{
+		"http://google.com",
+		"http://facebook.com",
+		"http://stackoverflow.com",
+		"http://golang.org",
+		"http://amazon.com",
+	}
+
+	for _, link := range links {
+		go checkLink(link)
+	}
+```
+
+So when we run the code above, the main go routine will run the checkLink function, then when it meets a blocking code, it will start up another go routine again until it meets a blocking code again, and it keeps going like that until it meets the end of the loop or until one of the go routines receives a response. All this is being handled by the go scheduler.
+
+# Go is using concurrency programming, not parallelism.
+
+Parallel is doing multiple task together at the same time. Concurrency is we can have multiple threads executing code. If one thread blocks, another one is picked up on and worked on. So it's like we're scheduling works, and change between them on the fly.
+
+# Channels
+
+If we just run the code above like that, what will happen is the main go routine will run the loop, and it will keep opening up new child routines. But after the loop, the go routine will not check if the child routine received any responsoes or not and it will just quit after the loop.
+
+That's where channels comes in. Channel is used to communicate between routines. 
+
+```
+	// create new channel
+	c := make(chan string)
+
+	// pass the channel to checkLink
+	go checkLink(link, c)
+
+	// make sure checklink can receive it
+	func checkLink(link string, c chan string)
+
+	// Insert the message we want into the channel
+	c <- "Might be down"
+
+	// prepare the channel to receive a message and do something with it
+	fmt.Println(<-c)
+```
+
+But there's a slight problem with the code above. If we execute the `go checkLink()` inside a loop, it will execute the code inside it, then after that part finishes and this code executes and we put the message into the channel `c <- "Might be down"`, then the next part of the code will executes because it receives something in the channel `fmt.println(<-c)` and then it will instantly quits, ignoring all other child go routines that has not finished yet.
+
+We can work around it by preparing the channel 5 times like this
+
+```
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+```
+
+or a better way is
+
+```
+	// make a for loop to prepare the channel to receive data
+	// what is happening here, is the channel is still waiting for the first data to come through before going on to the next loop, so remember that this part is a blocking code
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
+	}
+```
+
+or an even better way, if we want to do an infinite loop
+
+```
+	// what is happening here is we loop through c
+	// each time c receives a data, it will put the data into l
+	// which in turn will be passed to checkLink
+	for l := range c {
+		go checkLink(l, c)
+	}
+```
+
+# Function literal
+
+function literal is like an anonymous function in javascript
