@@ -130,6 +130,16 @@ Golang don't have mock object, but we can use testify package.
 
 Let's make an example where we create a mock object to do a query to a database.
 
-1. Make a service layer as a business logic
-2. Make a repository layer as a bridge to database
-3. To make it easy to test, we should make an interface as a contract
+# Benchmark
+
+Benchmark is used to check how fast our application is
+
+```
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("MaoMao")
+	}
+}
+```
+
+run the benchmark with `go test -v -bench=.`

@@ -16,6 +16,52 @@ func TestMain(m *testing.M) {
 	fmt.Println("After Unit test")
 }
 
+func BenchmarkHelloWorld(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("MaoMao")
+	}
+}
+
+func BenchmarkSub(b *testing.B) {
+	b.Run("MaoMao", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("MaoMao")
+		}
+	})
+	b.Run("Phang", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Phang")
+		}
+	})
+}
+
+func BenchmarkTable(b *testing.B) {
+	// Create a slice of struct
+	tests := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "HelloWorld(Eko)",
+			request: "Eko",
+		},
+		{
+			name:    "HelloWorld(David)",
+			request: "David",
+		},
+		{
+			name:    "HelloWorld(MaoMao)",
+			request: "MaoMao",
+		},
+	}
+
+	for _, test := range tests {
+		b.Run(test.name, func(b *testing.B) {
+			HelloWorld(test.request)
+		})
+	}
+}
+
 func TestHelloWorld(t *testing.T) {
 	if runtime.GOOS == "darwin" {
 		t.Skip("Unit test can't run in darwin")
