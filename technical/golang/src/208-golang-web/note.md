@@ -114,3 +114,53 @@ ServeMux adalah implementasi Handler yang bisa mendukung multiple endpoint
 URL Pattern dalam ServeMux sederhana, kita tinggal menambahkan string yang ingin kita gunakan sebagai  endpoint, tanpa perlu memasukkan domain web kita
 Jika URL Pattern dalam ServeMux kita tambahkan di akhirnya dengan garis miring, artinya semua url tersebut akan menerima path dengan awalan tersebut, misal /images/ artinya akan dieksekusi jika endpoint nya /images/, /images/contoh, /images/contoh/lagi
 Namun jika terdapat URL Pattern yang lebih panjang, maka akan diprioritaskan yang lebih panjang, misal jika terdapat URL /images/ dan /images/thumbnails/, maka jika mengakses /images/thumbnails/ akan mengakses /images/thumbnails/, bukan /images
+
+# Request
+
+Request adalah struct yang merepresentasikan HTTP Request yang dikirim oleh Web Browser
+Semua informasi request yang dikirim bisa kita dapatkan di Request
+Seperti, URL, http method, http header, http body, dan lain-lain
+
+# HTTP Test
+
+Go-Lang sudah menyediakan package khusus untuk membuat unit test terhadap fitur Web yang kita buat
+Semuanya ada di dalam package net/http/httptest https://golang.org/pkg/net/http/httptest/ 
+Dengan menggunakan package ini, kita bisa melakukan testing handler web di Go-Lang tanpa harus menjalankan aplikasi web nya
+Kita bisa langsung fokus terhadap handler function yang ingin kita test
+
+# httptest.NewRequest()
+
+NewRequest(method, url, body) merupakan function yang digunakan untuk membuat http.Request
+Kita bisa menentukan method, url dan body yang akan kita kirim sebagai simulasi unit test
+Selain itu, kita juga bisa menambahkan informasi tambahan lainnya pada request yang ingin kita kirim, seperti header, cookie, dan lain-lain
+
+# httptest.NewRecorder()
+
+httptest.NewRecorder() merupakan function yang digunakan untuk membuat ResponseRecorder
+ResponseRecorder merupakan struct bantuan untuk merekam HTTP response dari hasil testing yang kita lakukan
+
+# Query Parameter
+
+Query parameter adalah salah satu fitur yang biasa kita gunakan ketika membuat web
+Query parameter biasanya digunakan untuk mengirim data dari client ke server
+Query parameter ditempatkan pada URL
+Untuk menambahkan query parameter, kita bisa menggunakan ?nama=value pada URL nya
+
+# url.URL
+
+Dalam parameter Request, terdapat attribute URL yang berisi data url.URL
+Dari data URL ini, kita bisa mengambil data query parameter yang dikirim dari client dengan menggunakan method Query() yang akan mengembalikan map
+
+# Multiple Query Parameter
+
+Dalam spesifikasi URL, kita bisa menambahkan lebih dari satu query parameter
+Ini cocok sekali jika kita memang ingin mengirim banyak data ke server, cukup tambahkan query parameter lainnya
+Untuk menambahkan query parameter, kita bisa gunakan tanda & lalu diikuti dengan query parameter berikutnya
+
+# Multiple Value Query Parameter
+
+Sebenarnya URL melakukan parsing query parameter dan menyimpannya dalam map[string][]string
+Artinya, dalam satu key query parameter, kita bisa memasukkan beberapa value
+Caranya kita bisa menambahkan query parameter dengan nama yang sama, namun value berbeda, misal :
+name=Eko&name=Kurniawan
+
