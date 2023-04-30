@@ -111,7 +111,7 @@ ServeMux adalah implementasi Handler yang bisa mendukung multiple endpoint
 
 # URL Pattern
 
-URL Pattern dalam ServeMux sederhana, kita tinggal menambahkan string yang ingin kita gunakan sebagai  endpoint, tanpa perlu memasukkan domain web kita
+URL Pattern dalam ServeMux sederhana, kita tinggal menambahkan string yang ingin kita gunakan sebagai endpoint, tanpa perlu memasukkan domain web kita
 Jika URL Pattern dalam ServeMux kita tambahkan di akhirnya dengan garis miring, artinya semua url tersebut akan menerima path dengan awalan tersebut, misal /images/ artinya akan dieksekusi jika endpoint nya /images/, /images/contoh, /images/contoh/lagi
 Namun jika terdapat URL Pattern yang lebih panjang, maka akan diprioritaskan yang lebih panjang, misal jika terdapat URL /images/ dan /images/thumbnails/, maka jika mengakses /images/thumbnails/ akan mengakses /images/thumbnails/, bukan /images
 
@@ -124,7 +124,7 @@ Seperti, URL, http method, http header, http body, dan lain-lain
 # HTTP Test
 
 Go-Lang sudah menyediakan package khusus untuk membuat unit test terhadap fitur Web yang kita buat
-Semuanya ada di dalam package net/http/httptest https://golang.org/pkg/net/http/httptest/ 
+Semuanya ada di dalam package net/http/httptest https://golang.org/pkg/net/http/httptest/
 Dengan menggunakan package ini, kita bisa melakukan testing handler web di Go-Lang tanpa harus menjalankan aplikasi web nya
 Kita bisa langsung fokus terhadap handler function yang ingin kita test
 
@@ -164,3 +164,329 @@ Artinya, dalam satu key query parameter, kita bisa memasukkan beberapa value
 Caranya kita bisa menambahkan query parameter dengan nama yang sama, namun value berbeda, misal :
 name=Eko&name=Kurniawan
 
+# Header
+
+Selain Query Parameter, dalam HTTP, ada juga yang bernama Header
+Header adalah informasi tambahan yang biasa dikirim dari client ke server atau sebaliknya
+Jadi dalam Header, tidak hanya ada pada HTTP Request, pada HTTP Response pun kita bisa menambahkan informasi header
+Saat kita menggunakan browser, biasanya secara otomatis header akan ditambahkan oleh browser, seperti informasi browser, jenis tipe content yang dikirim dan diterima oleh browser, dan lain-lain
+
+# Request Header
+
+Untuk menangkap request header yang dikirim oleh client, kita bisa mengambilnya di Request.Header
+Header mirip seperti Query Parameter, isinya adalah map[string][]string
+Berbeda dengan Query Parameter yang case sensitive, secara spesifikasi, Header key tidaklah case sensitive
+
+# Response Header
+
+Sedangkan jika kita ingin menambahkan header pada response, kita bisa menggunakan function ResponseWriter.Header()
+
+# Form Post
+
+Saat kita belajar HTML, kita tahu bahwa saat kita membuat form, kita bisa submit datanya dengan method GET atau POST
+Jika menggunakan method GET, maka hasilnya semua data di form akan menjadi query parameter
+Sedangkan jika menggunakan POST, maka semua data di form akan dikirim via body HTTP request
+Di Go-Lang, untuk mengambil data Form Post sangatlah mudah
+
+# Request.PostForm
+
+Semua data form post yang dikirim dari client, secara otomatis akan disimpan dalam attribute Request.PostForm
+Namun sebelum kita bisa mengambil data di attribute PostForm, kita wajib memanggil method Request.ParseForm() terlebih dahulu, method ini digunakan untuk melakukan parsing data body apakah bisa di parsing menjadi form data atau tidak, jika tidak bisa di parsing, maka akan menyebabkan error
+
+# Response Code
+
+Dalam HTTP, terdapat yang namanya response code
+Response code merupakan representasi kode response
+Dari response code ini kita bisa melihat apakah sebuah request yang kita kirim itu sukses diproses oleh server atau gagal
+Ada banyak sekali response code yang bisa kita gunakan saat membuat web
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+# Mengubah Response Code
+
+Secara default, jika kita tidak menyebutkan response code, maka response code nya adalah 200 OK
+Jika kita ingin mengubahnya, kita bisa menggunakan function ResponseWriter.WriteHeader(int)
+Semua data status code juga sudah disediakan di Go-Lang, jadi kita ingin, kita bisa gunakan variable yang sudah disediakan : https://github.com/golang/go/blob/master/src/net/http/status.go
+
+# Stateless
+
+HTTP merupakan stateless antara client dan server, artinya server tidak akan menyimpan data apapun untuk mengingat setiap request dari client
+Hal ini bertujuan agar mudah melakukan scalability di sisi server
+Lantas bagaimana caranya agar server bisa mengingat sebuah client? Misal ketika kita sudah login di website, server otomatis harus tahu jika client tersebut sudah login, sehingga request selanjutnya, tidak perlu diminta untuk login lagi
+Untuk melakukan hal ini, kita bisa memanfaatkan Cookie
+
+# Cookie
+
+Cookie adalah fitur di HTTP dimana server bisa memberi response cookie (key-value) dan client akan menyimpan cookie tersebut di web browser
+Request selanjutnya, client akan selalu membawa cookie tersebut secara otomatis
+Dan server secara otomatis akan selalu menerima data cookie yang dibawa oleh client setiap kalo client mengirimkan request
+
+# Membuat Cookie
+
+Cookie merupakan data yang dibuat di server dan sengaja agar disimpan di web browser
+Untuk membuat cookie di server, kita bisa menggunakan function http.SetCookie()
+
+# FileServer
+
+Go-Lang memiliki sebuah fitur yang bernama FileServer
+Dengan ini, kita bisa membuat Handler di Go-Lang web yang digunakan sebagai static file server
+Dengan menggunakan FileServer, kita tidak perlu manual me-load file lagi
+FileServer adalah Handler, jadi bisa kita tambahka ke dalam http.Server atau http.ServeMux
+
+# 404 Not Found
+
+Jika kita coba jalankan, saat kita membuka misal /static/index.js, maka akan dapat error 404 Not Found
+Kenapa ini terjadi?
+Hal ini dikarenakan FileServer akan membaca url, lalu mencari file berdasarkan url nya, jadi jika kita membuat /static/index.js, maka FileServer akan mencari ke file /resources/static/index.js
+Hal ini menyebabkan 404 Not Found karena memang file nya tidak bisa ditemukan
+Oleh karena itu, kita bisa menggunakan function http.StripPrefix() untuk menghapus prefix di url
+
+# Go-Lang Embed
+
+Di Go-Lang 1.16 terdapat fitur baru yang bernama Go-Lang embed
+Dalam Go-Lang embed kita bisa embed file ke dalam binary distribution file, hal ini mempermudah sehingga kita tidak perlu meng-copy static file lagi
+Go-Lang Embed juga memiliki fitur yang bernama embed.FS, fitur ini bisa diintegrasikan dengan FileServer
+
+# 404 Not Found
+
+Jika kita coba jalankan, dan coba buka /static/index.js, maka kita akan mendapatkan error 404 Not Found
+Kenapa ini terjadi? Hal ini karena di Go-Lang embed, nama folder ikut menjadi nama resource nya, misal resources/index.js, jadi untuk mengaksesnya kita perlu gunakan URL /static/resources/index.js
+Jika kita ingin langsung mengakses file index.js tanpa menggunakan resources, kita bisa menggunakan function fs.Sub() untuk mendapatkan sub directory
+
+# ServeFile
+
+Kadang ada kasus misal kita hanya ingin menggunakan static file sesuai dengan yang kita inginkan
+Hal ini bisa dilakukan menggunakan function http.ServeFile()
+Dengan menggunakan function ini, kita bisa menentukan file mana yang ingin kita tulis ke http response
+
+# Golang Embed
+
+Parameter function http.ServeFile hanya berisi string file name, sehingga tidak bisa menggunakan Go-Lang Embed
+Namun bukan berarti kita tidak bisa menggunakan Go-Lang embed, karena jika untuk melakukan load file, kita hanya butuh menggunakan package fmt dan ResponseWriter saja
+
+# Web Dinamis - Template
+
+Sampai saat ini kita hanya membahas tentang membuat response menggunakan String dan juga static file
+Pada kenyataannya, saat kita membuat web, kita pasti akan membuat halaman yang dinamis, bisa berubah-ubah sesuai dengan data yang diakses oleh user
+Di Go-Lang terdapat fitur HTML Template, yaitu fitur template yang bisa kita gunakan untuk membuat HTML yang dinamis
+
+# HTML Template
+
+Fitur HTML template terdapat di package html/template
+Sebelum menggunakan HTML template, kita perlu terlebih dahulu membuat template nya
+Template bisa berubah file atau string
+Bagian dinamis pada HTML Template, adalah bagian yang menggunakan tanda {{  }}
+
+# Membuat Template
+
+Saat membuat template dengan string, kira perlu memberi tahu nama template nya
+Dan untuk membuat text template, cukup buat text html, dan untuk konten yang dinamis, kita bisa gunakan tanda {{.}}, contoh :
+
+<html><body>{{.}}</body></html>
+
+# Template Dari File
+
+Selain membuat template dari string, kita juga bisa membuat template langsung dari file
+Hal ini mempermudah kita, karena bisa langsung membuat file html
+Saat membuat template menggunakan file, secara otomatis nama file akan menjadi nama template nya, misal jika kita punya file simple.html, maka nama template nya adalah simple.html
+
+# Template Directory
+
+Kadang biasanya kita jarang sekali menyebutkan file template satu persatu
+Alangkah baiknya untuk template kita simpan di satu directory
+Go-Lang template mendukung proses load template dari directory
+Hal ini memudahkan kita, sehingga tidak perlu menyebutkan nama file nya satu per satu
+
+# Template dari golang embed
+
+Sejak Go-Lang 1.16, karena sudah ada Go-Lang Embed, jadi direkomendasikan menggunakan Go-Lang embed untuk menyimpan data template
+Menggunakan Go-Lang embed menjadi kita tidak perlu ikut meng-copy template file lagi, karena sudah otomatis di embed di dalam distribution file
+
+# Template Data
+
+Saat kita membuat template, kadang kita ingin menambahkan banyak data dinamis
+Hal ini bisa kita lakukan dengan cara menggunakan data struct atau map
+Namun perlu dilakukan perubahan di dalam text template nya, kita perlu memberi tahu Field atau Key mana yang akan kita gunakan untuk mengisi data dinamis di template
+Kita bisa menyebutkan dengan cara seperti ini {{.NamaField}}
+
+# Template Action
+
+Go-Lang template mendukung perintah action, seperti percabangan, perulangan dan lain-lain
+
+# If Else
+
+{{if .Value}} T1 {{end}}, jika Value tidak kosong, maka T1 akan dieksekusi, jika kosong, tidak ada yang dieksekusi
+{{if .Value}} T1 {{else}} T2 {{end}}, jika value tidak kosong, maka T1 akan dieksekusi, jika kosong, T2 yang akan dieksekusi
+{{if .Value1}} T1 {{else if .Value2}} T2 {{else}} T3 {{end}}, jika Value1 tidak kosong, maka T1 akan dieksekusi, jika Value2 tidak kosong, maka T2 akan dieksekusi, jika tidak semuanya, maka T3 akan dieksekusi
+
+# Operator Perbandingan
+
+Go-Lang template juga mendukung operator perbandingan, ini cocok ketika butuh melakukan perbandingan number di if statement, berikut adalah operator nya :
+eq artinya arg1 == arg2
+ne artinya arg1 != arg2
+lt artinya arg1 < arg2
+le artinya arg1 <= arg2
+gt artinya arg1 > arg2
+ge artinya arg1 >= arg2
+
+# Kenapa Operatornya di Depan?
+
+Hal ini dikarenakan, sebenarnya operator perbandingan tersebut adalah sebuah function
+Jadi saat kita menggunakan {{eq First Second}}, sebenarnya dia akan memanggil function eq dengan parameter First dan Second : eq(First, Second)
+
+# Range
+
+Range digunakan untuk melakukan iterasi data template
+Tidak ada perulangan biasa seperti menggunakan for di Go-Lang template
+Yang kita bisa lakukan adalah menggunakan range untuk mengiterasi tiap data array, slice, map atau channel
+{{range $index, $element := .Value}} T1 {{end}}, jika value memiliki data, maka T1 akan dieksekusi sebanyak element value, dan kita bisa menggunakan $index untuk mengakses index dan $element untuk mengakses element
+{{range $index, $element := .Value}} T1 {{else}} T2 {{end}}, sama seperti sebelumnya, namun jika value tidak memiliki element apapun, maka T2 yang akan dieksekusi
+
+# With
+
+Kadang kita sering membuat nested struct
+Jika menggunakan template, kita bisa mengaksesnya menggunakan .Value.NestedValue
+Di template terdapat action with, yang bisa digunakan mengubah scope dot menjadi object yang kita mau
+{{with .Value}} T1 {{end}}, jika value tidak kosong, di T1 semua dot akan merefer ke value
+{{with .Value}} T1 {{else}} T2 {{end}}, sama seperti sebelumnya, namun jika value kosong, maka T2 yang akan dieksekusi
+
+# Comment
+
+Template juga mendukung komentar
+Komentar secara otomatis akan hilang ketika template text di parsing
+Untuk membuat komentar sangat sederhana, kita bisa gunakan {{/* Contoh Komentar */}}
+
+# Template Layout
+
+Saat kita membuat halaman website, kadang ada beberapa bagian yang selalu sama, misal header dan footer
+Best practice nya jika terdapat bagian yang selalu sama, disarankan untuk disimpan pada template yang terpisah, agar bisa digunakan di template lain
+Go-Lang template mendukung import dari template lain
+
+# Import Template
+
+Untuk melakukan import, kita bisa menggunakan perintah berikut :
+{{template “nama”}}, artinya kita akan meng-import template “nama” tanpa memberikan data apapun
+{{template “nama” .Value}}, artinya kita akan meng-import template “nama” dengan memberikann data value
+
+# Template Name
+
+Saat kita membuat template dari file, secara otomatis nama file nya akan menjadi nama template
+Namun jika kita ingin mengubah nama template nya, kita juga bisa melakukan mengguakan perintah {{define “nama”}} TEMPLATE {{end}}, artinya kita membuat template dengan nama “nama”
+
+# Template Function
+
+Selain mengakses field, dalam template, function juga bisa diakses
+Cara mengakses function sama seperti mengakses field, namun jika function tersebut memiliki parameter, kita bisa gunakan tambahkan parameter ketika memanggil function di template nya
+{{.FunctionName}}, memanggil field FunctionName atau function FunctionName()
+{{.FunctionName “eko”, “kurniawan”}}, memanggil function FunctionName(“eko”, “kurniawan”)
+
+# Global Function
+
+Go-Lang template memiliki beberapa global function
+Global function adalah function yang bisa digunakan secara langsung, tanpa menggunakan template data
+Berikut adalah beberapa global function di Go-Lang template
+https://github.com/golang/go/blob/master/src/text/template/funcs.go
+
+# Menambah Global Function
+
+Kita juga bisa menambah global function
+Untuk menambah global function, kita bisa menggunakan method Funcs pada template
+Perlu diingat, bahwa menambahkan global function harus dilakukan sebelum melakukan parsing template
+
+# Function Pipelines
+
+Go-Lang template mendukung function pipelines, artinya hasil dari function bisa dikirim ke function berikutnya
+Untuk menggunakan function pipelines, kita bisa menggunakan tanda | , misal :
+{{ sayHello .Name | upper }}, artinya akan memanggil global function sayHello(Name) hasil dari sayHello(Name) akan dikirim ke function upper(hasil)
+Kita bisa menambahkan function pipelines lebih dari satu
+
+# Template Caching
+
+Kode-kode diatas yang sudah kita praktekan sebenarnya tidak efisien
+Hal ini dikarenakan, setiap Handler dipanggil, kita selalu melakukan parsing ulang template nya
+Idealnya template hanya melakukan parsing satu kali diawal ketika aplikasinya berjalan
+Selanjutnya data template akan di caching (disimpan di memory), sehingga kita tidak perlu melakukan parsing lagi
+Hal ini akan membuat web kita semakin cepat
+
+# XSS (Cross Site Scripting)
+
+XSS adalah salah satu security issue yang biasa terjadi ketika membuat web
+XSS adalah celah keamanan, dimana orang bisa secara sengaja memasukkan parameter yang mengandung JavaScript agar dirender oleh halaman website kita
+Biasanya tujuan dari XSS adalah mencuri cookie browser pengguna yang sedang mengakses website kita
+XSS bisa menyebabkan account pengguna kita diambil alih jika tidak ditangani dengan baik
+
+# Auto Escape
+
+Berbeda dengan bahasa pemrograman lain seperti PHP, pada Go-Lang template, masalah XSS sudah diatasi secara otomatis
+Go-Lang template memiliki fitur Auto Escape, dimana dia bisa mendeteksi data yang perlu ditampilkan di template, jika mengandung tag-tag html atau script, secara otomatis akan di escape
+Semua function escape bisa diliat disini :
+https://github.com/golang/go/blob/master/src/html/template/escape.go
+https://golang.org/pkg/html/template/#hdr-Contexts
+
+# Mematikan Auto Escape
+
+Jika kita mau, auto escape juga bisa kita matikan
+Namun, kita perlu memberi tahu template secara eksplisit ketika kita menambahkan template data
+Kita bisa menggunakan data
+template.HTML , jika ini adalah data html
+template.CSS, jika ini adalah data css
+template.JS, jika ini adalah data javascript
+
+# Masalah XSS (Cross Site Scripting)
+
+Saat kita mematikan fitur auto escape, bisa dipastikan masalah XSS akan mengintai kita
+Jadi pastikan kita benar-benar percaya terhadap sumber data yang kita matikan auto escape nya
+
+# Redirect
+
+Saat kita membuat website, kadang kita butuh melakukan redirect
+Misal setelah selesai login, kita lakukan redirect ke halaman dashboard
+Redirect sendiri sebenarnya sudah standard di HTTP https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections
+Kita hanya perlu membuat response code 3xx dan menambah header Location
+Namun untungnya di Go-Lang, ada function yang bisa kita gunakan untuk mempermudah ini
+
+# Upload File
+
+Saat membuat web, selain menerima input data berupa form dan query param, kadang kita juga menerima input data berupa file dari client
+Go-Lang Web sudah memiliki fitur untuk management upload file
+Hal ini memudahkan kita ketika butuh membuat web yang menerima input file upload
+
+# MultiPart
+
+Saat kita ingin menerima upload file, kita perlu melakukan parsing terlebih dahulu menggunakan Request.ParseMultipartForm(size), atau kita bisa langsung ambil data file nya menggunakan Request.FormFile(name), di dalam nya secara otomatis melakukan parsing terlebih dahulu
+Hasilnya merupakan data-data yang terdapat pada package multipart, seperti multipart.File sebagai representasi file nya, dan multipart.FileHeader sebagai informasi file nya
+
+# Download File
+
+Selain upload file, kadang kita ingin membuat halaman website yang digunakan untuk download sesuatu
+Sebenarnya di Go-Lang sudah disediakan menggunakan FileServer dan ServeFile
+Dan jika kita ingin memaksa file di download (tanpa di render oleh browser, kita bisa menggunakan header Content-Disposition)
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition 
+
+# Middleware
+
+Dalam pembuatan web, ada konsep yang bernama middleware atau filter atau interceptor
+Middleware adalah sebuah fitur dimana kita bisa menambahkan kode sebelum dan setelah sebuah handler di eksekusi
+
+# Middleware di Go-Lang web
+
+Sayangnya, di Go-Lang web tidak ada middleware
+Namun karena struktur handler yang baik menggunakan interface, kita bisa membuat middleware sendiri menggunakan handler
+
+# Error Handler
+
+ Kadang middleware juga biasa digunakan untuk melakukan error handler
+Hal ini sehingga jika terjadi panic di Handler, kita bisa melakukan recover di middleware, dan mengubah panic tersebut menjadi error response
+Dengan ini, kita bisa menjaga aplikasi kita tidak berhenti berjalan
+
+# Routing Library
+
+Walaupun Go-Lang sudah menyediakan ServeMux sebagai handler yang bisa menghandle beberapa endpoint atau istilahnya adalah routing
+Tapi kebanyakan programmer Go-Lang biasanya akan menggunakan library untuk melakukan routing
+Hal ini dikarenakan ServeMux tidak memiliki advanced fitur seperti path variable, auto binding parameter dan middleware
+Banyak alternatif lain yang bisa kita gunakan untuk library routing selain ServeMux
+
+# Contoh Routing Library
+
+https://github.com/julienschmidt/httprouter
+https://github.com/gorilla/mux
+Dan masih banyak lagi : https://github.com/julienschmidt/go-http-routing-benchmark 
