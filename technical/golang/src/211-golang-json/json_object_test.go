@@ -138,8 +138,8 @@ func TestStreamingDecode(t *testing.T) {
 	reader, _ := os.Open("sample_output.json")
 	decoder := json.NewDecoder(reader)
 
-	customer := Customer{}
-	_ = decoder.Decode(&customer)
+	address := &Address{}
+	decoder.Decode(address)
 
-	fmt.Println(customer)
+	fmt.Println(address)
 }
