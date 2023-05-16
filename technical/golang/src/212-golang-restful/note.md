@@ -17,3 +17,8 @@ controller is responsible for calling the service and sending the response back.
 
 # create http router
 
+# create http server
+
+# create error handler
+
+# create authentication
