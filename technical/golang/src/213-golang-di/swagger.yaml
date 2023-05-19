@@ -1,0 +1,155 @@
+openapi: "3.0.2"
+info:
+  title: Category RESTful API
+  version: "1.0"
+servers:
+  - url: http:localhost:3000/api
+paths:
+  /categories:
+    get:
+      tags: ["Category API"]
+      description: "List all categories"
+      summary: "List all categories"
+      responses:
+        "200":
+          description: Success get all categories
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#components/schemas/Category"
+    post:
+      tags: ["Category API"]
+      summary: "List all categories"
+      description: "Create Category"
+      parameters: []
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: Success create category
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    "$ref": "#components/schemas/Category"
+  /categories/{categoryId}:
+    get:
+      description: "Get category by id"
+      summary: "Get category by id"
+      tags: ["Category API"]
+      parameters:
+        [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "category id",
+            "required": true,
+            "schema": { type: number },
+          },
+        ]
+      responses:
+        "200":
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    "$ref": "#components/schemas/Category"
+    put:
+      description: "Update a category"
+      summary: "Update a category"
+      tags: ["Category API"]
+      parameters:
+        [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "category id",
+            "required": true,
+            "schema": { type: number },
+          },
+        ]
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+                  data:
+                    "$ref": "#components/schemas/Category"
+    delete:
+      description: "Delete a category"
+      summary: "Delete a category"
+      tags: ["Category API"]
+      parameters:
+        [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "category id",
+            "required": true,
+            "schema": { type: number },
+          },
+        ]
+      responses:
+        "200":
+          description: OK
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                  status:
+                    type: string
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
