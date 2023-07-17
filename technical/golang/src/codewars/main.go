@@ -115,10 +115,12 @@ func main() {
 	// fmt.Println(Accum("abcd"))
 	// fmt.Println(Accum("RqaEzty"))
 	// fmt.Println(Accum("cwAt"))
-	fmt.Println(FindEvenIndex([]int{1, 2, 3, 4, 3, 2, 1}))         // 3
-	fmt.Println(FindEvenIndex([]int{1, 100, 50, -51, 1, 1}))       // 1
-	fmt.Println(FindEvenIndex([]int{1, 2, 3, 4, 5, 6}))            // -1
-	fmt.Println(FindEvenIndex([]int{20, 10, 30, 10, 10, 15, 35}))  // 3
-	fmt.Println(FindEvenIndex([]int{20, 10, -80, 10, 10, 15, 35})) // 0
+	// fmt.Println(FindEvenIndex([]int{1, 2, 3, 4, 3, 2, 1}))         // 3
+	// fmt.Println(FindEvenIndex([]int{1, 100, 50, -51, 1, 1}))       // 1
+	// fmt.Println(FindEvenIndex([]int{1, 2, 3, 4, 5, 6}))            // -1
+	// fmt.Println(FindEvenIndex([]int{20, 10, 30, 10, 10, 15, 35}))  // 3
+	// fmt.Println(FindEvenIndex([]int{20, 10, -80, 10, 10, 15, 35})) // 0
 
+	arr := []int{1, 2, 3, 4, 5}
+	fmt.Println(arr[:1])
 }
