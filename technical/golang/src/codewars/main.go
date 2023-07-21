@@ -99,6 +99,27 @@ func FindEvenIndex(arr []int) int {
 	return result
 }
 
+func BouncingBall(h, bounce, window float64) int {
+	if h <= 0 ||
+		(bounce >= 1 || bounce <= 0) ||
+		window >= h {
+		return -1
+	}
+
+	bounces := 0
+
+	for h > window {
+		bounces += 1
+		h = h * bounce
+
+		if h > window {
+			bounces += 1
+		}
+	}
+
+	return bounces
+}
+
 func main() {
 	// fmt.Println(NearestSq(1))
 	// fmt.Println(NearestSq(2))
@@ -121,6 +142,12 @@ func main() {
 	// fmt.Println(FindEvenIndex([]int{20, 10, 30, 10, 10, 15, 35}))  // 3
 	// fmt.Println(FindEvenIndex([]int{20, 10, -80, 10, 10, 15, 35})) // 0
 
-	arr := []int{1, 2, 3, 4, 5}
-	fmt.Println(arr[:1])
+	// arr := []int{1, 2, 3, 4, 5}
+	// fmt.Println(arr[:1])
+
+	fmt.Println(BouncingBall(3, 0.66, 1.5)) // 3
+	fmt.Println(BouncingBall(40, 0.4, 10))  // 3
+	fmt.Println(BouncingBall(10, 0.6, 10))  // -1
+	fmt.Println(BouncingBall(40, 1, 10))    // -1
+	fmt.Println(BouncingBall(5, -1, 1.5))   // -1
 }
