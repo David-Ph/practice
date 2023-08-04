@@ -1,21 +1,30 @@
 function solution(input: string, markers: string[]): string {
-  const split = input.split("\n");
-  const remove = split.map((el) => {
-    if (el.length === 1) return el;
+  // const split = input.split("\n");
+  // const remove = split.map((el) => {
+  // if (el.length === 1) return el;
 
-    let indexOf = el.length;
+  // let indexOf = el.length;
 
-    markers.forEach((mark) => {
-      const findIndex = el.indexOf(mark);
-      if (findIndex >= 0 && findIndex < indexOf) {
-        indexOf = findIndex;
-      }
-    });
-    return el.slice(0, indexOf);
-  });
-  const trim = remove.map((el) => el.trim());
+  // markers.forEach((mark) => {
+  //   const findIndex = el.indexOf(mark);
+  //   if (findIndex >= 0 && findIndex < indexOf) {
+  //     indexOf = findIndex;
+  //   }
+  // });
+  // return el.slice(0, indexOf);
+  // });
+  // const trim = remove.map((el) => el.trim());
+  // return trim.join("\n");
 
-  return trim.join("\n");
+  // alternative cooler version
+  return input
+    .split("\n")
+    .map((line) => {
+      return markers.reduce((line, marker) => {
+        return line.split(marker)[0].trim();
+      }, line);
+    })
+    .join("\n");
 }
 
 console.log(
