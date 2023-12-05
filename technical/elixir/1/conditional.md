@@ -53,5 +53,32 @@ cond do
   color =="blue" -> IO.puts(color)
   color =="red" -> IO.puts(color)
   color =="green" -> IO.puts(color)
+  true -> "This catches everything else"
 end
+```
+
+## With
+
+```elixir
+# This is useful we need more than one match for the code to be executed
+result = {:ok, "result"}
+error = {:error, "error"}
+
+with {:ok, result} <- result do
+  result
+end
+
+with {:ok, result} <- result, do: result
+
+with {:ok, result} <- result,
+    {:error, result} <- error do
+  "this gets executed"
+end
+
+with {:ok, "result"} <- result do
+  result
+else
+  {:ok, _result} -> "This gets executed if above does not"
+end
+
 ```
