@@ -64,34 +64,57 @@
 # IO.puts(u.name)
 
 
-defmodule Display.Result do
-  def math(result) do
-    "Your result is #{result}"
+# defmodule Display.Result do
+#   def math(result) do
+#     "Your result is #{result}"
+#   end
+# end
+
+# defmodule Math do
+#   alias Display.Result, as: Show
+
+#   def sum(num1, num2) do
+#     num1 + num2
+#   end
+
+#   def display_result() do
+#     result = sum(1, 2)
+#     # Result.math(result)
+#     Show.math(result)
+#   end
+# end
+
+# defmodule ImportExample do
+#   # import Math, only: [sum: 2] # the 2 is the number of arguments
+#   import Math, except: [display_result: 0] # the 0 is the number of arguments
+
+
+#   def import_sum(num1, num2) do
+#     sum(num1, num2)
+#   end
+# end
+
+# IO.puts(ImportExample.import_sum(1, 2))
+
+defmodule Greeter do
+  def hello(), do: "Hello!"
+  def hello(name), do: "Hello, #{name}"
+  def hello(greeting, name, last_name \\ "Bart") do
+    "#{greeting}, #{name} #{last_name}"
   end
 end
 
-defmodule Math do
-  alias Display.Result, as: Show
+IO.puts(Greeter.hello("Hi", "Bob"))
 
-  def sum(num1, num2) do
-    num1 + num2
+defmodule Alphabets do
+  def letter(:a), do: "a"
+  def letter(:b), do: "b"
+  def letter(:c), do: "c"
+  def letter(letter) when letter == "my" do
+    "my"
   end
-
-  def display_result() do
-    result = sum(1, 2)
-    # Result.math(result)
-    Show.math(result)
+  def letter(letter) when letter == "id" do
+    "id"
   end
+  def letter(letter), do: "letter"
 end
-
-defmodule ImportExample do
-  # import Math, only: [sum: 2] # the 2 is the number of arguments
-  import Math, except: [display_result: 0] # the 0 is the number of arguments
-
-
-  def import_sum(num1, num2) do
-    sum(num1, num2)
-  end
-end
-
-IO.puts(ImportExample.import_sum(1, 2))

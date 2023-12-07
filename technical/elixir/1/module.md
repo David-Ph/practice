@@ -110,3 +110,38 @@ end
 IO.puts(ImportExample.import_sum(1, 2))
 
 ```
+
+## Function arguments
+
+```elixir
+
+defmodule Greeter do
+  def hello(), do: "Hello!"
+  def hello(name), do: "Hello, #{name}"
+  def hello(greeting, name, last_name \\ "Bart") do
+    "#{greeting}, #{name} #{last_name}"
+  end
+end
+
+IO.puts(Greeter.hello("Hi", "Bob"))
+
+```
+
+## Pattern matching and conditionals in function
+
+you can also use pattern matching and conditionals in function
+
+```elixir
+defmodule Alphabets do
+  def letter(:a), do: "a"
+  def letter(:b), do: "b"
+  def letter(:c), do: "c"
+  def letter(letter) when letter == "my" do
+    "my"
+  end
+  def letter(letter) when letter == "id" do
+    "id"
+  end
+  def letter(letter), do: "letter"
+end
+```
