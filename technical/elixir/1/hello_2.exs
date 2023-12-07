@@ -35,4 +35,14 @@ defmodule Greet do
 end
 
 IO.puts(Math.sum(1, 2)) # 3
-IO.puts(Greet.hello("Bob"))
+IO.puts(Greet.hello("Bob")) # Hello, Bob
+
+defmodule Greetings do
+  @name "George"
+
+  def hello(), do: "Hello #{@name}"
+  def morning(), do: "Good morning, #{@name}"
+  def night(), do: "Good night, #{@name}"
+end
+
+IO.puts(Greetings.hello())
