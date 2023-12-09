@@ -51,5 +51,34 @@ defmodule TestProject do
   defp validate_options_values_are_booleans(true, length, options) do
     options = included_options(options)
     invalid_options? = options |> Enum.any?(&(&1 not in @allowed_options))
+    validate_options(invalid_options?, length, options)
+  end
+
+  defp validate_options(true, _length, _options) do
+    {:error, "Invalid options"}
+  end
+
+  defp validate_options(false, length, options) do
+    generate_strings(length, options)
+  end
+
+  defp generate_strings(length, options) do
+    options = [:lowercase_letter | options]
+    included = include(options)
+  end
+
+  defp include(options) do
+    options |> Enum.map(&get(&1))
+  end
+
+  defp get(:lowercase_letter) do
+    <<Enum.random(?a..?z)>>
+  end
+
+  defp included_options(options) do
+    Enum.filter(options, fn {_key, value} ->
+      value |> String.trim() |> String.to_existing_atom()
+    end)
+    |> Enum.map(fn {key, _value} -> String.to_atom(key) end)
   end
 end
