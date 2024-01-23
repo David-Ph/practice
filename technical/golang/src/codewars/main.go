@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 	"strings"
 )
 
@@ -120,6 +121,39 @@ func BouncingBall(h, bounce, window float64) int {
 	return bounces
 }
 
+func evenOrOdd(str string) string {
+	var oddNumbers []int
+	var evenNumbers []int
+
+	for i := 0; i < len(str); i++ {
+		res, _ := strconv.Atoi(string(str[i]))
+		if res%2 == 0 {
+			evenNumbers = append(evenNumbers, res)
+		} else {
+			oddNumbers = append(oddNumbers, res)
+		}
+	}
+
+	oddSum := 0
+	evenSum := 0
+
+	for _, v := range oddNumbers {
+		oddSum += v
+	}
+
+	for _, v := range evenNumbers {
+		evenSum += v
+	}
+
+	if oddSum == evenSum {
+		return "Odd is same as Even"
+	} else if oddSum > evenSum {
+		return "Odd is greater than Even"
+	} else {
+		return "Even is greater than Odd"
+	}
+}
+
 func main() {
 	// fmt.Println(NearestSq(1))
 	// fmt.Println(NearestSq(2))
@@ -145,9 +179,13 @@ func main() {
 	// arr := []int{1, 2, 3, 4, 5}
 	// fmt.Println(arr[:1])
 
-	fmt.Println(BouncingBall(3, 0.66, 1.5)) // 3
-	fmt.Println(BouncingBall(40, 0.4, 10))  // 3
-	fmt.Println(BouncingBall(10, 0.6, 10))  // -1
-	fmt.Println(BouncingBall(40, 1, 10))    // -1
-	fmt.Println(BouncingBall(5, -1, 1.5))   // -1
+	// fmt.Println(BouncingBall(3, 0.66, 1.5)) // 3
+	// fmt.Println(BouncingBall(40, 0.4, 10))  // 3
+	// fmt.Println(BouncingBall(10, 0.6, 10))  // -1
+	// fmt.Println(BouncingBall(40, 1, 10))    // -1
+	// fmt.Println(BouncingBall(5, -1, 1.5))   // -1
+
+	fmt.Println(evenOrOdd("112")) // same
+	fmt.Println(evenOrOdd("123")) // odd > even
+	fmt.Println(evenOrOdd("122")) // even > odd
 }
