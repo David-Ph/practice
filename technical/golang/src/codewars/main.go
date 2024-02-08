@@ -154,6 +154,33 @@ func evenOrOdd(str string) string {
 	}
 }
 
+func repeatSingle(arr []int) int {
+	// find unique numbers
+	seen := make(map[int]bool)
+
+	for _, number := range arr {
+		if !seen[number] {
+			seen[number] = true
+		} else {
+			delete(seen, number)
+		}
+	}
+
+	uniqueSlice := make([]int, 0, len(seen))
+
+	for keys := range seen {
+		uniqueSlice = append(uniqueSlice, keys)
+	}
+
+	result := 0
+
+	for _, v := range uniqueSlice {
+		result += v
+	}
+
+	return result
+}
+
 func main() {
 	// fmt.Println(NearestSq(1))
 	// fmt.Println(NearestSq(2))
@@ -185,7 +212,11 @@ func main() {
 	// fmt.Println(BouncingBall(40, 1, 10))    // -1
 	// fmt.Println(BouncingBall(5, -1, 1.5))   // -1
 
-	fmt.Println(evenOrOdd("112")) // same
-	fmt.Println(evenOrOdd("123")) // odd > even
-	fmt.Println(evenOrOdd("122")) // even > odd
+	// fmt.Println(evenOrOdd("112")) // same
+	// fmt.Println(evenOrOdd("123")) // odd > even
+	// fmt.Println(evenOrOdd("122")) // even > odd
+
+	fmt.Println(repeatSingle([]int{4, 5, 7, 5, 4, 8})) // 15
+	// fmt.Println(repeatSingle([]int{9, 10, 19, 13, 19, 13}))      // 19
+	// fmt.Println(repeatSingle([]int{16, 0, 11, 4, 8, 16, 0, 11})) // 15
 }
